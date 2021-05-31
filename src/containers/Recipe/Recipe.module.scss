@@ -1,0 +1,59 @@
+.container {
+  padding: 40px 0 120px;
+
+  &__heading {
+    color: $color-primary;
+    padding-bottom: 6px;
+  }
+
+  &__edit_link {
+    color: $color-primary;
+    margin-top: 20px;
+  }
+
+  &__top_grid {
+    display: grid;
+    gap: 80px;
+    grid-template-columns: 500px 1fr;
+    margin-top: 28px;
+  }
+
+  &__title {
+    color: $color-primary;
+    text-transform: capitalize;
+    margin-top: 10px;
+  }
+
+  &__meal_type {
+    text-transform: capitalize;
+    margin-top: 6px;
+  }
+
+  &__summary {
+    margin-top: 30px;
+  }
+
+  &__ingredients {
+    margin-top: 28px;
+  }
+
+  &__preparation {
+    margin-top: 28px;
+  }
+
+  &__steps_list {
+    li {
+      margin-top: 16px;
+    }
+  }
+
+  &__step_heading {
+    color: $color-primary;
+    padding-bottom: 4px;
+  }
+
+  &__image {
+    height: 400px;
+    border: 1px solid $color-primary;
+  }
+}

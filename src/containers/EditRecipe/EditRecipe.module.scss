@@ -1,0 +1,8 @@
+.container {
+  padding: 50px 0 100px;
+
+  &__title {
+    text-align: center;
+    color: $color-primary;
+  }
+}

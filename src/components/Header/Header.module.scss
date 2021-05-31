@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  background: $color-primary;
+  color: white;
+
+  &__logo_text {
+    @extend %heading_3;
+    color: white;
+  }
+
+  &__nav_list {
+    display: flex;
+
+    li {
+      margin-left: 28px;
+    }
+
+    li:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &__nav_link {
+    color: white;
+  }
+
+  &__logout_button {
+    background: none;
+    color: white;
+  }
+}

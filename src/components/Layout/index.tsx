@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import Head from "next/head";
 
-import styles from "./Layout.module.scss";
+import { Header, Footer } from "@/components";
 
 interface Props {
   title: string;
@@ -16,7 +16,9 @@ const Layout: FC<Props> = ({ title, description, children }) => {
         <title>{title}</title>
         <meta name="description" content={description} />
       </Head>
-      <div className={styles.container}>{children}</div>
+      <Header />
+      {children}
+      <Footer />
     </>
   );
 };

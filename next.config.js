@@ -9,6 +9,12 @@ module.exports = {
     return config;
   },
   sassOptions: {
-    prependData: '@import "@/styles/variables.scss";\n',
+    prependData:
+      ["variables", "typography"]
+        .map((x) => `@import "@/styles/${x}.scss";`)
+        .join("\n") + "\n\n",
+  },
+  env: {
+    API_URL: process.env.API_URL,
   },
 };

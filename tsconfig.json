@@ -19,9 +19,14 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
+      "@/lib": ["src/lib"],
+      "@/types": ["src/types"],
       "@/store": ["src/store"],
+      "@/hooks": ["src/hooks"],
+      "@/utils": ["src/utils"],
       "@/store/*": ["src/store/*"],
       "@/styles/*": ["src/styles/*"],
+      "@/constants": ["src/constants"],
       "@/containers": ["src/containers"],
       "@/components": ["src/components"]
     }

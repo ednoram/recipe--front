@@ -1,0 +1,47 @@
+.nothing_was_found {
+  color: $color-primary;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 24px;
+}
+
+.list_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-shadow: $boxShadow;
+  padding: 20px;
+
+  &__image {
+    height: 150px;
+    border: 1px solid black;
+  }
+
+  &__title {
+    color: $color-primary;
+    text-transform: capitalize;
+    margin-top: 16px;
+  }
+
+  &__meal_type {
+    text-transform: capitalize;
+    margin-top: 4px;
+  }
+
+  &__user_email {
+    color: $color-primary;
+    margin-top: 4px;
+  }
+
+  &__link {
+    color: $color-primary;
+    margin-top: 8px;
+  }
+}

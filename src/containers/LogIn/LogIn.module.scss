@@ -1,0 +1,11 @@
+.container {
+  max-width: 380px;
+  width: 100%;
+  margin: 90px auto 140px;
+
+  &__title {
+    @extend %heading_2;
+    text-align: center;
+    color: $color-primary;
+  }
+}

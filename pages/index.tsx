@@ -1,9 +1,45 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
+import { getRecipes } from "@/lib";
+import { Layout } from "@/components";
+import type { Recipe } from "@/types";
+import { setRecipes } from "@/store/actions";
 import { HomeContainer } from "@/containers";
 
-const Home: FC = () => {
-  return <HomeContainer />;
+const PAGE_TITLE = "Home Page";
+const PAGE_DESCRIPTION = "Home Page";
+
+interface Props {
+  recipes: Array<Recipe>;
+}
+
+const HomePage: FC<Props> = ({ recipes }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setRecipes(recipes));
+  }, []);
+
+  return (
+    <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
+      <HomeContainer />
+    </Layout>
+  );
 };
 
-export default Home;
+export const getStaticProps = async (): Promise<
+  { props: Props } | { notFound: boolean }
+> => {
+  try {
+    const recipes: Array<Recipe> = await getRecipes();
+
+    return {
+      props: { recipes },
+    };
+  } catch {
+    return { notFound: true };
+  }
+};
+
+export default HomePage;
