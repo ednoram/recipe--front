@@ -17,7 +17,7 @@ const RecipePage: FC<Props> = ({ recipe }) => {
   const userData = useSelector(selectUserData);
   const router = useRouter();
 
-  const isOwnRecipe = recipe.userEmail === userData?.email;
+  const isOwnRecipe = recipe.email === userData?.email;
 
   const ingredientsDiv = (
     <div className={styles.container__ingredients}>
@@ -66,19 +66,19 @@ const RecipePage: FC<Props> = ({ recipe }) => {
         <h1 className={styles.container__title}>{recipe.title}</h1>
         <div className={styles.container__top_grid}>
           <div>
-            <div className={styles.container__image} />
-          </div>
-          <div>
             <p>
               By:
-              <span className="color-primary"> {recipe.userEmail}</span>
+              <span className="color-primary"> {recipe.email}</span>
               {isOwnRecipe && " (you)"}
             </p>
             <p className={styles.container__meal_type}>
               Meal type:
               <span className="color-primary"> {recipe.mealType}</span>
             </p>
-            <div className={styles.container__summary}>
+            <div className={styles.container__image} />
+          </div>
+          <div>
+            <div>
               <h3 className={styles.container__heading}>Summary</h3>
               <p>{recipe.summary || "No Summary"}</p>
             </div>

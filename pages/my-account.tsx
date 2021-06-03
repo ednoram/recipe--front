@@ -1,8 +1,10 @@
-import { FC } from "react";
+import { useEffect, FC } from "react";
+import { useDispatch } from "react-redux";
 
 import { getRecipes } from "@/lib";
 import { Layout } from "@/components";
 import type { Recipe } from "@/types";
+import { setRecipes } from "@/store/actions";
 import { MyAccountContainer } from "@/containers";
 
 const PAGE_TITLE = "My Account";
@@ -13,9 +15,15 @@ interface Props {
 }
 
 const MyAccount: FC<Props> = ({ recipes }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setRecipes(recipes));
+  }, []);
+
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTIOn}>
-      <MyAccountContainer recipes={recipes} />
+      <MyAccountContainer />
     </Layout>
   );
 };

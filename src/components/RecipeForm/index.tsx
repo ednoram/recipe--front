@@ -16,12 +16,12 @@ interface Props {
 }
 
 const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
-  const [imageURL, setImageURL] = useState<string>();
+  const [image, setImage] = useState<File | null>(null);
   const [ingredients, setIngredients] = useState<Array<string>>(
     recipe?.ingredients || []
   );
+  const [title, setTitle] = useState(recipe?.title || "");
   const [summary, setSummary] = useState(recipe?.summary || "");
-  const [title, setTitle] = useState(recipe ? recipe.title : "");
   const [steps, setSteps] = useState<Array<string>>(recipe?.steps || []);
   const [mealType, setMealType] = useState<MealType>(recipe?.mealType || "any");
 
@@ -32,11 +32,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
 
   const uploadImage = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
-
-    if (file) {
-      const image = URL.createObjectURL(file);
-      setImageURL(image);
-    }
+    file && setImage(file);
   };
 
   const chooseFile = () => fileInputRef.current && fileInputRef.current.click();
@@ -68,7 +64,6 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
         summary,
         mealType,
         ingredients,
-        userEmail: userData.email,
       };
 
       recipe ? putRecipe(recipeID, newRecipe) : postRecipe(newRecipe);
@@ -79,7 +74,9 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
     }
   };
 
-  const backgroundImageStyle = imageURL ? `URL(${imageURL})` : "";
+  const backgroundImageStyle = image
+    ? `URL(${URL.createObjectURL(image)})`
+    : "";
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>

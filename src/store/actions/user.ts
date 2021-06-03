@@ -1,6 +1,4 @@
-import axios from "axios";
-
-import { API_URL } from "@/constants";
+import { API } from "@/constants";
 import { UserData, Dispatch } from "@/types";
 
 import { SET_USER_DATA } from "../reducers/user";
@@ -18,8 +16,7 @@ export const loginUser =
     }
   ) =>
   (dispatch: Dispatch): void => {
-    axios
-      .post(`${API_URL}/api/user/login`, body)
+    API.post("/api/user/login", body)
       .then((res) => {
         updateErrors([]);
         localStorage.setItem("token", res.data.token);
@@ -47,8 +44,7 @@ export const registerUser =
     }
   ) =>
   (dispatch: Dispatch): void => {
-    axios
-      .post(`${API_URL}/api/user/register`, body)
+    API.post("/api/user/register", body)
       .then(() => {
         const { email, password } = body;
         dispatch(loginUser({ email, password }, updateErrors));
@@ -73,8 +69,7 @@ export const logoutUser =
 export const loginWithToken =
   (token: string) =>
   (dispatch: Dispatch): void => {
-    axios
-      .post(`${API_URL}/api/user/login-with-token`, { token })
+    API.post("/api/user/login-with-token", { token })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         dispatch(setUserData(res.data.data));

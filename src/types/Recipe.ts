@@ -9,8 +9,8 @@ export type MealType =
 interface Recipe {
   _id?: string;
   title: string;
+  email?: string;
   summary?: string;
-  userEmail: string;
   mealType: MealType;
   steps: Array<string>;
   ingredients: Array<string>;

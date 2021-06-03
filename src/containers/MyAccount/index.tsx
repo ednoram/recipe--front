@@ -4,21 +4,19 @@ import { useSelector } from "react-redux";
 import type { Recipe } from "@/types";
 import { useIsLoggedIn } from "@/hooks";
 import { RecipeList } from "@/components";
-import { selectUserData } from "@/store/selectors";
+import { selectRecipes, selectUserData } from "@/store/selectors";
 
 import styles from "./MyAccount.module.scss";
 
-interface Props {
-  recipes: Array<Recipe>;
-}
-
-const MyAccount: FC<Props> = ({ recipes }) => {
-  const isLoggedIn = useIsLoggedIn();
+const MyAccount: FC = () => {
+  const recipes = useSelector(selectRecipes);
   const userData = useSelector(selectUserData);
 
-  const myRecipes: Array<Recipe> = recipes.filter(
-    (recipe: Recipe) => recipe.userEmail === userData?.email
-  );
+  const isLoggedIn = useIsLoggedIn();
+
+  const myRecipes: Array<Recipe> =
+    recipes &&
+    recipes.filter((recipe: Recipe) => recipe.email === userData?.email);
 
   return isLoggedIn ? (
     <main className={styles.container}>

@@ -14,14 +14,14 @@ const RecipeList: FC<Props> = ({ recipes }) => {
     <p className={styles.nothing_was_found}>Nothing was found</p>
   ) : (
     <ul className={styles.list}>
-      {recipes.map(({ _id, title, mealType, userEmail }) => (
+      {recipes.map(({ _id, title, mealType, email }) => (
         <li key={_id}>
           <div className={styles.list_item}>
             <div>
               <div className={styles.list_item__image} />
               <h4 className={styles.list_item__title}>{title}</h4>
               <p className={styles.list_item__meal_type}>{mealType}</p>
-              <p className={styles.list_item__user_email}>{userEmail}</p>
+              <p className={styles.list_item__user_email}>{email}</p>
             </div>
             <div className="flex_right">
               <Link href={`/recipe/${_id}`}>
