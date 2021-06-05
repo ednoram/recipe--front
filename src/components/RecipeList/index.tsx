@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
+import { nanoid } from "nanoid";
 
 import type { Recipe } from "@/types";
 
@@ -15,7 +16,7 @@ const RecipeList: FC<Props> = ({ recipes }) => {
   ) : (
     <ul className={styles.list}>
       {recipes.map(({ _id, title, mealType, email }) => (
-        <li key={_id}>
+        <li key={nanoid()}>
           <div className={styles.list_item}>
             <div>
               <div className={styles.list_item__image} />

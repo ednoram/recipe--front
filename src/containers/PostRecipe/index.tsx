@@ -12,8 +12,8 @@ const PostRecipe: FC = () => {
     <main>
       <section>
         {isLoggedIn ? (
-          <div className={`${styles.container} container`}>
-            <h1 className={styles.container__title}>Post Recipe</h1>
+          <div className={`${styles.content} container`}>
+            <h1 className={styles.content__title}>Post Recipe</h1>
             <RecipeForm />
           </div>
         ) : (

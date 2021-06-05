@@ -8,9 +8,11 @@ const Register: FC = () => {
   return (
     <main>
       <section>
-        <div className={styles.container}>
-          <h1 className={styles.container__title}>Register</h1>
-          <AuthForm register />
+        <div className={styles.content}>
+          <h1 className={styles.content__title}>Register</h1>
+          <div className="form_container">
+            <AuthForm register />
+          </div>
         </div>
       </section>
     </main>

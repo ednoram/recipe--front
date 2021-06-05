@@ -1,4 +1,5 @@
-import { API } from "@/constants";
+import { API, MY_ACCOUNT_ROUTE } from "@/constants";
+import { processErrors } from "@/utils";
 import { UserData, Dispatch } from "@/types";
 
 import { SET_USER_DATA } from "../reducers/user";
@@ -22,13 +23,7 @@ export const loginUser =
         localStorage.setItem("token", res.data.token);
         dispatch(setUserData(res.data.data));
       })
-      .catch((err) => {
-        updateErrors(
-          err?.response.data.errors?.map((error: { message: string }) =>
-            Object.values(error).map((msg) => String(msg))
-          ) || []
-        );
-      });
+      .catch((err) => updateErrors(processErrors(err)));
   };
 
 export const registerUser =
@@ -49,13 +44,7 @@ export const registerUser =
         const { email, password } = body;
         dispatch(loginUser({ email, password }, updateErrors));
       })
-      .catch((err) => {
-        updateErrors(
-          err?.response.data.errors?.map((error: { message: string }) =>
-            Object.values(error).map((msg) => String(msg))
-          ) || []
-        );
-      });
+      .catch((err) => updateErrors(processErrors(err)));
   };
 
 export const logoutUser =
@@ -75,4 +64,50 @@ export const loginWithToken =
         dispatch(setUserData(res.data.data));
       })
       .catch(() => dispatch(logoutUser()));
+  };
+
+export const patchUser =
+  (
+    id: string,
+    body: {
+      name: string;
+    },
+    updateErrors: {
+      (errors: Array<string>): void;
+    }
+  ) =>
+  (dispatch: Dispatch): void => {
+    API.patch(`api/user/${id}`, {
+      ...body,
+      token: localStorage.getItem("token"),
+    })
+      .then((res) => {
+        dispatch(setUserData(res.data));
+        location.href = MY_ACCOUNT_ROUTE;
+      })
+      .catch((err) => updateErrors(processErrors(err)));
+  };
+
+export const changeUserPassword =
+  (
+    id: string,
+    body: {
+      newPassword: string;
+      currentPassword: string;
+      passwordConfirmation: string;
+    },
+    updateErrors: {
+      (errors: Array<string>): void;
+    }
+  ) =>
+  (dispatch: Dispatch): void => {
+    API.patch(`api/user/${id}/password`, {
+      ...body,
+      token: localStorage.getItem("token"),
+    })
+      .then((res) => {
+        dispatch(setUserData(res.data));
+        location.href = MY_ACCOUNT_ROUTE;
+      })
+      .catch((err) => updateErrors(processErrors(err)));
   };

@@ -7,9 +7,11 @@ import styles from "./LogIn.module.scss";
 const LogIn: FC = () => {
   return (
     <main>
-      <section className={styles.container}>
-        <h1 className={styles.container__title}>Log In</h1>
-        <AuthForm />
+      <section className={styles.content}>
+        <h1 className={styles.content__title}>Log In</h1>
+        <div className="form_container">
+          <AuthForm />
+        </div>
       </section>
     </main>
   );

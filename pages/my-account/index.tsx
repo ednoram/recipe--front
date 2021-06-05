@@ -8,7 +8,7 @@ import { setRecipes } from "@/store/actions";
 import { MyAccountContainer } from "@/containers";
 
 const PAGE_TITLE = "My Account";
-const PAGE_DESCRIPTIOn = "My Account page";
+const PAGE_DESCRIPTION = "My Account page";
 
 interface Props {
   recipes: Array<Recipe>;
@@ -22,7 +22,7 @@ const MyAccount: FC<Props> = ({ recipes }) => {
   }, []);
 
   return (
-    <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTIOn}>
+    <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <MyAccountContainer />
     </Layout>
   );

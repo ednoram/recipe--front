@@ -20,8 +20,8 @@ const RecipePage: FC<Props> = ({ recipe }) => {
   const isOwnRecipe = recipe.email === userData?.email;
 
   const ingredientsDiv = (
-    <div className={styles.container__ingredients}>
-      <h3 className={styles.container__heading}>Ingredients</h3>
+    <div className={styles.content__ingredients}>
+      <h3 className={styles.content__heading}>Ingredients</h3>
       <p className="capitalize_first_letter">
         {recipe.ingredients.length > 1
           ? recipe.ingredients.join(", ")
@@ -31,15 +31,13 @@ const RecipePage: FC<Props> = ({ recipe }) => {
   );
 
   const stepsDiv = (
-    <div className={styles.container__preparation}>
-      <h3 className={styles.container__heading}>Preparation</h3>
+    <div className={styles.content__preparation}>
+      <h3 className={styles.content__heading}>Preparation</h3>
       {recipe.steps.length > 1 ? (
-        <ul className={styles.container__steps_list}>
+        <ul className={styles.content__steps_list}>
           {recipe.steps.map((step, index) => (
             <li key={nanoid()}>
-              <h5 className={styles.container__step_heading}>
-                Step {index + 1}
-              </h5>
+              <h5 className={styles.content__step_heading}>Step {index + 1}</h5>
               <p>{step[0].toUpperCase() + step.slice(1)}</p>
             </li>
           ))}
@@ -52,34 +50,34 @@ const RecipePage: FC<Props> = ({ recipe }) => {
 
   return (
     <section>
-      <div className={`${styles.container} container`}>
+      <div className={`${styles.content} container`}>
         <div>
           <Link href="/">
-            <a className="color-primary">←Home</a>
+            <a className="color-primary">← Home</a>
           </Link>
         </div>
         {isOwnRecipe && (
           <Link href={`${router.asPath}/edit`}>
-            <a className={styles.container__edit_link}>Edit</a>
+            <a className={styles.content__edit_link}>Edit</a>
           </Link>
         )}
-        <h1 className={styles.container__title}>{recipe.title}</h1>
-        <div className={styles.container__top_grid}>
+        <h1 className={styles.content__title}>{recipe.title}</h1>
+        <div className={styles.content__top_grid}>
           <div>
             <p>
               By:
               <span className="color-primary"> {recipe.email}</span>
               {isOwnRecipe && " (you)"}
             </p>
-            <p className={styles.container__meal_type}>
+            <p className={styles.content__meal_type}>
               Meal type:
               <span className="color-primary"> {recipe.mealType}</span>
             </p>
-            <div className={styles.container__image} />
+            <div className={styles.content__image} />
           </div>
           <div>
             <div>
-              <h3 className={styles.container__heading}>Summary</h3>
+              <h3 className={styles.content__heading}>Summary</h3>
               <p>{recipe.summary || "No Summary"}</p>
             </div>
             {ingredientsDiv}

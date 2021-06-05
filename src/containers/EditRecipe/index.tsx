@@ -14,8 +14,8 @@ const EditRecipeContainer: FC<Props> = ({ recipe, recipeID }) => {
   return (
     <main>
       <section>
-        <div className={`${styles.container} container`}>
-          <h1 className={styles.container__title}>Edit Recipe</h1>
+        <div className={`${styles.content} container`}>
+          <h1 className={styles.content__title}>Edit Recipe</h1>
           <RecipeForm recipe={recipe} recipeID={recipeID} />
         </div>
       </section>

@@ -32,14 +32,14 @@ const Header: FC = () => {
     <>
       <li>
         <Link href={LOGIN_ROUTE}>
-          <a className={styles.container__nav_link}>
+          <a className={styles.content__nav_link}>
             {pathname === LOGIN_ROUTE ? <u>Log In</u> : "Log In"}
           </a>
         </Link>
       </li>
       <li>
         <Link href={REGISTER_ROUTE}>
-          <a className={styles.container__nav_link}>
+          <a className={styles.content__nav_link}>
             {pathname === REGISTER_ROUTE ? <u>Register</u> : "Register"}
           </a>
         </Link>
@@ -51,7 +51,7 @@ const Header: FC = () => {
     <>
       <li>
         <Link href={POST_RECIPE_ROUTE}>
-          <a className={styles.container__nav_link}>
+          <a className={styles.content__nav_link}>
             {pathname === POST_RECIPE_ROUTE ? (
               <u>Post Recipe</u>
             ) : (
@@ -62,7 +62,7 @@ const Header: FC = () => {
       </li>
       <li>
         <Link href={MY_ACCOUNT_ROUTE}>
-          <a className={styles.container__nav_link}>
+          <a className={styles.content__nav_link}>
             {pathname === MY_ACCOUNT_ROUTE ? <u>My Account</u> : "My Account"}
           </a>
         </Link>
@@ -71,7 +71,7 @@ const Header: FC = () => {
         <button
           name="logout"
           onClick={logout}
-          className={styles.container__logout_button}
+          className={styles.content__logout_button}
         >
           Log Out
         </button>
@@ -80,19 +80,19 @@ const Header: FC = () => {
   );
 
   return (
-    <header className={styles.container}>
+    <header className={styles.content}>
       <div className="container">
         <div className="flex_space_between">
           <Link href="/">
             <a>
-              <h3 className={styles.container__logo_text}>Recipe</h3>
+              <h3 className={styles.content__logo_text}>Recipe</h3>
             </a>
           </Link>
           <nav>
-            <ul className={styles.container__nav_list}>
+            <ul className={styles.content__nav_list}>
               <li>
                 <Link href="/">
-                  <a className={styles.container__nav_link}>
+                  <a className={styles.content__nav_link}>
                     {pathname === "/" ? <u>Home</u> : "Home"}
                   </a>
                 </Link>
