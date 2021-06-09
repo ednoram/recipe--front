@@ -12,15 +12,13 @@ export const getRecipeById = async (id: string): Promise<Recipe> =>
   });
 
 export const postRecipe = (recipe: Recipe): void => {
-  API.post("/api/recipes", {
-    token: localStorage.getItem("token"),
-    ...recipe,
-  });
+  const token = localStorage.getItem("token");
+  API.post("/api/recipes", { ...recipe, token });
 };
 
-export const putRecipe = (id: string | undefined, recipe: Recipe): void => {
+export const patchRecipe = (id: string | undefined, recipe: Recipe): void => {
   const token = localStorage.getItem("token");
-  API.put(`/api/recipes/${id}`, { ...recipe, token });
+  API.patch(`/api/recipes/${id}`, { ...recipe, token });
 };
 
 export const deleteRecipe = (id: string | undefined): void => {

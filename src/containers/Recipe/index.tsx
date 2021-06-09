@@ -8,6 +8,7 @@ import { Recipe } from "@/types";
 import { selectUserData } from "@/store/selectors";
 
 import styles from "./Recipe.module.scss";
+import { getImageURL } from "@/utils";
 
 interface Props {
   recipe: Recipe;
@@ -73,7 +74,10 @@ const RecipePage: FC<Props> = ({ recipe }) => {
               Meal type:
               <span className="color-primary"> {recipe.mealType}</span>
             </p>
-            <div className={styles.content__image} />
+            <div
+              className={styles.content__image}
+              style={{ backgroundImage: getImageURL(recipe.imagePath) }}
+            />
           </div>
           <div>
             <div>

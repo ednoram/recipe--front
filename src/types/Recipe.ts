@@ -11,6 +11,7 @@ interface Recipe {
   title: string;
   email?: string;
   summary?: string;
+  imagePath?: string;
   mealType: MealType;
   steps: Array<string>;
   ingredients: Array<string>;

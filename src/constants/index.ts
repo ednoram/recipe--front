@@ -1,2 +1,2 @@
 export * from "./routes";
-export { API } from "./api";
+export { API, API_URL } from "./api";

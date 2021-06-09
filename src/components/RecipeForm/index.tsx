@@ -1,14 +1,13 @@
-import { useState, useRef, FC, ChangeEvent, FormEvent } from "react";
+import { useState, useRef, useMemo, FC, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 
 import { MY_ACCOUNT_ROUTE } from "@/constants";
 import type { MealType, Recipe } from "@/types";
-import { selectUserData } from "@/store/selectors";
-import { deleteRecipe, postRecipe, putRecipe } from "@/lib";
+import { deleteRecipe, postRecipe, patchRecipe, postImage } from "@/lib";
 
 import InputsList from "./InputsList";
 import styles from "./RecipeForm.module.scss";
+import { getImageURL } from "@/utils";
 
 interface Props {
   recipe?: Recipe;
@@ -28,14 +27,19 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const userData = useSelector(selectUserData);
-
-  const uploadImage = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    file && setImage(file);
+  const uploadImage = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      if (e.target.files[0].size > 1024 * 1024 * 5) {
+        alert("File is too big!");
+      } else {
+        const file = e.target.files[0];
+        setImage(file);
+      }
+    }
   };
 
-  const chooseFile = () => fileInputRef.current && fileInputRef.current.click();
+  const clickFileInput = () =>
+    fileInputRef.current && fileInputRef.current.click();
 
   const cancel = () => {
     if (confirm("Are you sure you want to cancel?")) {
@@ -46,40 +50,50 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
   const handleDeleteRecipe = () => {
     if (confirm("Are you sure you want to delete recipe?")) {
       deleteRecipe(recipeID);
-      setTimeout(() => {
-        router.push(MY_ACCOUNT_ROUTE);
-      }, 1000);
+      setTimeout(() => router.push(MY_ACCOUNT_ROUTE), 1000);
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!title) {
       alert("Title cannot be empty");
     } else {
+      const formData = new FormData();
+      formData.append("image", image || "");
+
+      const imagePath = image ? await postImage(formData) : "";
+
       const newRecipe = {
         steps,
         title,
         summary,
         mealType,
+        imagePath,
         ingredients,
       };
 
-      recipe ? putRecipe(recipeID, newRecipe) : postRecipe(newRecipe);
+      recipe ? patchRecipe(recipeID, newRecipe) : postRecipe(newRecipe);
 
-      setTimeout(() => {
-        router.back();
-      }, 1000);
+      setTimeout(() => router.back(), 1000);
     }
   };
 
-  const backgroundImageStyle = image
-    ? `URL(${URL.createObjectURL(image)})`
-    : "";
+  const backgroundImageStyle = useMemo(() => {
+    if (!image) {
+      return recipe?.imagePath ? getImageURL(recipe.imagePath) : "";
+    } else {
+      return `url(${URL.createObjectURL(image)})`;
+    }
+  }, [image]);
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <form
+      onSubmit={handleSubmit}
+      className={styles.form}
+      encType="multipart/form-data"
+    >
       <button
         type="button"
         name="cancel"
@@ -97,15 +111,16 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
           <div className="flex_center">
             <button
               type="button"
-              name="choose file"
-              onClick={chooseFile}
-              className={styles.form__choose_image_button}
+              name="select image"
+              onClick={clickFileInput}
+              className={styles.form__select_image_button}
             >
-              Choose Image
+              Select Image
             </button>
           </div>
           <input
             type="file"
+            name="image"
             accept="image/*"
             className="hidden"
             ref={fileInputRef}

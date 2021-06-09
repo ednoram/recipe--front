@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import type { Recipe } from "@/types";
 
 import styles from "./RecipeList.module.scss";
+import { getImageURL } from "@/utils";
 
 interface Props {
   recipes: Array<Recipe>;
@@ -15,11 +16,14 @@ const RecipeList: FC<Props> = ({ recipes }) => {
     <p className={styles.nothing_was_found}>Nothing was found</p>
   ) : (
     <ul className={styles.list}>
-      {recipes.map(({ _id, title, mealType, email }) => (
+      {recipes.map(({ _id, title, mealType, email, imagePath }) => (
         <li key={nanoid()}>
           <div className={styles.list_item}>
             <div>
-              <div className={styles.list_item__image} />
+              <div
+                className={styles.list_item__image}
+                style={{ backgroundImage: getImageURL(imagePath) }}
+              />
               <h4 className={styles.list_item__title}>{title}</h4>
               <p className={styles.list_item__meal_type}>{mealType}</p>
               <p className={styles.list_item__user_email}>{email}</p>
