@@ -84,7 +84,7 @@ const Header: FC = () => {
       <div className="container">
         <div className="flex_space_between">
           <Link href="/">
-            <a>
+            <a className={styles.content__logo_Link}>
               <h3 className={styles.content__logo_text}>Recipe</h3>
             </a>
           </Link>

@@ -12,11 +12,19 @@ interface Props {
 }
 
 const RecipeList: FC<Props> = ({ recipes }) => {
-  return !recipes || recipes.length === 0 ? (
+  const sortedRecipes =
+    recipes &&
+    recipes.sort((a, b) =>
+      a.date && b.date
+        ? new Date(b.date).getTime() - new Date(a.date).getTime()
+        : -1
+    );
+
+  return !sortedRecipes || sortedRecipes.length === 0 ? (
     <p className={styles.nothing_was_found}>Nothing was found</p>
   ) : (
     <ul className={styles.list}>
-      {recipes.map(({ _id, title, mealType, email, imagePath }) => (
+      {sortedRecipes.map(({ _id, title, mealType, email, imagePath }) => (
         <li key={nanoid()}>
           <div className={styles.list_item}>
             <div>

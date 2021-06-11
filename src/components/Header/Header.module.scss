@@ -5,6 +5,10 @@
   background: $color-primary;
   color: white;
 
+  &__logo_Link {
+    text-decoration: none !important;
+  }
+
   &__logo_text {
     @extend %heading_3;
     color: white;

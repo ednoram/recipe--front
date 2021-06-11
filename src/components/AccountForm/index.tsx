@@ -41,7 +41,6 @@ const AccountForm: FC<Props> = ({ changePassword, deleteAccount }) => {
         dispatch(
           deleteUser(userData._id, { password: currentPassword }, setErrors)
         );
-        location.href = "/";
       }
     } else {
       dispatch(patchUser(userData._id, { name }, setErrors));

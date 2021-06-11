@@ -1,13 +1,14 @@
 import { useState, useRef, useMemo, FC, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/router";
 
+import { getImageURL } from "@/utils";
 import { MY_ACCOUNT_ROUTE } from "@/constants";
 import type { MealType, Recipe } from "@/types";
-import { deleteRecipe, postRecipe, patchRecipe, postImage } from "@/lib";
+import { postRecipe, patchRecipe, postImage } from "@/lib";
 
 import InputsList from "./InputsList";
+import SubmitButton from "./SubmitButton";
 import styles from "./RecipeForm.module.scss";
-import { getImageURL } from "@/utils";
 
 interface Props {
   recipe?: Recipe;
@@ -47,13 +48,6 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
     }
   };
 
-  const handleDeleteRecipe = () => {
-    if (confirm("Are you sure you want to delete recipe?")) {
-      deleteRecipe(recipeID);
-      setTimeout(() => router.push(MY_ACCOUNT_ROUTE), 1000);
-    }
-  };
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -76,7 +70,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
 
       recipe ? patchRecipe(recipeID, newRecipe) : postRecipe(newRecipe);
 
-      setTimeout(() => router.back(), 1000);
+      setTimeout(() => router.push(MY_ACCOUNT_ROUTE), 1000);
     }
   };
 
@@ -137,25 +131,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
           />
         </div>
       </div>
-      <div className="flex_column_center">
-        <button
-          type="submit"
-          name="submit button"
-          className={styles.form__submit_button}
-        >
-          {recipe ? "Submit Changes" : "Post Recipe"}
-        </button>
-        {recipe && (
-          <button
-            type="button"
-            name="delete recipe"
-            onClick={handleDeleteRecipe}
-            className={styles.form__delete_recipe_button}
-          >
-            Delete Recipe
-          </button>
-        )}
-      </div>
+      <SubmitButton recipe={recipe} recipeID={recipeID} />
     </form>
   );
 };

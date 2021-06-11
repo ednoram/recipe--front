@@ -9,6 +9,7 @@ export type MealType =
 interface Recipe {
   _id?: string;
   title: string;
+  date?: string;
   email?: string;
   summary?: string;
   imagePath?: string;
