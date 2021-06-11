@@ -4,16 +4,17 @@ import { nanoid } from "nanoid";
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectUserData } from "@/store/selectors";
-import { CHANGE_PASSWORD_ROUTE } from "@/constants";
-import { patchUser, changeUserPassword } from "@/store/actions";
+import { CHANGE_PASSWORD_ROUTE, DELETE_ACCOUNT_ROUTE } from "@/constants";
+import { patchUser, changeUserPassword, deleteUser } from "@/store/actions";
 
 import styles from "./AccountForm.module.scss";
 
 interface Props {
+  deleteAccount?: boolean;
   changePassword?: boolean;
 }
 
-const AccountForm: FC<Props> = ({ changePassword }) => {
+const AccountForm: FC<Props> = ({ changePassword, deleteAccount }) => {
   const [name, setName] = useState<string>("");
   const [errors, setErrors] = useState<Array<string>>([""]);
   const [newPassword, setNewPassword] = useState<string>("");
@@ -35,6 +36,13 @@ const AccountForm: FC<Props> = ({ changePassword }) => {
           setErrors
         )
       );
+    } else if (deleteAccount) {
+      if (confirm("Are you sure you want to delete your account?")) {
+        dispatch(
+          deleteUser(userData._id, { password: currentPassword }, setErrors)
+        );
+        location.href = "/";
+      }
     } else {
       dispatch(patchUser(userData._id, { name }, setErrors));
     }
@@ -46,7 +54,7 @@ const AccountForm: FC<Props> = ({ changePassword }) => {
     }
   }, [userData]);
 
-  const passwordInputs = (
+  const changePasswordInputs = (
     <ul className={styles.form__inputs_list}>
       <li>
         <input
@@ -70,18 +78,33 @@ const AccountForm: FC<Props> = ({ changePassword }) => {
         <input
           type="password"
           value={passwordConfirmation}
-          placeholder="Confirm New Password"
           className={styles.form__input}
+          placeholder="Confirm New Password"
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
       </li>
     </ul>
   );
 
+  const deleteAccountInputs = (
+    <label>
+      <span className="color-primary">Password:</span>
+      <input
+        type="password"
+        placeholder="Password"
+        value={currentPassword}
+        className={styles.form__input}
+        onChange={(e) => setCurrentPassword(e.target.value)}
+      />
+    </label>
+  );
+
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       {changePassword ? (
-        passwordInputs
+        changePasswordInputs
+      ) : deleteAccount ? (
+        deleteAccountInputs
       ) : (
         <label>
           <span className="color-primary">Name:</span>
@@ -93,11 +116,28 @@ const AccountForm: FC<Props> = ({ changePassword }) => {
           />
         </label>
       )}
-      <button className={styles.form__submit_button}>Submit Changes</button>
-      {!changePassword && (
-        <Link href={CHANGE_PASSWORD_ROUTE}>
-          <a className={styles.form__password_link}>Change Password</a>
-        </Link>
+      <button
+        className={
+          deleteAccount
+            ? styles.form__delete_submit_button
+            : styles.form__submit_button
+        }
+      >
+        {deleteAccount ? "Delete Account" : "Submit Changes"}
+      </button>
+      {!changePassword && !deleteAccount && (
+        <div>
+          <div>
+            <Link href={CHANGE_PASSWORD_ROUTE}>
+              <a className={styles.form__password_link}>Change Password</a>
+            </Link>
+          </div>
+          <div>
+            <Link href={DELETE_ACCOUNT_ROUTE}>
+              <a className={styles.form__delete_link}>Delete Account</a>
+            </Link>
+          </div>
+        </div>
       )}
       <div className={styles.form__errors}>
         {errors.map((message) => (

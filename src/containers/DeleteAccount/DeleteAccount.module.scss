@@ -1,0 +1,13 @@
+.content {
+  padding: 50px 0 120px;
+
+  &__title {
+    color: $color-primary;
+    text-align: center;
+  }
+
+  &__back_link {
+    color: $color-primary;
+    margin-top: 20px;
+  }
+}

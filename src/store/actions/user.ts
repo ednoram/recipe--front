@@ -77,10 +77,9 @@ export const patchUser =
     }
   ) =>
   (dispatch: Dispatch): void => {
-    API.patch(`api/user/${id}`, {
-      ...body,
-      token: localStorage.getItem("token"),
-    })
+    const token = localStorage.getItem("token");
+
+    API.patch(`api/user/${id}`, { ...body, token })
       .then((res) => {
         dispatch(setUserData(res.data));
         location.href = MY_ACCOUNT_ROUTE;
@@ -101,13 +100,32 @@ export const changeUserPassword =
     }
   ) =>
   (dispatch: Dispatch): void => {
-    API.patch(`api/user/${id}/password`, {
-      ...body,
-      token: localStorage.getItem("token"),
-    })
+    const token = localStorage.getItem("token");
+
+    API.patch(`api/user/${id}/password`, { ...body, token })
       .then((res) => {
         dispatch(setUserData(res.data));
         location.href = MY_ACCOUNT_ROUTE;
+      })
+      .catch((err) => updateErrors(processErrors(err)));
+  };
+
+export const deleteUser =
+  (
+    id: string,
+    body: {
+      password: string;
+    },
+    updateErrors: {
+      (errors: Array<string>): void;
+    }
+  ) =>
+  (dispatch: Dispatch): void => {
+    const token = localStorage.getItem("token");
+
+    API.delete(`api/user/${id}`, { data: { ...body, token } })
+      .then(() => {
+        dispatch(logoutUser());
       })
       .catch((err) => updateErrors(processErrors(err)));
   };

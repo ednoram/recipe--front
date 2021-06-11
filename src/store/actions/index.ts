@@ -2,6 +2,7 @@ export {
   loginUser,
   patchUser,
   logoutUser,
+  deleteUser,
   registerUser,
   loginWithToken,
   changeUserPassword,
