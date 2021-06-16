@@ -10,7 +10,7 @@ module.exports = {
   },
   sassOptions: {
     prependData:
-      ["variables", "typography"]
+      ["variables", "typography", "breakpoints"]
         .map((x) => `@import "@/styles/${x}.scss";`)
         .join("\n") + "\n\n",
   },

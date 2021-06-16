@@ -63,10 +63,10 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
     <div className={styles.form__add_items}>
       <div className="flex">
         <input
-          maxLength={20}
-          placeholder="Add ingredient"
+          placeholder="Add item"
           onKeyDown={handleInputKeyDown}
           className={styles.form__add_input}
+          maxLength={type === "ingredients" ? 50 : 250}
           ref={type === "ingredients" ? ingredientsInputRef : stepsInputRef}
         />
         <button

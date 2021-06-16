@@ -12,6 +12,11 @@
     grid-template-columns: 500px 1fr;
     gap: 60px;
     margin-top: 20px;
+
+    @include breakpoint(laptop-small) {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   &__image_div {
@@ -20,6 +25,14 @@
     border-radius: $borderRadius;
     background-size: cover;
     background-position: center;
+
+    @include breakpoint(tablet-small) {
+      height: 350px;
+    }
+
+    @include breakpoint(phone-large) {
+      height: 300px;
+    }
   }
 
   &__select_image_button {

@@ -23,11 +23,13 @@ const RecipePage: FC<Props> = ({ recipe }) => {
   const ingredientsDiv = (
     <div className={styles.content__ingredients}>
       <h3 className={styles.content__heading}>Ingredients</h3>
-      <p className="capitalize_first_letter">
-        {recipe.ingredients.length > 1
-          ? recipe.ingredients.join(", ")
-          : "No Ingredients"}
-      </p>
+      <ul className={styles.content__steps_list}>
+        {recipe.ingredients.map((ingredient) => (
+          <li key={nanoid()}>
+            <p className="capitalize_first_letter">{ingredient}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 

@@ -14,12 +14,14 @@ const EditAccount: FC = () => {
     <main>
       <section className={styles.content}>
         <div className="container">
+          {isLoggedIn && (
+            <Link href={MY_ACCOUNT_ROUTE}>
+              <a className={styles.content__back_link}>← My Account</a>
+            </Link>
+          )}
           <h1 className={styles.content__title}>Edit Account</h1>
           {isLoggedIn ? (
             <div className="form_container">
-              <Link href={MY_ACCOUNT_ROUTE}>
-                <a className={styles.content__back_link}>← My Account</a>
-              </Link>
               <AccountForm />
             </div>
           ) : (

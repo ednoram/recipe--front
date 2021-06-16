@@ -29,12 +29,33 @@ select {
   max-width: 1110px;
   width: 100%;
   margin: 0 auto;
+
+  @include breakpoint(laptop) {
+    max-width: unset;
+    padding: 0 45px;
+  }
+
+  @include breakpoint(tablet) {
+    padding: 0 28px;
+  }
+
+  @include breakpoint(tablet-small) {
+    padding: 0 20px;
+  }
+
+  @include breakpoint(phone) {
+    padding: 0 16px;
+  }
 }
 
 .form_container {
+  @extend .container;
   max-width: 380px;
-  width: 100%;
-  margin: 0 auto;
+  padding: 0;
+
+  @include breakpoint(phone-large) {
+    max-width: unset;
+  }
 }
 
 .flex {
@@ -71,7 +92,7 @@ select {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .auth_problem_p {

@@ -9,6 +9,18 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 28px;
   margin-top: 24px;
+
+  @include breakpoint(laptop-small) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include breakpoint(tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include breakpoint(phone-large) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .list_item {
@@ -18,6 +30,10 @@
   height: 100%;
   box-shadow: $boxShadow;
   padding: 20px;
+
+  @include breakpoint(tablet) {
+    padding: 16px;
+  }
 
   &__image {
     height: 150px;
@@ -39,6 +55,9 @@
 
   &__user_email {
     color: $color-primary;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     margin-top: 4px;
   }
 

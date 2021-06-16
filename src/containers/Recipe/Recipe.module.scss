@@ -1,5 +1,6 @@
 .content {
-  padding: 40px 0 120px;
+  padding-top: 50px;
+  padding-bottom: 120px;
 
   &__heading {
     color: $color-primary;
@@ -16,6 +17,16 @@
     gap: 80px;
     grid-template-columns: 500px 1fr;
     margin-top: 16px;
+
+    @include breakpoint(laptop-small) {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    @include breakpoint(laptop-small) {
+      gap: 40px;
+    }
   }
 
   &__title {
@@ -27,6 +38,22 @@
   &__meal_type {
     text-transform: capitalize;
     margin-top: 6px;
+  }
+
+  &__image {
+    height: 400px;
+    border: 1px solid $color-primary;
+    background-size: cover;
+    background-position: center;
+    margin-top: 28px;
+
+    @include breakpoint(phone-large) {
+      height: 280px;
+    }
+
+    @include breakpoint(phone) {
+      height: 200px;
+    }
   }
 
   &__ingredients {
@@ -46,13 +73,5 @@
   &__step_heading {
     color: $color-primary;
     padding-bottom: 4px;
-  }
-
-  &__image {
-    height: 400px;
-    border: 1px solid $color-primary;
-    background-size: cover;
-    background-position: center;
-    margin-top: 28px;
   }
 }

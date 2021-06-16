@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { useState, FC } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
@@ -13,8 +13,11 @@ import { useIsLoggedIn } from "@/hooks";
 import { logoutUser } from "@/store/actions";
 
 import styles from "./Header.module.scss";
+import Hamburger from "../Hamburger";
 
 const Header: FC = () => {
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
   const isLoggedIn = useIsLoggedIn();
@@ -26,6 +29,20 @@ const Header: FC = () => {
       dispatch(logoutUser());
       router.push("/");
     }
+  };
+
+  const handleHamburgerClick = () => {
+    const body = document.querySelector("body");
+
+    if (body) {
+      if (!menuIsOpen) {
+        body.style.overflow = "hidden";
+      } else {
+        body.style.overflow = "unset";
+      }
+    }
+
+    setMenuIsOpen(!menuIsOpen);
   };
 
   const notLoggedInLinks = (
@@ -79,27 +96,47 @@ const Header: FC = () => {
     </>
   );
 
-  return (
-    <header className={styles.content}>
-      <div className="container">
-        <div className="flex_space_between">
+  const navigation = (
+    <nav>
+      <ul className={styles.content__nav_list}>
+        <li>
           <Link href="/">
-            <a className={styles.content__logo_Link}>
-              <h3 className={styles.content__logo_text}>Recipe</h3>
+            <a className={styles.content__nav_link}>
+              {pathname === "/" ? <u>Home</u> : "Home"}
             </a>
           </Link>
-          <nav>
-            <ul className={styles.content__nav_list}>
-              <li>
-                <Link href="/">
-                  <a className={styles.content__nav_link}>
-                    {pathname === "/" ? <u>Home</u> : "Home"}
-                  </a>
-                </Link>
-              </li>
-              {isLoggedIn ? loggedInLinks : notLoggedInLinks}
-            </ul>
-          </nav>
+        </li>
+        {isLoggedIn ? loggedInLinks : notLoggedInLinks}
+      </ul>
+    </nav>
+  );
+
+  return (
+    <header>
+      <div className={styles.content}>
+        <div className="container">
+          <div className="flex_space_between">
+            <Link href="/">
+              <a className={styles.content__logo_Link}>
+                <h3 className={styles.content__logo_text}>Recipe</h3>
+              </a>
+            </Link>
+            <div className={styles.content__navigation}>{navigation}</div>
+            <div className={styles.content__hamburger}>
+              <Hamburger func={handleHamburgerClick} />
+              <div
+                className={`${styles.hamburger_menu} ${
+                  menuIsOpen ? styles.hamburger_menu_open : ""
+                }`}
+              >
+                {menuIsOpen && (
+                  <div className={styles.hamburger_menu__content}>
+                    {navigation}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </header>

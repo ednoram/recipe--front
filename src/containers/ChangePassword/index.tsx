@@ -14,12 +14,14 @@ const ChangePassword: FC = () => {
     <main>
       <section className={styles.content}>
         <div className="container">
+          {isLoggedIn && (
+            <Link href={EDIT_ACCOUNT_ROUTE}>
+              <a className={styles.content__back_link}>← Edit Account</a>
+            </Link>
+          )}
           <h1 className={styles.content__title}>Change Password</h1>
           {isLoggedIn ? (
             <div className="form_container">
-              <Link href={EDIT_ACCOUNT_ROUTE}>
-                <a className={styles.content__back_link}>← Edit Account</a>
-              </Link>
               <AccountForm changePassword />
             </div>
           ) : (

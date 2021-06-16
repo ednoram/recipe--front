@@ -1,11 +1,14 @@
 .top_section {
-  height: 550px;
   width: 100%;
   background-image: url(/main-background.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   padding: 120px 0;
+
+  @include breakpoint(tablet-small) {
+    padding: 100px 0;
+  }
 
   &__text_div {
     max-width: 400px;
@@ -14,12 +17,20 @@
   &__title {
     @extend %heading_1;
     color: white;
+
+    @include breakpoint(tablet-small) {
+      font-size: 40px;
+    }
   }
 
   &__subtitle {
     @extend %heading_3;
     color: white;
     margin-top: 16px;
+
+    @include breakpoint(tablet-small) {
+      font-size: 20px;
+    }
   }
 
   &__join_button {
