@@ -15,6 +15,8 @@ interface Props {
   recipeID?: string;
 }
 
+const ACCEPTED_FILE_TYPES = ["image/png", "image/jpg", "image/jpeg"];
+
 const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
   const [image, setImage] = useState<File | null>(null);
   const [ingredients, setIngredients] = useState<Array<string>>(
@@ -30,7 +32,16 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
 
   const uploadImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      if (e.target.files[0].size > 1024 * 1024 * 5) {
+      const file = e.target.files[0];
+
+      if (file && !ACCEPTED_FILE_TYPES.includes(file.type)) {
+        alert(
+          `File type must be one of these: ${ACCEPTED_FILE_TYPES.join(", ")}.`
+        );
+        return;
+      }
+
+      if (file.size > 1024 * 1024 * 5) {
         alert("File is too big!");
       } else {
         const file = e.target.files[0];
@@ -115,10 +126,10 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
           <input
             type="file"
             name="image"
-            accept="image/*"
             className="hidden"
             ref={fileInputRef}
             onChange={uploadImage}
+            accept={ACCEPTED_FILE_TYPES.join(", ")}
           />
         </div>
         <div>
