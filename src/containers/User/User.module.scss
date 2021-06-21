@@ -1,13 +1,9 @@
 .content {
-  padding: 50px 0 100px;
+  padding-top: 50px;
+  padding-bottom: 120px;
 
   &__title {
-    text-align: center;
     color: $color-primary;
-    margin-bottom: 16px;
-  }
-
-  &__account_info {
     margin-top: 20px;
   }
 
@@ -15,7 +11,7 @@
     margin-top: 6px;
   }
 
-  &__my_recipes {
+  &__recipes_section {
     margin-top: 40px;
   }
 }

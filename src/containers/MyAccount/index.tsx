@@ -32,7 +32,7 @@ const MyAccount: FC = () => {
               </Link>
               <div className={styles.content__account_info}>
                 <h2 className="color-primary">{userData?.name}</h2>
-                <p>{userData?.email}</p>
+                <p className={styles.content__email}>{userData?.email}</p>
               </div>
             </div>
           </section>

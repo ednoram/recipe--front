@@ -34,7 +34,9 @@ const RecipeList: FC<Props> = ({ recipes }) => {
               />
               <h4 className={styles.list_item__title}>{title}</h4>
               <p className={styles.list_item__meal_type}>{mealType}</p>
-              <p className={styles.list_item__user_email}>{email}</p>
+              <Link href={`/user/${email}`}>
+                <a className={styles.list_item__user_email}>{email}</a>
+              </Link>
             </div>
             <div className="flex_right">
               <Link href={`/recipe/${_id}`}>

@@ -63,10 +63,10 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
     <div className={styles.form__add_items}>
       <div className="flex">
         <input
+          maxLength={250}
           placeholder="Add item"
           onKeyDown={handleInputKeyDown}
           className={styles.form__add_input}
-          maxLength={type === "ingredients" ? 50 : 250}
           ref={type === "ingredients" ? ingredientsInputRef : stepsInputRef}
         />
         <button
@@ -80,7 +80,11 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
       <ul>
         {items.map((item, index) => (
           <li key={nanoid()} className={`${styles.form__add_item_item} flex`}>
-            <p>{item[0].toUpperCase() + item.slice(1)}</p>
+            <p>
+              {type === "steps"
+                ? index + 1 + ". "
+                : "" + item[0].toUpperCase() + item.slice(1)}
+            </p>
             <button
               type="button"
               onClick={() => removeItem(type, index)}

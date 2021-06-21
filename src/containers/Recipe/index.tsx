@@ -68,8 +68,10 @@ const RecipePage: FC<Props> = ({ recipe }) => {
         <div className={styles.content__top_grid}>
           <div>
             <p>
-              By:
-              <span className="color-primary"> {recipe.email}</span>
+              By:{" "}
+              <Link href={`/user/${recipe.email}`}>
+                <a className="color-primary">{recipe.email}</a>
+              </Link>
               {isOwnRecipe && " (you)"}
             </p>
             <p className={styles.content__meal_type}>

@@ -1,4 +1,5 @@
 export { default as HomeContainer } from "./Home";
+export { default as UserContainer } from "./User";
 export { default as LogInContainer } from "./LogIn";
 export { default as RecipeContainer } from "./Recipe";
 export { default as RegisterContainer } from "./Register";

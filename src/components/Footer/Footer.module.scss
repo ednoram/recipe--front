@@ -3,10 +3,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 150px;
+  min-height: 170px;
   background: $color-primary;
   color: white;
   text-align: center;
   padding: 20px 0 32px;
   margin-top: auto;
+
+  @include breakpoint(tablet) {
+    height: 150px;
+  }
 }

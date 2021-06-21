@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState, useEffect, FC } from "react";
 
 import styles from "./Hamburger.module.scss";
 
@@ -13,6 +13,10 @@ const Hamburger: FC<Props> = ({ func }) => {
     setIsOpen(!isOpen);
     func && func();
   };
+
+  useEffect(() => {
+    setTimeout(() => window.scroll(0, 0), 100);
+  }, [isOpen]);
 
   return (
     <div

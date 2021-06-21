@@ -10,10 +10,10 @@ import {
   POST_RECIPE_ROUTE,
 } from "@/constants";
 import { useIsLoggedIn } from "@/hooks";
+import { Hamburger } from "@/components";
 import { logoutUser } from "@/store/actions";
 
 import styles from "./Header.module.scss";
-import Hamburger from "../Hamburger";
 
 const Header: FC = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);

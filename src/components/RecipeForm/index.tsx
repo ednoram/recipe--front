@@ -72,11 +72,11 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
 
       const newRecipe = {
         steps,
-        title,
-        summary,
         mealType,
         imagePath,
         ingredients,
+        title: title.trim(),
+        summary: summary.trim(),
       };
 
       recipe ? patchRecipe(recipeID, newRecipe) : postRecipe(newRecipe);
