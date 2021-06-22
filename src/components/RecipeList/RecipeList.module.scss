@@ -38,7 +38,9 @@
   &__image {
     height: 180px;
     border: 1px solid black;
-    background-size: cover;
+    background-image: url(/blank_recipe_icon.svg);
+    background-size: 60%;
+    background-repeat: no-repeat;
     background-position: center;
   }
 

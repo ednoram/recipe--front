@@ -43,8 +43,10 @@
   &__image {
     height: 400px;
     border: 1px solid $color-primary;
-    background-size: cover;
+    background-image: url(/blank_recipe_icon.svg);
+    background-size: 50%;
     background-position: center;
+    background-repeat: no-repeat;
     margin-top: 28px;
 
     @include breakpoint(phone-large) {

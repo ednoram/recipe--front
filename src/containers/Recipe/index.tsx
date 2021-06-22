@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { useMemo, FC } from "react";
 import Link from "next/link";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/router";
@@ -19,6 +19,17 @@ const RecipePage: FC<Props> = ({ recipe }) => {
   const router = useRouter();
 
   const isOwnRecipe = recipe.email === userData?.email;
+
+  const imageDivStyle = useMemo(
+    () =>
+      recipe.imagePath
+        ? {
+            backgroundSize: "cover",
+            backgroundImage: getImageURL(recipe.imagePath),
+          }
+        : {},
+    [recipe.imagePath]
+  );
 
   const ingredientsDiv = (
     <div className={styles.content__ingredients}>
@@ -78,10 +89,7 @@ const RecipePage: FC<Props> = ({ recipe }) => {
               Meal type:
               <span className="color-primary"> {recipe.mealType}</span>
             </p>
-            <div
-              className={styles.content__image}
-              style={{ backgroundImage: getImageURL(recipe.imagePath) }}
-            />
+            <div style={imageDivStyle} className={styles.content__image} />
           </div>
           <div>
             <div>

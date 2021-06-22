@@ -30,7 +30,14 @@ const RecipeList: FC<Props> = ({ recipes }) => {
             <div>
               <div
                 className={styles.list_item__image}
-                style={{ backgroundImage: getImageURL(imagePath) }}
+                style={
+                  imagePath
+                    ? {
+                        backgroundSize: "cover",
+                        backgroundImage: getImageURL(imagePath),
+                      }
+                    : {}
+                }
               />
               <h4 className={styles.list_item__title}>{title}</h4>
               <p className={styles.list_item__meal_type}>{mealType}</p>
