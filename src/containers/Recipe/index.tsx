@@ -5,10 +5,10 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
 import { Recipe } from "@/types";
+import { getImageURL } from "@/utils";
 import { selectUserData } from "@/store/selectors";
 
 import styles from "./Recipe.module.scss";
-import { getImageURL } from "@/utils";
 
 interface Props {
   recipe: Recipe;
@@ -30,6 +30,15 @@ const RecipePage: FC<Props> = ({ recipe }) => {
         : {},
     [recipe.imagePath]
   );
+
+  const dateString =
+    typeof recipe.date === "string"
+      ? new Date(recipe.date).toLocaleDateString("en", {
+          month: "long",
+          year: "numeric",
+          day: "numeric",
+        })
+      : "unknown";
 
   const ingredientsDiv = (
     <div className={styles.content__ingredients}>
@@ -84,6 +93,9 @@ const RecipePage: FC<Props> = ({ recipe }) => {
                 <a className="color-primary">{recipe.email}</a>
               </Link>
               {isOwnRecipe && " (you)"}
+            </p>
+            <p className={styles.content__date}>
+              Creation Date: <span className="color-primary">{dateString}</span>
             </p>
             <p className={styles.content__meal_type}>
               Meal type:

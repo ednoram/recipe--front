@@ -1,5 +1,5 @@
 .content {
-  padding-top: 50px;
+  padding-top: 60px;
   padding-bottom: 120px;
 
   &__heading {
@@ -33,6 +33,10 @@
     color: $color-primary;
     text-transform: capitalize;
     margin-top: 10px;
+  }
+
+  &__date {
+    margin-top: 6px;
   }
 
   &__meal_type {
