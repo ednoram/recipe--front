@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { Layout } from "@/components";
 import type { Recipe } from "@/types";
+import { useConfirmBeforeLeaving } from "@/hooks";
 import { getRecipes, getRecipeById } from "@/lib";
 import { EditRecipeContainer } from "@/containers";
 
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const EditRecipePage: FC<Props> = ({ recipe, recipeID }) => {
+  useConfirmBeforeLeaving();
+  
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <EditRecipeContainer recipe={recipe} recipeID={recipeID} />

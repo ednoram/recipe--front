@@ -53,12 +53,6 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
   const clickFileInput = () =>
     fileInputRef.current && fileInputRef.current.click();
 
-  const cancel = () => {
-    if (confirm("Are you sure you want to cancel?")) {
-      router.back();
-    }
-  };
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -102,7 +96,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
       <button
         type="button"
         name="cancel"
-        onClick={cancel}
+        onClick={() => router.back()}
         className={styles.form__cancel_button}
       >
         Cancel
