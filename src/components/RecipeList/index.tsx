@@ -58,15 +58,17 @@ const RecipeList: FC<Props> = ({ recipes, favorites }) => {
                     : {}
                 }
               >
-                <div onClick={() => _id && toggleFavorite(_id)}>
-                  <StarIcon
-                    className={
-                      _id && user?.favoriteRecipes?.includes(_id)
-                        ? styles.list_item__star_icon_active
-                        : styles.list_item__star_icon
-                    }
-                  />
-                </div>
+                {user && (
+                  <div onClick={() => _id && toggleFavorite(_id)}>
+                    <StarIcon
+                      className={
+                        _id && user?.favoriteRecipes?.includes(_id)
+                          ? styles.list_item__star_icon_active
+                          : styles.list_item__star_icon
+                      }
+                    />
+                  </div>
+                )}
               </div>
               <h4 className={styles.list_item__title}>{title}</h4>
               <p className={styles.list_item__meal_type}>{mealType}</p>
