@@ -12,8 +12,6 @@ interface Props {
 }
 
 const UserPage: FC<Props> = ({ user, recipes }) => {
-  const userRecipes = recipes.filter((recipe) => recipe.email === user.email);
-
   return (
     <main className={styles.content}>
       <section>
@@ -29,7 +27,7 @@ const UserPage: FC<Props> = ({ user, recipes }) => {
         <div className="container">
           <h2 className="color-primary">Recipes</h2>
           <p>
-            <RecipeList recipes={userRecipes} />
+            <RecipeList recipes={recipes} />
           </p>
         </div>
       </section>

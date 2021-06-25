@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Layout } from "@/components";
 import type { User, Recipe } from "@/types";
 import { UserContainer } from "@/containers";
-import { getRecipes, getUsers } from "@/lib";
+import { getUsers, getUserRecipes } from "@/lib";
 
 const PAGE_TITLE = "Recipe";
 const PAGE_DESCRIPTION = "Recipe page";
@@ -47,10 +47,11 @@ export const getStaticProps = async ({
 }): Promise<{ props: Props } | { notFound: boolean }> => {
   try {
     const users = await getUsers();
-    const recipes = await getRecipes();
 
     const email = params.id;
     const user = users.find((user) => user.email === email);
+
+    const recipes = await getUserRecipes(email);
 
     return user
       ? {

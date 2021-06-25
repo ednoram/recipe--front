@@ -1,8 +1,13 @@
 import { Recipe } from "@/types";
 import { API } from "@/constants";
 
-export const getRecipes = async (): Promise<[Recipe]> =>
+export const getRecipes = async (): Promise<Array<Recipe>> =>
   await API.get("/api/recipes").then((res) => {
+    return res.data;
+  });
+
+export const getUserRecipes = async (email: string): Promise<Array<Recipe>> =>
+  await API.get("api/recipes", { params: { email } }).then((res) => {
     return res.data;
   });
 
