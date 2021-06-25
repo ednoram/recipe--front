@@ -129,3 +129,31 @@ export const deleteUser =
       })
       .catch((err) => updateErrors(processErrors(err)));
   };
+
+export const addFavoriteRecipe =
+  (recipeId: string) =>
+  (dispatch: Dispatch): void => {
+    const token = localStorage.getItem("token");
+
+    API.post("/api/user/favorite-recipes/add", { token, recipeId })
+      .then((res) => {
+        dispatch(setUserData(res.data));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+export const removeFavoriteRecipe =
+  (recipeId: string) =>
+  (dispatch: Dispatch): void => {
+    const token = localStorage.getItem("token");
+
+    API.post("/api/user/favorite-recipes/remove", { token, recipeId })
+      .then((res) => {
+        dispatch(setUserData(res.data));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };

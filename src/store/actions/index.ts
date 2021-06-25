@@ -5,6 +5,8 @@ export {
   deleteUser,
   registerUser,
   loginWithToken,
+  addFavoriteRecipe,
   changeUserPassword,
+  removeFavoriteRecipe,
 } from "./user";
 export { setRecipes } from "./recipes";

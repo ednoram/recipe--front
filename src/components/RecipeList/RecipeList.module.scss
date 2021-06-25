@@ -36,12 +36,29 @@
   }
 
   &__image {
+    position: relative;
     height: 180px;
     border: 1px solid black;
     background-image: url(/blank_recipe_icon.svg);
     background-size: 60%;
     background-repeat: no-repeat;
     background-position: center;
+  }
+
+  &__star_icon {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: 24px;
+    width: 24px;
+    fill: white;
+    box-shadow: $boxShadow;
+    cursor: pointer;
+  }
+
+  &__star_icon_active {
+    @extend .list_item__star_icon;
+    fill: $color-yellow;
   }
 
   &__title {

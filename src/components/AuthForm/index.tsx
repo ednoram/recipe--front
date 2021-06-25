@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
 import { useIsLoggedIn } from "@/hooks";
+import { MY_ACCOUNT_ROUTE } from "@/constants";
 import { loginUser, registerUser } from "@/store/actions";
 
 import styles from "./AuthForm.module.scss";
@@ -42,7 +43,7 @@ const AuthForm: FC<Props> = ({ register }) => {
 
     setTimeout(() => {
       if (localStorage.getItem("token")) {
-        router.push("/");
+        router.push(MY_ACCOUNT_ROUTE);
       }
     }, 1000);
   };

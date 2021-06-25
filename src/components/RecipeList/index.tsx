@@ -1,24 +1,43 @@
 import { FC } from "react";
 import Link from "next/link";
 import { nanoid } from "nanoid";
+import { useSelector, useDispatch } from "react-redux";
 
+import StarIcon from "public/star-icon.svg";
+
+import { getImageURL } from "@/utils";
 import type { Recipe } from "@/types";
+import { selectUserData } from "@/store/selectors";
+import { addFavoriteRecipe, removeFavoriteRecipe } from "@/store/actions";
 
 import styles from "./RecipeList.module.scss";
-import { getImageURL } from "@/utils";
 
 interface Props {
+  favorites?: boolean;
   recipes: Array<Recipe>;
 }
 
-const RecipeList: FC<Props> = ({ recipes }) => {
+const RecipeList: FC<Props> = ({ recipes, favorites }) => {
+  const user = useSelector(selectUserData);
+
+  const dispatch = useDispatch();
+
+  const filteredRecipes = favorites
+    ? recipes.filter(({ _id }) => _id && user?.favoriteRecipes?.includes(_id))
+    : recipes;
+
   const sortedRecipes =
-    recipes &&
-    recipes.sort((a, b) =>
+    filteredRecipes &&
+    filteredRecipes.sort((a, b) =>
       a.date && b.date
         ? new Date(b.date).getTime() - new Date(a.date).getTime()
         : -1
     );
+
+  const toggleFavorite = (id: string) =>
+    user?.favoriteRecipes?.includes(id)
+      ? dispatch(removeFavoriteRecipe(id))
+      : dispatch(addFavoriteRecipe(id));
 
   return !sortedRecipes || sortedRecipes.length === 0 ? (
     <p className={styles.nothing_was_found}>Nothing was found</p>
@@ -38,7 +57,17 @@ const RecipeList: FC<Props> = ({ recipes }) => {
                       }
                     : {}
                 }
-              />
+              >
+                <div onClick={() => _id && toggleFavorite(_id)}>
+                  <StarIcon
+                    className={
+                      _id && user?.favoriteRecipes?.includes(_id)
+                        ? styles.list_item__star_icon_active
+                        : styles.list_item__star_icon
+                    }
+                  />
+                </div>
+              </div>
               <h4 className={styles.list_item__title}>{title}</h4>
               <p className={styles.list_item__meal_type}>{mealType}</p>
               <Link href={`/user/${email}`}>

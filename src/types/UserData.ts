@@ -3,6 +3,7 @@ interface UserData {
   name: string;
   email: string;
   password: string;
+  favoriteRecipes?: Array<string>;
 }
 
 export default UserData;

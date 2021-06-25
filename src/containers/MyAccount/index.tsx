@@ -44,6 +44,14 @@ const MyAccount: FC = () => {
               </div>
             </div>
           </section>
+          <section>
+            <div className="container">
+              <div className={styles.content__favorite_recipes}>
+                <h2 className="color-primary">Favorite Recipes</h2>
+                <RecipeList recipes={recipes} favorites />
+              </div>
+            </div>
+          </section>
         </>
       ) : (
         <div className="container">
