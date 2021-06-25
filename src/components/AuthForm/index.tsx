@@ -95,9 +95,14 @@ const AuthForm: FC<Props> = ({ register }) => {
           <button className={styles.form__submit_button}>Continue</button>
         </li>
         <li>
-          {errors.map((message) => (
-            <p key={nanoid()}>{message}</p>
-          ))}
+          <ul className={styles.form__errors_list}>
+            {(errors[0] || errors.length > 1) &&
+              errors.map((message) => (
+                <li key={nanoid()}>
+                  <p>• {message}</p>
+                </li>
+              ))}
+          </ul>
         </li>
       </ul>
     </form>

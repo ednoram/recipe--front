@@ -16,7 +16,7 @@ interface Props {
 
 const EditRecipePage: FC<Props> = ({ recipe, recipeID }) => {
   useConfirmBeforeLeaving();
-  
+
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <EditRecipeContainer recipe={recipe} recipeID={recipeID} />
@@ -25,15 +25,13 @@ const EditRecipePage: FC<Props> = ({ recipe, recipeID }) => {
 };
 
 export const getStaticPaths = async (): Promise<{
-  paths: Array<{ params: { id: string | undefined } }>;
+  paths: Array<{ params: { id?: string } }>;
   fallback: boolean;
 }> => {
   const recipes = await getRecipes();
 
   const paths = recipes.map(({ _id }) => ({
-    params: {
-      id: _id,
-    },
+    params: { id: _id },
   }));
 
   return {

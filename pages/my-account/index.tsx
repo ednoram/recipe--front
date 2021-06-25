@@ -32,7 +32,7 @@ export const getStaticProps = async (): Promise<
   { props: Props } | { notFound: boolean }
 > => {
   try {
-    const recipes: Array<Recipe> = await getRecipes();
+    const recipes = await getRecipes();
 
     return {
       props: { recipes },
