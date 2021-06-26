@@ -1,9 +1,9 @@
 import { useState, useRef, useMemo, FC, ChangeEvent, FormEvent } from "react";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
-import { getImageURL } from "@/utils";
 import { MY_ACCOUNT_ROUTE } from "@/constants";
 import type { MealType, Recipe } from "@/types";
+import { getImageURL, handleRouteChange } from "@/utils";
 import { postRecipe, patchRecipe, postImage } from "@/lib";
 
 import InputsList from "./InputsList";
@@ -74,6 +74,8 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
       };
 
       recipe ? patchRecipe(recipeID, newRecipe) : postRecipe(newRecipe);
+
+      Router.events.off("routeChangeStart", handleRouteChange);
 
       setTimeout(() => router.push(MY_ACCOUNT_ROUTE), 1000);
     }

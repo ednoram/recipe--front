@@ -1,8 +1,9 @@
 import { FC } from "react";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
 import { deleteRecipe } from "@/lib";
 import type { Recipe } from "@/types";
+import { handleRouteChange } from "@/utils";
 import { MY_ACCOUNT_ROUTE } from "@/constants";
 
 import styles from "./RecipeForm.module.scss";
@@ -18,6 +19,8 @@ const SubmitButton: FC<Props> = ({ recipe, recipeID }) => {
   const handleDeleteRecipe = () => {
     if (confirm("Are you sure you want to delete recipe?")) {
       deleteRecipe(recipeID);
+
+      Router.events.off("routeChangeStart", handleRouteChange);
       setTimeout(() => router.push(MY_ACCOUNT_ROUTE), 1000);
     }
   };
