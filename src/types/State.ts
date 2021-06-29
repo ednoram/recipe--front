@@ -1,9 +1,9 @@
-import type { UserData, Recipe } from "@/types";
+import { UserData, Recipe } from "@/types";
 
 interface State {
   user: UserData;
   recipes: {
-    recipes: Array<Recipe>;
+    recipes: Recipe[];
   };
 }
 

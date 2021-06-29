@@ -13,7 +13,7 @@ export const loginUser =
   (
     body: { email: string; password: string },
     updateErrors: {
-      (errors: Array<string>): void;
+      (errors: string[]): void;
     }
   ) =>
   (dispatch: Dispatch): void => {
@@ -35,7 +35,7 @@ export const registerUser =
       passwordConfirmation: string;
     },
     updateErrors: {
-      (errors: Array<string>): void;
+      (errors: string[]): void;
     }
   ) =>
   (dispatch: Dispatch): void => {
@@ -73,7 +73,7 @@ export const patchUser =
       name: string;
     },
     updateErrors: {
-      (errors: Array<string>): void;
+      (errors: string[]): void;
     }
   ) =>
   (dispatch: Dispatch): void => {
@@ -96,7 +96,7 @@ export const changeUserPassword =
       passwordConfirmation: string;
     },
     updateErrors: {
-      (errors: Array<string>): void;
+      (errors: string[]): void;
     }
   ) =>
   (dispatch: Dispatch): void => {
@@ -117,7 +117,7 @@ export const deleteUser =
       password: string;
     },
     updateErrors: {
-      (errors: Array<string>): void;
+      (errors: string[]): void;
     }
   ) =>
   (dispatch: Dispatch): void => {
@@ -149,11 +149,9 @@ export const removeFavoriteRecipe =
   (dispatch: Dispatch): void => {
     const token = localStorage.getItem("token");
 
-    API.post("/api/user/favorite-recipes/remove", { token, recipeId })
-      .then((res) => {
+    API.post("/api/user/favorite-recipes/remove", { token, recipeId }).then(
+      (res) => {
         dispatch(setUserData(res.data));
-      })
-      .catch((err) => {
-        throw err;
-      });
+      }
+    );
   };

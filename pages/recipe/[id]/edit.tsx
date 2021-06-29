@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { Layout } from "@/components";
-import type { Recipe } from "@/types";
+import { Path, Recipe } from "@/types";
 import { useConfirmBeforeLeaving } from "@/hooks";
 import { getRecipes, getRecipeById } from "@/lib";
 import { EditRecipeContainer } from "@/containers";
@@ -25,7 +25,7 @@ const EditRecipePage: FC<Props> = ({ recipe, recipeID }) => {
 };
 
 export const getStaticPaths = async (): Promise<{
-  paths: Array<{ params: { id?: string } }>;
+  paths: Path[];
   fallback: boolean;
 }> => {
   const recipes = await getRecipes();

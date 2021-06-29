@@ -19,13 +19,13 @@ const AuthForm: FC<Props> = ({ register }) => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
-  const [errors, setErrors] = useState<Array<string>>([""]);
+  const [errors, setErrors] = useState<string[]>([""]);
 
   const router = useRouter();
   const dispatch = useDispatch();
   const isLoggedIn = useIsLoggedIn();
 
-  const updateErrors = (errors: Array<string>) => setErrors(errors);
+  const updateErrors = (errors: string[]) => setErrors(errors);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();

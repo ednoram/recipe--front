@@ -1,9 +1,9 @@
 import { useEffect, FC } from "react";
 import { useDispatch } from "react-redux";
 
+import { Recipe } from "@/types";
 import { getRecipes } from "@/lib";
 import { Layout } from "@/components";
-import type { Recipe } from "@/types";
 import { setRecipes } from "@/store/actions";
 import { MyAccountContainer } from "@/containers";
 
@@ -11,7 +11,7 @@ const PAGE_TITLE = "My Account";
 const PAGE_DESCRIPTION = "My Account page";
 
 interface Props {
-  recipes: Array<Recipe>;
+  recipes: Recipe[];
 }
 
 const MyAccount: FC<Props> = ({ recipes }) => {

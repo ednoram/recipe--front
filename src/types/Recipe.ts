@@ -11,11 +11,11 @@ interface Recipe {
   title: string;
   date?: string;
   email?: string;
+  steps: string[];
   summary?: string;
   imagePath?: string;
   mealType: MealType;
-  steps: Array<string>;
-  ingredients: Array<string>;
+  ingredients: string[];
 }
 
 export default Recipe;

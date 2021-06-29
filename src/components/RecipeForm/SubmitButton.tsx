@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Router, useRouter } from "next/router";
 
+import { Recipe } from "@/types";
 import { deleteRecipe } from "@/lib";
-import type { Recipe } from "@/types";
 import { handleRouteChange } from "@/utils";
 import { MY_ACCOUNT_ROUTE } from "@/constants";
 

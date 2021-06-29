@@ -1,9 +1,9 @@
 import { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
+import { Recipe } from "@/types";
 import { getRecipes } from "@/lib";
 import { Layout } from "@/components";
-import type { Recipe } from "@/types";
 import { setRecipes } from "@/store/actions";
 import { HomeContainer } from "@/containers";
 
@@ -11,7 +11,7 @@ const PAGE_TITLE = "Home Page";
 const PAGE_DESCRIPTION = "Home Page";
 
 interface Props {
-  recipes: Array<Recipe>;
+  recipes: Recipe[];
 }
 
 const HomePage: FC<Props> = ({ recipes }) => {
@@ -32,7 +32,7 @@ export const getStaticProps = async (): Promise<
   { props: Props } | { notFound: boolean }
 > => {
   try {
-    const recipes: Array<Recipe> = await getRecipes();
+    const recipes = await getRecipes();
 
     return {
       props: { recipes },

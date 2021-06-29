@@ -1,14 +1,14 @@
 import { FC } from "react";
 import Link from "next/link";
 
+import { User, Recipe } from "@/types";
 import { RecipeList } from "@/components";
-import type { User, Recipe } from "@/types";
 
 import styles from "./User.module.scss";
 
 interface Props {
   user: User;
-  recipes: Array<Recipe>;
+  recipes: Recipe[];
 }
 
 const UserPage: FC<Props> = ({ user, recipes }) => {

@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, FC, ChangeEvent, FormEvent } from "react";
 import { Router, useRouter } from "next/router";
 
-import type { MealType, Recipe } from "@/types";
+import { MealType, Recipe } from "@/types";
 import { getImageURL, handleRouteChange } from "@/utils";
 import { postRecipe, patchRecipe, postImage } from "@/lib";
 
@@ -18,12 +18,12 @@ const ACCEPTED_FILE_TYPES = ["image/png", "image/jpg", "image/jpeg"];
 
 const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
   const [image, setImage] = useState<File | null>(null);
-  const [ingredients, setIngredients] = useState<Array<string>>(
+  const [ingredients, setIngredients] = useState<string[]>(
     recipe?.ingredients || []
   );
   const [title, setTitle] = useState(recipe?.title || "");
   const [summary, setSummary] = useState(recipe?.summary || "");
-  const [steps, setSteps] = useState<Array<string>>(recipe?.steps || []);
+  const [steps, setSteps] = useState<string[]>(recipe?.steps || []);
   const [mealType, setMealType] = useState<MealType>(recipe?.mealType || "any");
 
   const router = useRouter();

@@ -5,16 +5,16 @@ import { useSelector, useDispatch } from "react-redux";
 
 import StarIcon from "public/star-icon.svg";
 
+import { Recipe } from "@/types";
 import { getImageURL } from "@/utils";
-import type { Recipe } from "@/types";
 import { selectUserData } from "@/store/selectors";
 import { addFavoriteRecipe, removeFavoriteRecipe } from "@/store/actions";
 
 import styles from "./RecipeList.module.scss";
 
 interface Props {
+  recipes: Recipe[];
   favorites?: boolean;
-  recipes: Array<Recipe>;
 }
 
 const RecipeList: FC<Props> = ({ recipes, favorites }) => {

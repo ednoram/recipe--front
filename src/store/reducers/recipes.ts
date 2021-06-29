@@ -3,11 +3,11 @@ import { Recipe } from "@/types";
 export const SET_RECIPES = "SET_RECIPES";
 
 interface State {
-  recipes: Array<Recipe>;
+  recipes: Recipe[];
 }
 
 interface Payload {
-  recipes: Array<Recipe>;
+  recipes: Recipe[];
 }
 
 const recipesReducer = (

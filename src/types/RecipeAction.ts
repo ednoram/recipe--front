@@ -1,8 +1,8 @@
-import type { Recipe } from "@/types";
+import { Recipe } from "@/types";
 
 interface RecipeAction {
   type: string;
-  payload: { recipes: Array<Recipe> };
+  payload: { recipes: Recipe[] };
 }
 
 export default RecipeAction;

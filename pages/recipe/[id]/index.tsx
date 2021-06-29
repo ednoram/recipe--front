@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { Recipe } from "@/types";
 import { Layout } from "@/components";
+import { Recipe, Path } from "@/types";
 import { RecipeContainer } from "@/containers";
 import { getRecipes, getRecipeById } from "@/lib";
 
@@ -21,7 +21,7 @@ const RecipePage: FC<Props> = ({ recipe }) => {
 };
 
 export const getStaticPaths = async (): Promise<{
-  paths: Array<{ params: { id: string | undefined } }>;
+  paths: Path[];
   fallback: boolean;
 }> => {
   const recipes = await getRecipes();

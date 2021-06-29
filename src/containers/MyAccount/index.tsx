@@ -2,7 +2,7 @@ import { FC } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
-import type { Recipe } from "@/types";
+import { Recipe } from "@/types";
 import { useIsLoggedIn } from "@/hooks";
 import { RecipeList } from "@/components";
 import { EDIT_ACCOUNT_ROUTE } from "@/constants";
@@ -16,7 +16,7 @@ const MyAccount: FC = () => {
 
   const isLoggedIn = useIsLoggedIn();
 
-  const myRecipes: Array<Recipe> =
+  const myRecipes: Recipe[] =
     recipes &&
     recipes.filter((recipe: Recipe) => recipe.email === userData?.email);
 

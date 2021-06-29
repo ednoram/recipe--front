@@ -5,8 +5,8 @@ import styles from "./RecipeForm.module.scss";
 
 interface Props {
   type: "ingredients" | "steps";
-  stepsState: [Array<string>, Dispatch<SetStateAction<Array<string>>>];
-  ingredientsState: [Array<string>, Dispatch<SetStateAction<Array<string>>>];
+  stepsState: [string[], Dispatch<SetStateAction<string[]>>];
+  ingredientsState: [string[], Dispatch<SetStateAction<string[]>>];
 }
 
 const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {

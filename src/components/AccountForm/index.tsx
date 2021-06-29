@@ -16,7 +16,7 @@ interface Props {
 
 const AccountForm: FC<Props> = ({ changePassword, deleteAccount }) => {
   const [name, setName] = useState<string>("");
-  const [errors, setErrors] = useState<Array<string>>([""]);
+  const [errors, setErrors] = useState<string[]>([""]);
   const [newPassword, setNewPassword] = useState<string>("");
   const [currentPassword, setCurrentPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");

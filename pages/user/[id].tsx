@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { Layout } from "@/components";
-import type { User, Recipe } from "@/types";
+import { User, Recipe } from "@/types";
 import { UserContainer } from "@/containers";
 import { getUsers, getUserRecipes } from "@/lib";
 
@@ -10,7 +10,7 @@ const PAGE_DESCRIPTION = "Recipe page";
 
 interface Props {
   user: User;
-  recipes: Array<Recipe>;
+  recipes: Recipe[];
 }
 
 const UserPage: FC<Props> = ({ user, recipes }) => {

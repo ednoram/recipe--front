@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import type { Recipe } from "@/types";
+import { Recipe } from "@/types";
 import { RecipeForm } from "@/components";
 
 import styles from "./EditRecipe.module.scss";

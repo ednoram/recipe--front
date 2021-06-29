@@ -8,9 +8,9 @@ import styles from "./RecipeForm.module.scss";
 interface Props {
   titleState: [string, Dispatch<SetStateAction<string>>];
   summaryState: [string, Dispatch<SetStateAction<string>>];
+  stepsState: [string[], Dispatch<SetStateAction<string[]>>];
   mealTypeState: [string, Dispatch<SetStateAction<MealType>>];
-  stepsState: [Array<string>, Dispatch<SetStateAction<Array<string>>>];
-  ingredientsState: [Array<string>, Dispatch<SetStateAction<Array<string>>>];
+  ingredientsState: [string[], Dispatch<SetStateAction<string[]>>];
 }
 
 const InputsList: FC<Props> = ({
