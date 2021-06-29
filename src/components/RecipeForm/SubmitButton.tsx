@@ -16,12 +16,12 @@ interface Props {
 const SubmitButton: FC<Props> = ({ recipe, recipeID }) => {
   const router = useRouter();
 
-  const handleDeleteRecipe = () => {
+  const handleDeleteRecipe = async () => {
     if (confirm("Are you sure you want to delete recipe?")) {
-      deleteRecipe(recipeID);
+      await deleteRecipe(recipeID);
 
       Router.events.off("routeChangeStart", handleRouteChange);
-      setTimeout(() => router.push(MY_ACCOUNT_ROUTE), 1000);
+      router.push(MY_ACCOUNT_ROUTE);
     }
   };
 

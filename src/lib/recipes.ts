@@ -17,12 +17,19 @@ export const postRecipe = async (recipe: Recipe): Promise<Recipe> => {
   );
 };
 
-export const patchRecipe = (id: string | undefined, recipe: Recipe): void => {
+export const patchRecipe = async (
+  id: string | undefined,
+  recipe: Recipe
+): Promise<Recipe> => {
   const token = localStorage.getItem("token");
-  API.patch(`/api/recipes/${id}`, { ...recipe, token });
+  return await API.patch(`/api/recipes/${id}`, { ...recipe, token }).then(
+    (res) => res.data
+  );
 };
 
-export const deleteRecipe = (id: string | undefined): void => {
+export const deleteRecipe = async (id: string | undefined): Promise<Recipe> => {
   const token = localStorage.getItem("token");
-  API.delete(`/api/recipes/${id}`, { data: { token } });
+  return await API.delete(`/api/recipes/${id}`, { data: { token } }).then(
+    (res) => res.data
+  );
 };

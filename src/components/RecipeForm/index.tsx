@@ -73,11 +73,11 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
       };
 
       if (recipe) {
-        patchRecipe(recipeID, newRecipe);
-        setTimeout(() => router.push(`/recipe/${recipeID}`), 1000);
+        await patchRecipe(recipeID, newRecipe);
+        router.push(`/recipe/${recipeID}`);
       } else {
         const { _id } = await postRecipe(newRecipe);
-        setTimeout(() => router.push(`/recipe/${_id}`), 1000);
+        router.push(`/recipe/${_id}`);
       }
 
       Router.events.off("routeChangeStart", handleRouteChange);
