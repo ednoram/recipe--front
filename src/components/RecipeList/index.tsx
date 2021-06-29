@@ -22,9 +22,20 @@ const RecipeList: FC<Props> = ({ recipes, favorites }) => {
 
   const dispatch = useDispatch();
 
-  const filteredRecipes = favorites
-    ? recipes.filter(({ _id }) => _id && user?.favoriteRecipes?.includes(_id))
-    : recipes;
+  const filteredRecipes =
+    favorites && user?.favoriteRecipes
+      ? user.favoriteRecipes.map(
+          (id) =>
+            recipes.find(({ _id }) => _id === id) || {
+              _id: id,
+              title: null,
+              date: null,
+              email: null,
+              mealType: null,
+              imagePath: null,
+            }
+        )
+      : recipes;
 
   const sortedRecipes =
     filteredRecipes &&
@@ -70,17 +81,21 @@ const RecipeList: FC<Props> = ({ recipes, favorites }) => {
                   </div>
                 )}
               </div>
-              <h4 className={styles.list_item__title}>{title}</h4>
+              <h4 className={styles.list_item__title}>
+                {title || "Recipe was not found"}
+              </h4>
               <p className={styles.list_item__meal_type}>{mealType}</p>
               <Link href={`/user/${email}`}>
                 <a className={styles.list_item__user_email}>{email}</a>
               </Link>
             </div>
-            <div className="flex_right">
-              <Link href={`/recipe/${_id}`}>
-                <a className={styles.list_item__link}>Open→</a>
-              </Link>
-            </div>
+            {email && (
+              <div className="flex_right">
+                <Link href={`/recipe/${_id}`}>
+                  <a className={styles.list_item__link}>Open→</a>
+                </Link>
+              </div>
+            )}
           </div>
         </li>
       ))}
