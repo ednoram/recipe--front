@@ -10,9 +10,11 @@ export const getUserRecipes = async (email: string): Promise<Array<Recipe>> =>
 export const getRecipeById = async (id: string): Promise<Recipe> =>
   await API.get(`/api/recipes/${id}`).then((res) => res.data);
 
-export const postRecipe = (recipe: Recipe): void => {
+export const postRecipe = async (recipe: Recipe): Promise<Recipe> => {
   const token = localStorage.getItem("token");
-  API.post("/api/recipes", { ...recipe, token });
+  return await API.post("/api/recipes", { ...recipe, token }).then(
+    (res) => res.data
+  );
 };
 
 export const patchRecipe = (id: string | undefined, recipe: Recipe): void => {
