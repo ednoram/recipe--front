@@ -16,7 +16,8 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
   const stepsInputRef = useRef<HTMLInputElement>(null);
   const ingredientsInputRef = useRef<HTMLInputElement>(null);
 
-  const items = type === "ingredients" ? ingredients : steps;
+  const typeIsIngredients = type === "ingredients";
+  const items = typeIsIngredients ? ingredients : steps;
 
   const handleAddIngredient = () => {
     if (ingredientsInputRef.current && ingredientsInputRef.current.value) {
@@ -51,13 +52,34 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
   }) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      if (type === "ingredients" && ingredientsInputRef.current) {
+      if (typeIsIngredients && ingredientsInputRef.current) {
         handleAddIngredient();
       } else if (type === "steps" && stepsInputRef.current) {
         handleAddStep();
       }
     }
   };
+
+  const itemsList = (
+    <ul>
+      {items.map((item, index) => (
+        <li key={nanoid()} className={`${styles.form__add_item_item} flex`}>
+          <p>
+            {typeIsIngredients
+              ? "" + item[0].toUpperCase() + item.slice(1)
+              : index + 1 + ". "}
+          </p>
+          <button
+            type="button"
+            onClick={() => removeItem(type, index)}
+            className={styles.form__remove_item_button}
+          >
+            X
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
     <div className={styles.form__add_items}>
@@ -67,34 +89,17 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
           placeholder="Add item"
           onKeyDown={handleInputKeyDown}
           className={styles.form__add_input}
-          ref={type === "ingredients" ? ingredientsInputRef : stepsInputRef}
+          ref={typeIsIngredients ? ingredientsInputRef : stepsInputRef}
         />
         <button
           type="button"
           className={styles.form__add_button}
-          onClick={type === "ingredients" ? handleAddIngredient : handleAddStep}
+          onClick={typeIsIngredients ? handleAddIngredient : handleAddStep}
         >
           Add
         </button>
       </div>
-      <ul>
-        {items.map((item, index) => (
-          <li key={nanoid()} className={`${styles.form__add_item_item} flex`}>
-            <p>
-              {type === "steps"
-                ? index + 1 + ". "
-                : "" + item[0].toUpperCase() + item.slice(1)}
-            </p>
-            <button
-              type="button"
-              onClick={() => removeItem(type, index)}
-              className={styles.form__remove_item_button}
-            >
-              X
-            </button>
-          </li>
-        ))}
-      </ul>
+      {itemsList}
     </div>
   );
 };

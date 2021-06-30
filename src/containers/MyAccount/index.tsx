@@ -20,45 +20,51 @@ const MyAccount: FC = () => {
     recipes &&
     recipes.filter((recipe: Recipe) => recipe.email === userData?.email);
 
-  return (
-    <main className={styles.content}>
-      {isLoggedIn ? (
-        <>
-          <section>
-            <div className="container">
-              <h1 className={styles.content__title}>My Account</h1>
-              <Link href={EDIT_ACCOUNT_ROUTE}>
-                <a className="color-primary">Edit Account</a>
-              </Link>
-              <div className={styles.content__account_info}>
-                <h2 className="color-primary">{userData?.name}</h2>
-                <p className={styles.content__email}>{userData?.email}</p>
-              </div>
-            </div>
-          </section>
-          <section>
-            <div className="container">
-              <div className={styles.content__my_recipes}>
-                <h2 className="color-primary">My Recipes</h2>
-                <RecipeList recipes={myRecipes} />
-              </div>
-            </div>
-          </section>
-          <section>
-            <div className="container">
-              <div className={styles.content__favorite_recipes}>
-                <h2 className="color-primary">Favorite Recipes</h2>
-                <RecipeList recipes={recipes} favorites />
-              </div>
-            </div>
-          </section>
-        </>
-      ) : (
+  const loggedInSections = (
+    <>
+      <section>
         <div className="container">
           <h1 className={styles.content__title}>My Account</h1>
-          <p className="auth_problem_p">You are not logged in</p>
+          <Link href={EDIT_ACCOUNT_ROUTE}>
+            <a className="color-primary">Edit Account</a>
+          </Link>
+          <div className={styles.content__account_info}>
+            <h2 className="color-primary">{userData?.name}</h2>
+            <p className={styles.content__email}>{userData?.email}</p>
+          </div>
         </div>
-      )}
+      </section>
+      <section>
+        <div className="container">
+          <div className={styles.content__my_recipes}>
+            <h2 className="color-primary">My Recipes</h2>
+            <RecipeList recipes={myRecipes} />
+          </div>
+        </div>
+      </section>
+      <section>
+        <div className="container">
+          <div className={styles.content__favorite_recipes}>
+            <h2 className="color-primary">Favorite Recipes</h2>
+            <RecipeList recipes={recipes} favorites />
+          </div>
+        </div>
+      </section>
+    </>
+  );
+
+  const notLoggedInSection = (
+    <section>
+      <div className="container">
+        <h1 className={styles.content__title}>My Account</h1>
+        <p className="auth_problem_p">You are not logged in</p>
+      </div>
+    </section>
+  );
+
+  return (
+    <main className={styles.content}>
+      {isLoggedIn ? loggedInSections : notLoggedInSection}
     </main>
   );
 };

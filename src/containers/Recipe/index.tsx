@@ -71,6 +71,36 @@ const RecipePage: FC<Props> = ({ recipe }) => {
     </div>
   );
 
+  const topGrid = (
+    <div className={styles.content__top_grid}>
+      <div>
+        <p>
+          By:{" "}
+          <Link href={`/user/${recipe.email}`}>
+            <a className="color-primary">{recipe.email}</a>
+          </Link>
+          {isOwnRecipe && " (you)"}
+        </p>
+        <p className={styles.content__date}>
+          Creation Date: <span className="color-primary">{dateString}</span>
+        </p>
+        <p className={styles.content__meal_type}>
+          Meal type:
+          <span className="color-primary"> {recipe.mealType}</span>
+        </p>
+        <div style={imageDivStyle} className={styles.content__image} />
+      </div>
+      <div>
+        <div>
+          <h3 className={styles.content__heading}>Summary</h3>
+          <p>{recipe.summary || "No Summary"}</p>
+        </div>
+        {ingredientsDiv}
+        {stepsDiv}
+      </div>
+    </div>
+  );
+
   return (
     <section>
       <div className={`${styles.content} container`}>
@@ -85,33 +115,7 @@ const RecipePage: FC<Props> = ({ recipe }) => {
           </Link>
         )}
         <h1 className={styles.content__title}>{recipe.title}</h1>
-        <div className={styles.content__top_grid}>
-          <div>
-            <p>
-              By:{" "}
-              <Link href={`/user/${recipe.email}`}>
-                <a className="color-primary">{recipe.email}</a>
-              </Link>
-              {isOwnRecipe && " (you)"}
-            </p>
-            <p className={styles.content__date}>
-              Creation Date: <span className="color-primary">{dateString}</span>
-            </p>
-            <p className={styles.content__meal_type}>
-              Meal type:
-              <span className="color-primary"> {recipe.mealType}</span>
-            </p>
-            <div style={imageDivStyle} className={styles.content__image} />
-          </div>
-          <div>
-            <div>
-              <h3 className={styles.content__heading}>Summary</h3>
-              <p>{recipe.summary || "No Summary"}</p>
-            </div>
-            {ingredientsDiv}
-            {stepsDiv}
-          </div>
-        </div>
+        {topGrid}
       </div>
     </section>
   );

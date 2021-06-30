@@ -48,6 +48,17 @@ const AuthForm: FC<Props> = ({ register }) => {
     }, 1000);
   };
 
+  const errorsList = (
+    <ul className={styles.form__errors_list}>
+      {(errors[0] || errors.length > 1) &&
+        errors.map((message) => (
+          <li key={nanoid()}>
+            <p>• {message}</p>
+          </li>
+        ))}
+    </ul>
+  );
+
   return isLoggedIn ? (
     <p className="auth_problem_p">You are logged in.</p>
   ) : (
@@ -95,16 +106,7 @@ const AuthForm: FC<Props> = ({ register }) => {
         <li>
           <button className={styles.form__submit_button}>Continue</button>
         </li>
-        <li>
-          <ul className={styles.form__errors_list}>
-            {(errors[0] || errors.length > 1) &&
-              errors.map((message) => (
-                <li key={nanoid()}>
-                  <p>• {message}</p>
-                </li>
-              ))}
-          </ul>
-        </li>
+        <li>{errorsList}</li>
       </ul>
     </form>
   );

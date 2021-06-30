@@ -98,23 +98,25 @@ const AccountForm: FC<Props> = ({ changePassword, deleteAccount }) => {
     </label>
   );
 
+  const inputs = changePassword ? (
+    changePasswordInputs
+  ) : deleteAccount ? (
+    deleteAccountInputs
+  ) : (
+    <label>
+      <span className="color-primary">Name:</span>
+      <input
+        value={name}
+        placeholder="Name"
+        className={styles.form__input}
+        onChange={(e) => setName(e.target.value)}
+      />
+    </label>
+  );
+
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      {changePassword ? (
-        changePasswordInputs
-      ) : deleteAccount ? (
-        deleteAccountInputs
-      ) : (
-        <label>
-          <span className="color-primary">Name:</span>
-          <input
-            value={name}
-            placeholder="Name"
-            className={styles.form__input}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-      )}
+      {inputs}
       <button
         className={
           deleteAccount
