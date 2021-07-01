@@ -1,0 +1,13 @@
+.content {
+  padding: 60px 0 120px;
+
+  &__title {
+    color: $color-primary;
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  &__list {
+    margin-top: 40px;
+  }
+}

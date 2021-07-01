@@ -4,5 +4,6 @@ export const REGISTER_ROUTE = "/register";
 export const MY_ACCOUNT_ROUTE = "/my-account";
 export const POST_RECIPE_ROUTE = "/post-recipe";
 export const EDIT_ACCOUNT_ROUTE = "/my-account/edit";
+export const DISCOVER_RECIPES_ROUTE = "/discover-recipes";
 export const DELETE_ACCOUNT_ROUTE = "/my-account/edit/delete";
 export const CHANGE_PASSWORD_ROUTE = "/my-account/edit/password";

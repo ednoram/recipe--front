@@ -9,3 +9,4 @@ export { default as EditRecipeContainer } from "./EditRecipe";
 export { default as EditAccountContainer } from "./EditAccount";
 export { default as DeleteAccountContainer } from "./DeleteAccount";
 export { default as ChangePasswordContainer } from "./ChangePassword";
+export { default as DiscoverRecipesContainer } from "./DiscoverRecipes";
