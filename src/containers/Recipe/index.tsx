@@ -43,20 +43,24 @@ const RecipePage: FC<Props> = ({ recipe }) => {
   const ingredientsDiv = (
     <div className={styles.content__ingredients}>
       <h3 className={styles.content__heading}>Ingredients</h3>
-      <ul className={styles.content__steps_list}>
-        {recipe.ingredients.map((ingredient) => (
-          <li key={nanoid()}>
-            <p className="capitalize_first_letter">{ingredient}</p>
-          </li>
-        ))}
-      </ul>
+      {recipe.ingredients.length > 0 ? (
+        <ul className={styles.content__steps_list}>
+          {recipe.ingredients.map((ingredient) => (
+            <li key={nanoid()}>
+              <p className="capitalize_first_letter">{ingredient}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No Ingredients</p>
+      )}
     </div>
   );
 
   const stepsDiv = (
     <div className={styles.content__preparation}>
       <h3 className={styles.content__heading}>Preparation</h3>
-      {recipe.steps.length > 1 ? (
+      {recipe.steps.length > 0 ? (
         <ul className={styles.content__steps_list}>
           {recipe.steps.map((step, index) => (
             <li key={nanoid()}>
@@ -71,8 +75,8 @@ const RecipePage: FC<Props> = ({ recipe }) => {
     </div>
   );
 
-  const topGrid = (
-    <div className={styles.content__top_grid}>
+  const grid = (
+    <div className={styles.content__grid}>
       <div>
         <p>
           By:{" "}
@@ -115,7 +119,7 @@ const RecipePage: FC<Props> = ({ recipe }) => {
           </Link>
         )}
         <h1 className={styles.content__title}>{recipe.title}</h1>
-        {topGrid}
+        {grid}
       </div>
     </section>
   );

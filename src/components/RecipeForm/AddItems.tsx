@@ -13,36 +13,41 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
   const [steps, setSteps] = stepsState;
   const [ingredients, setIngredients] = ingredientsState;
 
-  const stepsInputRef = useRef<HTMLInputElement>(null);
-  const ingredientsInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const typeIsIngredients = type === "ingredients";
   const items = typeIsIngredients ? ingredients : steps;
 
   const handleAddIngredient = () => {
-    if (ingredientsInputRef.current && ingredientsInputRef.current.value) {
-      const inputValue = ingredientsInputRef.current.value;
+    const refCurrent = inputRef.current;
+
+    if (refCurrent && refCurrent.value) {
+      const inputValue = refCurrent.value;
       setIngredients([...ingredients, inputValue]);
-      ingredientsInputRef.current.value = "";
+      refCurrent.value = "";
     }
   };
 
   const handleAddStep = () => {
-    if (stepsInputRef.current && stepsInputRef.current.value) {
-      const inputValue = stepsInputRef.current.value;
+    const refCurrent = inputRef.current;
+
+    if (refCurrent && refCurrent.value) {
+      const inputValue = refCurrent.value;
       setSteps([...steps, inputValue]);
-      stepsInputRef.current.value = "";
+      refCurrent.value = "";
     }
   };
 
-  const removeItem = (type: "ingredients" | "steps", index: number) => {
-    if (type === "ingredients") {
-      setIngredients([
+  const removeItem = (typeIsIngredients: boolean, index: number) => {
+    if (typeIsIngredients) {
+      const newIngredients = [
         ...ingredients.slice(0, index),
         ...ingredients.slice(index + 1),
-      ]);
+      ];
+      setIngredients(newIngredients);
     } else {
-      setSteps([...steps.slice(0, index), ...steps.slice(index + 1)]);
+      const newSteps = [...steps.slice(0, index), ...steps.slice(index + 1)];
+      setSteps(newSteps);
     }
   };
 
@@ -52,9 +57,9 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
   }) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      if (typeIsIngredients && ingredientsInputRef.current) {
+      if (typeIsIngredients && inputRef.current) {
         handleAddIngredient();
-      } else if (type === "steps" && stepsInputRef.current) {
+      } else if (inputRef.current) {
         handleAddStep();
       }
     }
@@ -66,12 +71,12 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
         <li key={nanoid()} className={`${styles.form__add_item_item} flex`}>
           <p>
             {typeIsIngredients
-              ? "" + item[0].toUpperCase() + item.slice(1)
-              : index + 1 + ". "}
+              ? item[0].toUpperCase() + item.slice(1)
+              : index + 1 + ". " + item[0].toUpperCase() + item.slice(1)}
           </p>
           <button
             type="button"
-            onClick={() => removeItem(type, index)}
+            onClick={() => removeItem(typeIsIngredients, index)}
             className={styles.form__remove_item_button}
           >
             X
@@ -85,11 +90,11 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
     <div className={styles.form__add_items}>
       <div className="flex">
         <input
+          ref={inputRef}
           maxLength={250}
           placeholder="Add item"
           onKeyDown={handleInputKeyDown}
           className={styles.form__add_input}
-          ref={typeIsIngredients ? ingredientsInputRef : stepsInputRef}
         />
         <button
           type="button"

@@ -3,15 +3,15 @@ import { useState, useEffect, FC } from "react";
 import styles from "./Hamburger.module.scss";
 
 interface Props {
-  func?: () => void;
+  clickFunc?: () => void;
 }
 
-const Hamburger: FC<Props> = ({ func }) => {
+const Hamburger: FC<Props> = ({ clickFunc }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
-    func && func();
+    clickFunc && clickFunc();
   };
 
   useEffect(() => {

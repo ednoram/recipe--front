@@ -1,40 +1,18 @@
-import { useState, FC } from "react";
+import { useState, FC, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
 
-import {
-  LOGIN_ROUTE,
-  REGISTER_ROUTE,
-  MY_ACCOUNT_ROUTE,
-  POST_RECIPE_ROUTE,
-} from "@/constants";
-import { useIsLoggedIn } from "@/hooks";
 import { Hamburger } from "@/components";
-import { logoutUser } from "@/store/actions";
 
+import Navigation from "./Navigation";
 import styles from "./Header.module.scss";
 
 const Header: FC = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const isLoggedIn = useIsLoggedIn();
-
-  const { pathname } = router;
-
-  const logout = () => {
-    if (confirm("Are you sure you want to log out?")) {
-      dispatch(logoutUser());
-      router.push("/");
-    }
-  };
-
   const handleHamburgerClick = () => {
     const body = document.querySelector("body");
 
-    if (body) {
+    if (body?.style) {
       if (!menuIsOpen) {
         body.style.overflow = "hidden";
       } else {
@@ -45,70 +23,30 @@ const Header: FC = () => {
     setMenuIsOpen(!menuIsOpen);
   };
 
-  const notLoggedInLinks = (
-    <>
-      <li>
-        <Link href={LOGIN_ROUTE}>
-          <a className={styles.content__nav_link}>
-            {pathname === LOGIN_ROUTE ? <u>Log In</u> : "Log In"}
-          </a>
-        </Link>
-      </li>
-      <li>
-        <Link href={REGISTER_ROUTE}>
-          <a className={styles.content__nav_link}>
-            {pathname === REGISTER_ROUTE ? <u>Register</u> : "Register"}
-          </a>
-        </Link>
-      </li>
-    </>
-  );
+  useEffect(() => {
+    return () => {
+      const body = document.querySelector("body");
+      if (body?.style.overflow) {
+        body.style.overflow = "unset";
+      }
+    };
+  }, []);
 
-  const loggedInLinks = (
-    <>
-      <li>
-        <Link href={POST_RECIPE_ROUTE}>
-          <a className={styles.content__nav_link}>
-            {pathname === POST_RECIPE_ROUTE ? (
-              <u>Post Recipe</u>
-            ) : (
-              "Post Recipe"
-            )}
-          </a>
-        </Link>
-      </li>
-      <li>
-        <Link href={MY_ACCOUNT_ROUTE}>
-          <a className={styles.content__nav_link}>
-            {pathname === MY_ACCOUNT_ROUTE ? <u>My Account</u> : "My Account"}
-          </a>
-        </Link>
-      </li>
-      <li>
-        <button
-          name="logout"
-          onClick={logout}
-          className={styles.content__logout_button}
-        >
-          Log Out
-        </button>
-      </li>
-    </>
-  );
-
-  const navigation = (
-    <nav>
-      <ul className={styles.content__nav_list}>
-        <li>
-          <Link href="/">
-            <a className={styles.content__nav_link}>
-              {pathname === "/" ? <u>Home</u> : "Home"}
-            </a>
-          </Link>
-        </li>
-        {isLoggedIn ? loggedInLinks : notLoggedInLinks}
-      </ul>
-    </nav>
+  const hamburger = (
+    <div className={styles.content__hamburger}>
+      <Hamburger clickFunc={handleHamburgerClick} />
+      <div
+        className={`${styles.hamburger_menu} ${
+          menuIsOpen ? styles.hamburger_menu_open : ""
+        }`}
+      >
+        {menuIsOpen && (
+          <div className={styles.hamburger_menu__content}>
+            <Navigation />
+          </div>
+        )}
+      </div>
+    </div>
   );
 
   return (
@@ -121,21 +59,10 @@ const Header: FC = () => {
                 <h3 className={styles.content__logo_text}>Recipe</h3>
               </a>
             </Link>
-            <div className={styles.content__navigation}>{navigation}</div>
-            <div className={styles.content__hamburger}>
-              <Hamburger func={handleHamburgerClick} />
-              <div
-                className={`${styles.hamburger_menu} ${
-                  menuIsOpen ? styles.hamburger_menu_open : ""
-                }`}
-              >
-                {menuIsOpen && (
-                  <div className={styles.hamburger_menu__content}>
-                    {navigation}
-                  </div>
-                )}
-              </div>
+            <div className={styles.content__navigation}>
+              <Navigation />
             </div>
+            {hamburger}
           </div>
         </div>
       </div>
