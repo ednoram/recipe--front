@@ -3,9 +3,10 @@ import { nanoid } from "nanoid";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
+import { registerUser } from "@/lib";
 import { useIsLoggedIn } from "@/hooks";
+import { loginUser } from "@/store/actions";
 import { MY_ACCOUNT_ROUTE } from "@/constants";
-import { loginUser, registerUser } from "@/store/actions";
 
 import styles from "./AuthForm.module.scss";
 
@@ -19,26 +20,24 @@ const AuthForm: FC<Props> = ({ register }) => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
-  const [errors, setErrors] = useState<string[]>([""]);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const router = useRouter();
   const dispatch = useDispatch();
   const isLoggedIn = useIsLoggedIn();
 
-  const updateErrors = (errors: string[]) => setErrors(errors);
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (register) {
-      dispatch(
-        registerUser(
-          { name, email, password, passwordConfirmation },
-          updateErrors
-        )
+      registerUser(
+        { name, email, password, passwordConfirmation },
+        setLoading,
+        setErrors
       );
     } else {
-      dispatch(loginUser({ email, password }, updateErrors));
+      dispatch(loginUser({ email, password }, setErrors));
     }
 
     setTimeout(() => {
@@ -57,6 +56,12 @@ const AuthForm: FC<Props> = ({ register }) => {
           </li>
         ))}
     </ul>
+  );
+
+  const loadingLi = loading && (
+    <li>
+      <p className="color-primary">Loading...</p>
+    </li>
   );
 
   return isLoggedIn ? (
@@ -104,9 +109,12 @@ const AuthForm: FC<Props> = ({ register }) => {
           </li>
         )}
         <li>
-          <button className={styles.form__submit_button}>Continue</button>
+          <button disabled={loading} className={styles.form__submit_button}>
+            Continue
+          </button>
         </li>
-        <li>{errorsList}</li>
+        <li>{!loading && errorsList}</li>
+        {loadingLi}
       </ul>
     </form>
   );

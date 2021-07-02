@@ -8,4 +8,9 @@
     text-align: center;
     color: $color-primary;
   }
+
+  &__verify_link {
+    color: $color-primary;
+    margin-top: 16px;
+  }
 }

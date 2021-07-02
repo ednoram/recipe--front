@@ -6,8 +6,8 @@ import { useConfirmBeforeLeaving } from "@/hooks";
 import { getRecipes, getRecipeById } from "@/lib";
 import { EditRecipeContainer } from "@/containers";
 
-const PAGE_TITLE = "Recipe";
-const PAGE_DESCRIPTION = "Recipe page";
+const PAGE_TITLE = "Edit Recipe";
+const PAGE_DESCRIPTION = "Edit Recipe page";
 
 interface Props {
   recipe: Recipe;

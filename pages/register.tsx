@@ -4,7 +4,7 @@ import { Layout } from "@/components";
 import { RegisterContainer } from "@/containers";
 
 const PAGE_TITLE = "Register";
-const PAGE_DESCRIPTION = "Register Page";
+const PAGE_DESCRIPTION = "Register page";
 
 const Register: FC = () => {
   return (

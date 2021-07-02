@@ -6,3 +6,4 @@ export { default as Hamburger } from "./Hamburger";
 export { default as RecipeList } from "./RecipeList";
 export { default as RecipeForm } from "./RecipeForm";
 export { default as AccountForm } from "./AccountForm";
+export { default as VerificationForm } from "./VerificationForm";

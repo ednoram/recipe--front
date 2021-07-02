@@ -16,7 +16,7 @@ interface Props {
 
 const AccountForm: FC<Props> = ({ changePassword, deleteAccount }) => {
   const [name, setName] = useState<string>("");
-  const [errors, setErrors] = useState<string[]>([""]);
+  const [errors, setErrors] = useState<string[]>([]);
   const [newPassword, setNewPassword] = useState<string>("");
   const [currentPassword, setCurrentPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
@@ -86,16 +86,13 @@ const AccountForm: FC<Props> = ({ changePassword, deleteAccount }) => {
   );
 
   const deleteAccountInputs = (
-    <label>
-      <span className="color-primary">Password:</span>
-      <input
-        type="password"
-        placeholder="Password"
-        value={currentPassword}
-        className={styles.form__input}
-        onChange={(e) => setCurrentPassword(e.target.value)}
-      />
-    </label>
+    <input
+      type="password"
+      placeholder="Password"
+      value={currentPassword}
+      className={styles.form__input}
+      onChange={(e) => setCurrentPassword(e.target.value)}
+    />
   );
 
   const inputs = changePassword ? (
@@ -103,15 +100,22 @@ const AccountForm: FC<Props> = ({ changePassword, deleteAccount }) => {
   ) : deleteAccount ? (
     deleteAccountInputs
   ) : (
-    <label>
-      <span className="color-primary">Name:</span>
-      <input
-        value={name}
-        placeholder="Name"
-        className={styles.form__input}
-        onChange={(e) => setName(e.target.value)}
-      />
-    </label>
+    <input
+      value={name}
+      placeholder="Name"
+      className={styles.form__input}
+      onChange={(e) => setName(e.target.value)}
+    />
+  );
+
+  const errorsList = (
+    <ul className={styles.form__errors}>
+      {errors.map((message) => (
+        <li key={nanoid()}>
+          <p>{message}</p>
+        </li>
+      ))}
+    </ul>
   );
 
   return (
@@ -140,11 +144,7 @@ const AccountForm: FC<Props> = ({ changePassword, deleteAccount }) => {
           </div>
         </div>
       )}
-      <div className={styles.form__errors}>
-        {errors.map((message) => (
-          <p key={nanoid()}>{message}</p>
-        ))}
-      </div>
+      {errorsList}
     </form>
   );
 };

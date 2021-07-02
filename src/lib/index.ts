@@ -6,5 +6,5 @@ export {
   getRecipeById,
   getUserRecipes,
 } from "./recipes";
-export { getUsers } from "./user";
 export { postImage } from "./uploads";
+export { getUsers, registerUser, sendVerificationEmail } from "./user";

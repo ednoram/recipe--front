@@ -5,8 +5,8 @@ import { User, Recipe } from "@/types";
 import { UserContainer } from "@/containers";
 import { getUsers, getUserRecipes } from "@/lib";
 
-const PAGE_TITLE = "Recipe";
-const PAGE_DESCRIPTION = "Recipe page";
+const PAGE_TITLE = "User";
+const PAGE_DESCRIPTION = "User page";
 
 interface Props {
   user: User;

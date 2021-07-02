@@ -3,7 +3,6 @@ export {
   patchUser,
   logoutUser,
   deleteUser,
-  registerUser,
   loginWithToken,
   addFavoriteRecipe,
   changeUserPassword,

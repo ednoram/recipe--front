@@ -4,7 +4,7 @@ import { Layout } from "@/components";
 import { LogInContainer } from "@/containers";
 
 const PAGE_TITLE = "Log In";
-const PAGE_DESCRIPTION = "Log In Page";
+const PAGE_DESCRIPTION = "Log In page";
 
 const LogInPage: FC = () => {
   return (
