@@ -2,8 +2,8 @@ import { FC } from "react";
 import { Router, useRouter } from "next/router";
 
 import { Recipe } from "@/types";
-import { deleteRecipe } from "@/lib";
 import { handleRouteChange } from "@/utils";
+import { deleteRecipe } from "@/store/actions";
 import { MY_ACCOUNT_ROUTE } from "@/constants";
 
 import styles from "./RecipeForm.module.scss";

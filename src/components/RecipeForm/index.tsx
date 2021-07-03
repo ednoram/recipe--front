@@ -3,7 +3,7 @@ import { Router, useRouter } from "next/router";
 
 import { MealType, Recipe } from "@/types";
 import { handleRouteChange } from "@/utils";
-import { postRecipe, patchRecipe, postImage } from "@/lib";
+import { postRecipe, patchRecipe, postImage } from "@/store/actions";
 
 import FormGrid from "./FormGrid";
 import SubmitButton from "./SubmitButton";

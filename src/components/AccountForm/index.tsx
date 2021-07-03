@@ -1,12 +1,14 @@
 import { useState, useEffect, FC, FormEvent } from "react";
-import Link from "next/link";
 import { nanoid } from "nanoid";
 import { useSelector, useDispatch } from "react-redux";
 
-import { recoverUserPassword } from "@/lib";
+import {
+  patchUser,
+  deleteUser,
+  changeUserPassword,
+  recoverUserPassword,
+} from "@/store/actions";
 import { selectUserData } from "@/store/selectors";
-import { CHANGE_PASSWORD_ROUTE, DELETE_ACCOUNT_ROUTE } from "@/constants";
-import { patchUser, deleteUser, changeUserPassword } from "@/store/actions";
 
 import styles from "./AccountForm.module.scss";
 import ChangePasswordInputs from "./ChangePasswordInputs";
@@ -126,20 +128,6 @@ const AccountForm: FC<Props> = ({
       <button className={submitButtonClassName}>
         {deleteSubmitText || changeSubmitText || defaultSubmitText}
       </button>
-      {!changePassword && !deleteAccount && !recoverPassword && (
-        <div>
-          <div>
-            <Link href={CHANGE_PASSWORD_ROUTE}>
-              <a className={styles.form__password_link}>Change Password</a>
-            </Link>
-          </div>
-          <div>
-            <Link href={DELETE_ACCOUNT_ROUTE}>
-              <a className={styles.form__delete_link}>Delete Account</a>
-            </Link>
-          </div>
-        </div>
-      )}
       {errorsList}
     </form>
   );

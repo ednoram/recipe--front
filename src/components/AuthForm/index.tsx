@@ -3,10 +3,9 @@ import { nanoid } from "nanoid";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
-import { registerUser } from "@/lib";
 import { useIsLoggedIn } from "@/hooks";
-import { loginUser } from "@/store/actions";
 import { MY_ACCOUNT_ROUTE } from "@/constants";
+import { loginUser, registerUser } from "@/store/actions";
 
 import styles from "./AuthForm.module.scss";
 
@@ -60,7 +59,9 @@ const AuthForm: FC<Props> = ({ register }) => {
 
   const loadingLi = loading && (
     <li>
-      <p className="color-primary">Loading...</p>
+      <div className="flex_center">
+        <p className="color-primary">Loading...</p>
+      </div>
     </li>
   );
 

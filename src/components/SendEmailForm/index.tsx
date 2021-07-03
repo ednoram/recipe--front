@@ -1,7 +1,7 @@
 import { useState, FC, FormEvent } from "react";
 import { nanoid } from "nanoid";
 
-import { sendRecoveryEmail, sendVerificationEmail } from "@/lib";
+import { sendRecoveryEmail, sendVerificationEmail } from "@/store/actions";
 
 import styles from "./SendEmailForm.module.scss";
 
@@ -51,7 +51,11 @@ const SendEmailForm: FC<Props> = ({ recovery }) => {
       {success && !loading && (
         <p className={styles.form__success_message}>{success}</p>
       )}
-      {loading && <p className={styles.form__loading_p}>Loading...</p>}
+      {loading && (
+        <div className="flex_center">
+          <p className={styles.form__loading_p}>Loading...</p>
+        </div>
+      )}
     </form>
   );
 };

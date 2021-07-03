@@ -1,16 +1,2 @@
-export {
-  getRecipes,
-  postRecipe,
-  patchRecipe,
-  deleteRecipe,
-  getRecipeById,
-  getUserRecipes,
-} from "./recipes";
-export {
-  getUsers,
-  registerUser,
-  sendRecoveryEmail,
-  recoverUserPassword,
-  sendVerificationEmail,
-} from "./user";
-export { postImage } from "./uploads";
+export { getUsers } from "./user";
+export { getRecipes, getRecipeById, getUserRecipes } from "./recipes";

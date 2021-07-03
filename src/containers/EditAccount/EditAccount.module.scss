@@ -12,4 +12,14 @@
     color: $color-primary;
     margin-top: 20px;
   }
+
+  &__password_link {
+    color: $color-primary;
+    margin-top: 20px;
+  }
+
+  &__delete_link {
+    color: $color-red;
+    margin-top: 16px;
+  }
 }

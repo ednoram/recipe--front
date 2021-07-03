@@ -3,9 +3,14 @@ export {
   patchUser,
   logoutUser,
   deleteUser,
+  registerUser,
   loginWithToken,
   addFavoriteRecipe,
+  sendRecoveryEmail,
   changeUserPassword,
+  recoverUserPassword,
   removeFavoriteRecipe,
+  sendVerificationEmail,
 } from "./user";
-export { setRecipes } from "./recipes";
+export { postImage } from "./uploads";
+export { setRecipes, postRecipe, patchRecipe, deleteRecipe } from "./recipes";
