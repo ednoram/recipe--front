@@ -7,8 +7,8 @@ type EmptyRecipe = {
   imagePath: null;
 };
 
-const createEmptyRecipe = (id: string): EmptyRecipe => ({
-  _id: id,
+const createEmptyRecipe = (_id: string): EmptyRecipe => ({
+  _id,
   date: null,
   title: null,
   email: null,
