@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AuthForm } from "@/components";
 
 import styles from "./LogIn.module.scss";
-import { VERIFY_ACCOUNT_ROUTE } from "@/constants";
+import { RECOVER_PASSWORD_ROUTE, VERIFY_ACCOUNT_ROUTE } from "@/constants";
 
 const LogIn: FC = () => {
   return (
@@ -15,8 +15,13 @@ const LogIn: FC = () => {
           <div className="form_container">
             <AuthForm />
             <div className="flex_center">
+              <Link href={RECOVER_PASSWORD_ROUTE}>
+                <a className={styles.content__link}>Forgot Password</a>
+              </Link>
+            </div>
+            <div className="flex_center">
               <Link href={VERIFY_ACCOUNT_ROUTE}>
-                <a className={styles.content__verify_link}>Verify Account</a>
+                <a className={styles.content__link}>Verify Account</a>
               </Link>
             </div>
           </div>

@@ -1,11 +1,15 @@
 import { useState, FC, FormEvent } from "react";
 import { nanoid } from "nanoid";
 
-import { sendVerificationEmail } from "@/lib";
+import { sendRecoveryEmail, sendVerificationEmail } from "@/lib";
 
-import styles from "./VerificationForm.module.scss";
+import styles from "./SendEmailForm.module.scss";
 
-const VerificationForm: FC = () => {
+interface Props {
+  recovery?: boolean;
+}
+
+const SendEmailForm: FC<Props> = ({ recovery }) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
@@ -13,7 +17,12 @@ const VerificationForm: FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    sendVerificationEmail(email, setLoading, setErrors, setSuccess);
+
+    if (recovery) {
+      sendRecoveryEmail(email, setLoading, setErrors, setSuccess);
+    } else {
+      sendVerificationEmail(email, setLoading, setErrors, setSuccess);
+    }
   };
 
   const errorsList = (
@@ -35,8 +44,8 @@ const VerificationForm: FC = () => {
         className={styles.form__input}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button disabled={loading} className={styles.form__send_again_button}>
-        Send Again
+      <button disabled={loading} className={styles.form__submit_button}>
+        {recovery ? "Send Email" : "Send Again"}
       </button>
       {!loading && errorsList}
       {success && !loading && (
@@ -47,4 +56,4 @@ const VerificationForm: FC = () => {
   );
 };
 
-export default VerificationForm;
+export default SendEmailForm;

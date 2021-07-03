@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
 
-import { VerificationForm } from "@/components";
+import { SendEmailForm } from "@/components";
 
 import styles from "./VerifyAccount.module.scss";
 import { LOGIN_ROUTE } from "@/constants";
@@ -21,7 +21,7 @@ const VerifyAccount: FC = () => {
               </Link>{" "}
               and log in.
             </p>
-            <VerificationForm />
+            <SendEmailForm />
           </div>
         </div>
       </section>

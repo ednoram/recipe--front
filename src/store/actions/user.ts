@@ -1,8 +1,7 @@
-import { API, MY_ACCOUNT_ROUTE } from "@/constants";
 import { processErrors } from "@/utils";
 import { UserData, Dispatch } from "@/types";
-
-import { SET_USER_DATA } from "../reducers/user";
+import { API, MY_ACCOUNT_ROUTE } from "@/constants";
+import { SET_USER_DATA } from "@/store/reducers/user";
 
 const setUserData = (data: UserData | null) => ({
   type: SET_USER_DATA,
