@@ -67,7 +67,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
     >
       <button
         type="button"
-        name="cancel"
+        name="Cancel"
         onClick={() => router.back()}
         className={styles.form__cancel_button}
       >

@@ -44,7 +44,11 @@ const SendEmailForm: FC<Props> = ({ recovery }) => {
         className={styles.form__input}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <button disabled={loading} className={styles.form__submit_button}>
+      <button
+        name="Send Email"
+        disabled={loading}
+        className={styles.form__submit_button}
+      >
         {recovery ? "Send Email" : "Send Again"}
       </button>
       {!loading && errorsList}

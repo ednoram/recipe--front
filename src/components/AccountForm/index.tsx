@@ -125,7 +125,7 @@ const AccountForm: FC<Props> = ({
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       {inputs}
-      <button className={submitButtonClassName}>
+      <button name="submit" className={submitButtonClassName}>
         {deleteSubmitText || changeSubmitText || defaultSubmitText}
       </button>
       {errorsList}

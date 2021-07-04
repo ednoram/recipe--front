@@ -58,7 +58,7 @@ const Navigation: FC = () => {
       </li>
       <li>
         <button
-          name="logout"
+          name="Log Out"
           onClick={logout}
           className={styles.content__logout_button}
         >

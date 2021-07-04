@@ -1,0 +1,48 @@
+.container {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  padding: 0 28px 32px;
+
+  @include breakpoint(phone-large) {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    padding: 120px 20px;
+  }
+
+  &__flex_div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include breakpoint(tablet) {
+      flex-direction: column;
+    }
+  }
+
+  &__title {
+    color: $color-primary;
+    text-align: center;
+  }
+
+  &__message {
+    text-align: center;
+    margin-top: 14px;
+  }
+
+  &__recipe_icon {
+    fill: $color-primary;
+    transform: scale(0.4);
+    margin: -150px -128px -150px -150px;
+
+    @include breakpoint(tablet) {
+      margin: -150px -150px -128px -150px;
+    }
+  }
+
+  &__return_link {
+    color: $color-primary;
+    margin-top: 20px;
+  }
+}

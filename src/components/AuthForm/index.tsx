@@ -110,7 +110,11 @@ const AuthForm: FC<Props> = ({ register }) => {
           </li>
         )}
         <li>
-          <button disabled={loading} className={styles.form__submit_button}>
+          <button
+            name="Continue"
+            disabled={loading}
+            className={styles.form__submit_button}
+          >
             Continue
           </button>
         </li>

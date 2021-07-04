@@ -76,6 +76,7 @@ const AddItems: FC<Props> = ({ type, stepsState, ingredientsState }) => {
           </p>
           <button
             type="button"
+            name="Remove Item"
             onClick={() => removeItem(typeIsIngredients, index)}
             className={styles.form__remove_item_button}
           >
