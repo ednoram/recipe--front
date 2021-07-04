@@ -1,16 +1,24 @@
-.top_section {
-  width: 100%;
-  background-image: url(/main-background.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 120px 0;
+.logged_in_content {
+  padding-top: 0 !important;
+}
 
-  @include breakpoint(tablet-small) {
-    padding: 100px 0;
+.content {
+  padding: 60px 0 120px;
+
+  &__top_section {
+    width: 100%;
+    background-image: url(/main-background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 120px 0;
+
+    @include breakpoint(tablet-small) {
+      padding: 100px 0;
+    }
   }
 
-  &__text_div {
+  &__top_text_div {
     max-width: 400px;
   }
 
@@ -39,17 +47,17 @@
     padding: 10px 32px;
     margin-top: 32px;
   }
-}
 
-.discover_section {
-  padding: 50px 0 100px;
+  &__discover_section {
+    margin-top: 64px;
+  }
 
-  &__link {
+  &__see_more_link {
     color: $color-primary;
     margin-top: 28px;
   }
-}
 
-.home_h1 {
-  margin-top: 60px;
+  &__contact_us_section {
+    margin-top: 64px;
+  }
 }

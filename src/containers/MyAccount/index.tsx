@@ -2,6 +2,8 @@ import { FC } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
+import EditIcon from "public/edit-icon.svg";
+
 import { Recipe } from "@/types";
 import { useIsLoggedIn } from "@/hooks";
 import { RecipeList } from "@/components";
@@ -26,7 +28,10 @@ const MyAccount: FC = () => {
         <div className="container">
           <h1 className={styles.content__title}>My Account</h1>
           <Link href={EDIT_ACCOUNT_ROUTE}>
-            <a className="color-primary">Edit Account</a>
+            <a className="color-primary">
+              <EditIcon className={styles.content__edit_icon} />
+              Edit Account
+            </a>
           </Link>
           <div className={styles.content__account_info}>
             <h2 className="color-primary">{userData?.name}</h2>

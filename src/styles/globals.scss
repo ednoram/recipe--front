@@ -26,6 +26,10 @@ select {
   color: $color-primary;
 }
 
+.color-black {
+  color: black;
+}
+
 .container {
   max-width: 1110px;
   width: 100%;
@@ -85,7 +89,8 @@ select {
 
 .flex_right {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .capitalize_first_letter::first-letter {

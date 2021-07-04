@@ -1,0 +1,29 @@
+.content {
+  &__contact_us_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 32px;
+
+    @include breakpoint(tablet-small) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__contact_us_item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__contact_us_subtitle {
+    color: $color-primary;
+    padding-bottom: 6px;
+  }
+
+  &__contact_us_icon {
+    fill: $color-primary;
+    height: 40px;
+  }
+}

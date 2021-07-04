@@ -1,5 +1,13 @@
 .content {
-  padding: 60px 0 100px;
+  padding: 60px 0 120px;
+
+  &__edit_icon {
+    display: inline-block;
+    height: 20px;
+    fill: $color-primary;
+    padding-right: 2px;
+    margin-bottom: -2px;
+  }
 
   &__title {
     text-align: center;
