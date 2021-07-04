@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from "react";
+import { useState, FC } from "react";
 
 import styles from "./Hamburger.module.scss";
 
@@ -14,14 +14,10 @@ const Hamburger: FC<Props> = ({ clickFunc }) => {
     clickFunc && clickFunc();
   };
 
-  useEffect(() => {
-    setTimeout(() => window.scroll(0, 0), 100);
-  }, [isOpen]);
-
   return (
     <div
-      className={`${styles.container} ${isOpen ? styles.change : ""}`}
       onClick={handleClick}
+      className={`${styles.container} ${isOpen ? styles.change : ""}`}
     >
       <div className={styles.bar1}></div>
       <div className={styles.bar2}></div>

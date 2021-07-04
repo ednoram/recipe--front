@@ -21,6 +21,7 @@ const Header: FC = () => {
     }
 
     setMenuIsOpen(!menuIsOpen);
+    setTimeout(() => window.scroll(0, 0), 150);
   };
 
   useEffect(() => {

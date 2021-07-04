@@ -29,15 +29,17 @@ const Navigation: FC = () => {
     }
   };
 
+  const discoverLink = (
+    <Link href={DISCOVER_RECIPES_ROUTE}>
+      <a className={styles.content__nav_link}>
+        {pathname === DISCOVER_RECIPES_ROUTE ? <u>Discover</u> : "Discover"}
+      </a>
+    </Link>
+  );
+
   const loggedInLinks = (
     <>
-      <li>
-        <Link href={DISCOVER_RECIPES_ROUTE}>
-          <a className={styles.content__nav_link}>
-            {pathname === DISCOVER_RECIPES_ROUTE ? <u>Discover</u> : "Discover"}
-          </a>
-        </Link>
-      </li>
+      <li>{discoverLink}</li>
       <li>
         <Link href={POST_RECIPE_ROUTE}>
           <a className={styles.content__nav_link}>
@@ -70,6 +72,7 @@ const Navigation: FC = () => {
 
   const notLoggedInLinks = (
     <>
+      <li>{discoverLink}</li>
       <li>
         <Link href={LOGIN_ROUTE}>
           <a className={styles.content__nav_link}>

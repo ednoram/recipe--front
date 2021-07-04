@@ -19,7 +19,7 @@ const ContactUs: FC = () => {
               Phone Number
             </h3>
             <a className="color-black" href="tel:0037455210014">
-              +374 552100014
+              +374 55 210014
             </a>
           </div>
         </div>
