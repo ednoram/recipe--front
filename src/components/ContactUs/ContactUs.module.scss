@@ -14,7 +14,7 @@
   &__contact_us_item {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px;
   }
 
   &__contact_us_subtitle {
@@ -24,6 +24,6 @@
 
   &__contact_us_icon {
     fill: $color-primary;
-    height: 40px;
+    height: 42px;
   }
 }

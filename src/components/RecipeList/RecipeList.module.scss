@@ -46,6 +46,12 @@
 
     @include breakpoint(phone-large) {
       height: 200px;
+      background-size: 50%;
+    }
+
+    @include breakpoint(phone) {
+      height: 200px;
+      background-size: 60%;
     }
   }
 

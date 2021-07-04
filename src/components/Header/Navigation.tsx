@@ -8,6 +8,7 @@ import {
   REGISTER_ROUTE,
   MY_ACCOUNT_ROUTE,
   POST_RECIPE_ROUTE,
+  DISCOVER_RECIPES_ROUTE,
 } from "@/constants";
 import { useIsLoggedIn } from "@/hooks";
 import { logoutUser } from "@/store/actions";
@@ -30,6 +31,13 @@ const Navigation: FC = () => {
 
   const loggedInLinks = (
     <>
+      <li>
+        <Link href={DISCOVER_RECIPES_ROUTE}>
+          <a className={styles.content__nav_link}>
+            {pathname === DISCOVER_RECIPES_ROUTE ? <u>Discover</u> : "Discover"}
+          </a>
+        </Link>
+      </li>
       <li>
         <Link href={POST_RECIPE_ROUTE}>
           <a className={styles.content__nav_link}>

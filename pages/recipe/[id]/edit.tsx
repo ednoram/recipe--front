@@ -2,12 +2,10 @@ import { FC } from "react";
 
 import { Layout } from "@/components";
 import { Path, Recipe } from "@/types";
+import { processTitle } from "@/utils";
 import { useConfirmBeforeLeaving } from "@/hooks";
 import { getRecipes, getRecipeById } from "@/lib";
 import { EditRecipeContainer } from "@/containers";
-
-const PAGE_TITLE = "Edit Recipe";
-const PAGE_DESCRIPTION = "Edit Recipe page";
 
 interface Props {
   recipe: Recipe;
@@ -16,6 +14,11 @@ interface Props {
 
 const EditRecipePage: FC<Props> = ({ recipe, recipeID }) => {
   useConfirmBeforeLeaving();
+
+  const recipeTitle = processTitle(recipe.title);
+
+  const PAGE_TITLE = `Edit Recipe: ${recipeTitle}`;
+  const PAGE_DESCRIPTION = "Edit Recipe page";
 
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>

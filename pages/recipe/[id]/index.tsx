@@ -2,17 +2,20 @@ import { FC } from "react";
 
 import { Layout } from "@/components";
 import { Recipe, Path } from "@/types";
+import { processTitle } from "@/utils";
 import { RecipeContainer } from "@/containers";
 import { getRecipes, getRecipeById } from "@/lib";
-
-const PAGE_TITLE = "Recipe";
-const PAGE_DESCRIPTION = "Recipe page";
 
 interface Props {
   recipe: Recipe;
 }
 
 const RecipePage: FC<Props> = ({ recipe }) => {
+  const recipeTitle = processTitle(recipe.title);
+
+  const PAGE_TITLE = `Recipe: ${recipeTitle}`;
+  const PAGE_DESCRIPTION = "Recipe page";
+
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <RecipeContainer recipe={recipe} />

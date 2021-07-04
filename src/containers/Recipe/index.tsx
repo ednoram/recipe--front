@@ -4,6 +4,8 @@ import { nanoid } from "nanoid";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
+import EditIcon from "public/edit-icon.svg";
+
 import { Recipe } from "@/types";
 import { getImageURL } from "@/utils";
 import { selectUserData } from "@/store/selectors";
@@ -115,7 +117,10 @@ const RecipePage: FC<Props> = ({ recipe }) => {
         </div>
         {isOwnRecipe && (
           <Link href={`${router.asPath}/edit`}>
-            <a className={styles.content__edit_link}>Edit</a>
+            <a className={styles.content__edit_link}>
+              <EditIcon className={styles.content__edit_icon} />
+              Edit
+            </a>
           </Link>
         )}
         <h1 className={styles.content__title}>{recipe.title}</h1>

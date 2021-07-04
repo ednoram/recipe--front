@@ -7,7 +7,7 @@ import { Layout } from "@/components";
 import { setRecipes } from "@/store/actions";
 import { HomeContainer } from "@/containers";
 
-const PAGE_TITLE = "Home Page";
+const PAGE_TITLE = "Home";
 const PAGE_DESCRIPTION = "Home page";
 
 interface Props {

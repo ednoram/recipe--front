@@ -12,6 +12,13 @@
     margin-top: 20px;
   }
 
+  &__edit_icon {
+    height: 20px;
+    fill: $color-primary;
+    padding-right: 2px;
+    margin-bottom: -2px;
+  }
+
   &__grid {
     display: grid;
     gap: 80px;

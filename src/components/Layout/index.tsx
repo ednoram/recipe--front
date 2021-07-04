@@ -13,7 +13,7 @@ const Layout: FC<Props> = ({ title, description, children }) => {
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>{title} | Recipe</title>
         <meta name="description" content={description} />
       </Head>
       <Header />
