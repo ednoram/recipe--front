@@ -7,8 +7,7 @@ import StarIcon from "public/star-icon.svg";
 
 import { Recipe } from "@/types";
 import { selectUserData } from "@/store/selectors";
-import { createEmptyRecipe, getImageURL } from "@/utils";
-import { addFavoriteRecipe, removeFavoriteRecipe } from "@/store/actions";
+import { createEmptyRecipe, getImageURL, toggleFavorite } from "@/utils";
 
 import styles from "./RecipeList.module.scss";
 
@@ -37,11 +36,6 @@ const RecipeList: FC<Props> = ({ recipes, favorites }) => {
         : -1
     );
 
-  const toggleFavorite = (id: string) =>
-    user?.favoriteRecipes?.includes(id)
-      ? dispatch(removeFavoriteRecipe(id))
-      : dispatch(addFavoriteRecipe(id));
-
   const getImageDivStyle = (imagePath?: string | null) =>
     imagePath
       ? {
@@ -68,9 +62,10 @@ const RecipeList: FC<Props> = ({ recipes, favorites }) => {
                 style={getImageDivStyle(imagePath)}
               >
                 {user && (
-                  <div onClick={() => _id && toggleFavorite(_id)}>
-                    <StarIcon className={getStarClassName(_id)} />
-                  </div>
+                  <StarIcon
+                    className={getStarClassName(_id)}
+                    onClick={() => _id && toggleFavorite(user, _id, dispatch)}
+                  />
                 )}
               </div>
               <h4 className={styles.list_item__title}>

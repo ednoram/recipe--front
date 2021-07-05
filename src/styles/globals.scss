@@ -93,10 +93,6 @@ select {
   align-items: center;
 }
 
-.capitalize_first_letter::first-letter {
-  text-transform: capitalize;
-}
-
 .hidden {
   display: none !important;
 }

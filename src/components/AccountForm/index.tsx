@@ -31,7 +31,7 @@ const AccountForm: FC<Props> = ({
   const [currentPassword, setCurrentPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
 
-  const userData = useSelector(selectUserData);
+  const user = useSelector(selectUserData);
 
   const dispatch = useDispatch();
 
@@ -40,7 +40,7 @@ const AccountForm: FC<Props> = ({
 
     if (changePassword) {
       const body = { currentPassword, newPassword, passwordConfirmation };
-      dispatch(changeUserPassword(userData._id, body, setErrors));
+      dispatch(changeUserPassword(user._id, body, setErrors));
       return;
     }
 
@@ -51,7 +51,7 @@ const AccountForm: FC<Props> = ({
         )
       ) {
         dispatch(
-          deleteUser(userData._id, { password: currentPassword }, setErrors)
+          deleteUser(user._id, { password: currentPassword }, setErrors)
         );
       }
       return;
@@ -63,14 +63,14 @@ const AccountForm: FC<Props> = ({
       return;
     }
 
-    dispatch(patchUser(userData._id, { name }, setErrors));
+    dispatch(patchUser(user._id, { name }, setErrors));
   };
 
   useEffect(() => {
-    if (userData?.name && !name) {
-      setName(userData.name);
+    if (user?.name && !name) {
+      setName(user.name);
     }
-  }, [userData]);
+  }, [user]);
 
   const deleteAccountInputs = (
     <input

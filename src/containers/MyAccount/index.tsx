@@ -7,20 +7,19 @@ import EditIcon from "public/edit-icon.svg";
 import { Recipe } from "@/types";
 import { useIsLoggedIn } from "@/hooks";
 import { RecipeList } from "@/components";
-import { EDIT_ACCOUNT_ROUTE } from "@/constants";
 import { selectRecipes, selectUserData } from "@/store/selectors";
+import { EDIT_ACCOUNT_ROUTE, POST_RECIPE_ROUTE } from "@/constants";
 
 import styles from "./MyAccount.module.scss";
 
 const MyAccount: FC = () => {
   const recipes = useSelector(selectRecipes);
-  const userData = useSelector(selectUserData);
+  const user = useSelector(selectUserData);
 
   const isLoggedIn = useIsLoggedIn();
 
   const myRecipes: Recipe[] =
-    recipes &&
-    recipes.filter((recipe: Recipe) => recipe.email === userData?.email);
+    recipes && recipes.filter((recipe: Recipe) => recipe.email === user?.email);
 
   const loggedInSections = (
     <>
@@ -34,9 +33,12 @@ const MyAccount: FC = () => {
             </a>
           </Link>
           <div className={styles.content__account_info}>
-            <h2 className="color-primary">{userData?.name}</h2>
-            <p className={styles.content__email}>{userData?.email}</p>
+            <h2 className="color-primary">{user?.name}</h2>
+            <p className={styles.content__email}>{user?.email}</p>
           </div>
+          <Link href={POST_RECIPE_ROUTE}>
+            <a className={styles.content__post_recipe_link}>Post Recipe</a>
+          </Link>
         </div>
       </section>
       <section>

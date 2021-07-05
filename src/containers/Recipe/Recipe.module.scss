@@ -2,6 +2,33 @@
   padding-top: 60px;
   padding-bottom: 120px;
 
+  &__star_and_title {
+    display: grid;
+    grid-template-columns: 32px auto;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__star_icon {
+    height: 28px;
+    width: 28px;
+    fill: black;
+    opacity: 0.7;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  &__star_icon:hover {
+    opacity: 1;
+    fill: $color-yellow;
+  }
+
+  &__star_icon_active {
+    @extend .content__star_icon;
+    opacity: 1;
+    fill: $color-yellow;
+  }
+
   &__heading {
     color: $color-primary;
     padding-bottom: 6px;
@@ -23,7 +50,7 @@
     display: grid;
     gap: 80px;
     grid-template-columns: 500px 1fr;
-    margin-top: 16px;
+    margin-top: 28px;
 
     @include breakpoint(laptop-small) {
       display: flex;
@@ -60,16 +87,20 @@
     background-repeat: no-repeat;
     margin-top: 28px;
 
+    @include breakpoint(laptop-small) {
+      height: 450px;
+    }
+
+    @include breakpoint(tablet) {
+      height: 400px;
+    }
+
     @include breakpoint(phone-large) {
       height: 280px;
     }
-
-    @include breakpoint(phone) {
-      height: 200px;
-    }
   }
 
-  &__ingredients {
+  &__items_div {
     margin-top: 28px;
   }
 
@@ -77,13 +108,13 @@
     margin-top: 28px;
   }
 
-  &__steps_list {
+  &__items_list {
     li {
       margin-top: 16px;
     }
   }
 
-  &__step_heading {
+  &__steps_heading {
     color: $color-primary;
     padding-bottom: 4px;
   }

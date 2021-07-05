@@ -8,10 +8,12 @@ const Register: FC = () => {
   return (
     <main>
       <section>
-        <div className={`${styles.content} container`}>
-          <h1 className={styles.content__title}>Register</h1>
-          <div className="form_container">
-            <AuthForm register />
+        <div className={styles.content}>
+          <div className="container">
+            <h1 className={styles.content__title}>Register</h1>
+            <div className="form_container">
+              <AuthForm register />
+            </div>
           </div>
         </div>
       </section>

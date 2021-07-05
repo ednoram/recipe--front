@@ -12,9 +12,11 @@ const PostRecipe: FC = () => {
     <main>
       <section>
         {isLoggedIn ? (
-          <div className={`${styles.content} container`}>
-            <h1 className={styles.content__title}>Post Recipe</h1>
-            <RecipeForm />
+          <div className={styles.content}>
+            <div className="container">
+              <h1 className={styles.content__title}>Post Recipe</h1>
+              <RecipeForm />
+            </div>
           </div>
         ) : (
           <p className="auth_problem_p">You are not logged in</p>

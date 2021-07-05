@@ -1,15 +1,17 @@
 import { useMemo, FC } from "react";
 import Link from "next/link";
-import { nanoid } from "nanoid";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import EditIcon from "public/edit-icon.svg";
+import StarIcon from "public/star-icon.svg";
 
 import { Recipe } from "@/types";
-import { getImageURL } from "@/utils";
 import { selectUserData } from "@/store/selectors";
+import { DISCOVER_RECIPES_ROUTE } from "@/constants";
+import { getImageURL, toggleFavorite } from "@/utils";
 
+import ItemsDiv from "./ItemsDiv";
 import styles from "./Recipe.module.scss";
 
 interface Props {
@@ -17,10 +19,11 @@ interface Props {
 }
 
 const RecipePage: FC<Props> = ({ recipe }) => {
-  const userData = useSelector(selectUserData);
+  const user = useSelector(selectUserData);
   const router = useRouter();
+  const dispatch = useDispatch();
 
-  const isOwnRecipe = recipe.email === userData?.email;
+  const isOwnRecipe = recipe.email === user?.email;
 
   const imageDivStyle = useMemo(
     () =>
@@ -42,40 +45,10 @@ const RecipePage: FC<Props> = ({ recipe }) => {
         })
       : "unknown";
 
-  const ingredientsDiv = (
-    <div className={styles.content__ingredients}>
-      <h3 className={styles.content__heading}>Ingredients</h3>
-      {recipe.ingredients.length > 0 ? (
-        <ul className={styles.content__steps_list}>
-          {recipe.ingredients.map((ingredient) => (
-            <li key={nanoid()}>
-              <p className="capitalize_first_letter">{ingredient}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No Ingredients</p>
-      )}
-    </div>
-  );
-
-  const stepsDiv = (
-    <div className={styles.content__preparation}>
-      <h3 className={styles.content__heading}>Preparation</h3>
-      {recipe.steps.length > 0 ? (
-        <ul className={styles.content__steps_list}>
-          {recipe.steps.map((step, index) => (
-            <li key={nanoid()}>
-              <h5 className={styles.content__step_heading}>Step {index + 1}</h5>
-              <p>{step[0].toUpperCase() + step.slice(1)}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No Steps</p>
-      )}
-    </div>
-  );
+  const getStarClassName = (id?: string) =>
+    id && user?.favoriteRecipes?.includes(id)
+      ? styles.content__star_icon_active
+      : styles.content__star_icon;
 
   const grid = (
     <div className={styles.content__grid}>
@@ -101,30 +74,42 @@ const RecipePage: FC<Props> = ({ recipe }) => {
           <h3 className={styles.content__heading}>Summary</h3>
           <p>{recipe.summary || "No Summary"}</p>
         </div>
-        {ingredientsDiv}
-        {stepsDiv}
+        <ItemsDiv type="ingredients" recipe={recipe} />
+        <ItemsDiv type="steps" recipe={recipe} />
       </div>
     </div>
   );
 
   return (
     <section>
-      <div className={`${styles.content} container`}>
-        <div>
-          <Link href="/">
-            <a className="color-primary">← Home</a>
-          </Link>
+      <div className={styles.content}>
+        <div className="container">
+          <div>
+            <Link href={DISCOVER_RECIPES_ROUTE}>
+              <a className="color-primary">← Discover Recipes</a>
+            </Link>
+          </div>
+          {isOwnRecipe && (
+            <Link href={`${router.asPath}/edit`}>
+              <a className={styles.content__edit_link}>
+                <EditIcon className={styles.content__edit_icon} />
+                Edit
+              </a>
+            </Link>
+          )}
+          <div className={styles.content__star_and_title}>
+            {user && (
+              <StarIcon
+                className={getStarClassName(recipe._id)}
+                onClick={() =>
+                  recipe._id && toggleFavorite(user, recipe._id, dispatch)
+                }
+              />
+            )}
+            <h1 className={styles.content__title}>{recipe.title}</h1>
+          </div>
+          {grid}
         </div>
-        {isOwnRecipe && (
-          <Link href={`${router.asPath}/edit`}>
-            <a className={styles.content__edit_link}>
-              <EditIcon className={styles.content__edit_icon} />
-              Edit
-            </a>
-          </Link>
-        )}
-        <h1 className={styles.content__title}>{recipe.title}</h1>
-        {grid}
       </div>
     </section>
   );
