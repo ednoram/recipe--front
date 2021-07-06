@@ -48,11 +48,11 @@ const CommentItem: FC<Props> = ({ comment, recipeId }) => {
           <>
             <EditIcon
               onClick={toggleEditing}
-              ariaLabel="Open edit comment form"
+              aria-label="Open edit comment form"
               className={styles.content__edit_comment_icon}
             />
             <DeleteIcon
-              ariaLabel="Delete comment"
+              aria-label="Delete comment"
               onClick={() => handleDeleteComment(comment._id)}
               className={styles.content__delete_comment_icon}
             />
