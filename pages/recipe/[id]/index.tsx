@@ -1,16 +1,17 @@
 import { FC } from "react";
 
 import { Layout } from "@/components";
-import { Recipe, Path } from "@/types";
 import { processTitle } from "@/utils";
 import { RecipeContainer } from "@/containers";
-import { getRecipes, getRecipeById } from "@/lib";
+import { Recipe, Path, RecipeComment } from "@/types";
+import { getRecipes, getRecipeById, getRecipeComments } from "@/lib";
 
 interface Props {
   recipe: Recipe;
+  recipeComments: RecipeComment[];
 }
 
-const RecipePage: FC<Props> = ({ recipe }) => {
+const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
   const recipeTitle = processTitle(recipe.title);
 
   const PAGE_TITLE = `Recipe: ${recipeTitle}`;
@@ -18,7 +19,7 @@ const RecipePage: FC<Props> = ({ recipe }) => {
 
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
-      <RecipeContainer recipe={recipe} />
+      <RecipeContainer recipe={recipe} recipeComments={recipeComments} />
     </Layout>
   );
 };
@@ -47,10 +48,11 @@ export const getStaticProps = async ({
   params: { id: string };
 }): Promise<{ props: Props } | { notFound: boolean }> => {
   try {
-    const recipe: Recipe = await getRecipeById(params.id);
+    const recipe = await getRecipeById(params.id);
+    const recipeComments = await getRecipeComments(params.id);
 
     return {
-      props: { recipe },
+      props: { recipe, recipeComments },
     };
   } catch {
     return {

@@ -1,11 +1,4 @@
-type EmptyRecipe = {
-  _id: string;
-  date: null;
-  title: null;
-  email: null;
-  mealType: null;
-  imagePath: null;
-};
+import { EmptyRecipe } from "@/types";
 
 const createEmptyRecipe = (_id: string): EmptyRecipe => ({
   _id,

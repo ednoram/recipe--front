@@ -6,3 +6,4 @@ export { default as addProgressBar } from "./addProgressBar";
 export { default as toggleFavorite } from "./toggleFavorite";
 export { default as handleRouteChange } from "./handleRouteChange";
 export { default as createEmptyRecipe } from "./createEmptyRecipe";
+export { default as blankRecipeComment } from "./blankRecipeComment";

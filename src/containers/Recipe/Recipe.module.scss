@@ -2,7 +2,7 @@
   padding-top: 60px;
   padding-bottom: 120px;
 
-  &__star_and_title {
+  &__title_grid {
     display: grid;
     grid-template-columns: 32px auto;
     align-items: center;
@@ -69,7 +69,7 @@
     margin-top: 10px;
   }
 
-  &__date {
+  &__date_p {
     margin-top: 6px;
   }
 
@@ -117,5 +117,64 @@
   &__steps_heading {
     color: $color-primary;
     padding-bottom: 4px;
+  }
+
+  &__comments_section {
+    margin-top: 40px;
+  }
+
+  &__comments_form {
+    margin-top: 20px;
+  }
+
+  &__comment_input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 10px 4px;
+  }
+
+  &__comment_submit_button {
+    padding: 10px 20px;
+    background-color: $color-primary;
+    color: white;
+    margin-top: 20px;
+  }
+
+  &__comment_cancel_button {
+    color: $color-red;
+    background: none;
+    padding: 10px 20px;
+    margin-left: 12px;
+  }
+
+  &__comments_list {
+    margin-top: 20px;
+
+    li {
+      padding: 16px 0;
+    }
+  }
+
+  &__comment_email {
+    margin-top: 6px;
+  }
+
+  &__delete_comment_icon {
+    display: inline-block;
+    fill: $color-red;
+    width: 28px;
+    cursor: pointer;
+    padding-left: 2px;
+    margin-bottom: -4px;
+  }
+
+  &__edit_comment_icon {
+    display: inline-block;
+    fill: $color-primary;
+    width: 28px;
+    cursor: pointer;
+    padding-left: 4px;
+    margin-bottom: -4px;
   }
 }

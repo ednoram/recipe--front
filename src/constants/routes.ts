@@ -1,3 +1,4 @@
+export const USER_ROUTE = "/user";
 export const LOGIN_ROUTE = "/login";
 export const RECIPE_ROUTE = "/recipe";
 export const REGISTER_ROUTE = "/register";

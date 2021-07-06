@@ -1,7 +1,7 @@
 import { useState, FC, FormEvent } from "react";
 import { Router, useRouter } from "next/router";
 
-import { MealType, Recipe } from "@/types";
+import { MealTypeType, Recipe } from "@/types";
 import { handleRouteChange } from "@/utils";
 import { postRecipe, patchRecipe, postImage } from "@/store/actions";
 
@@ -16,13 +16,15 @@ interface Props {
 
 const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
   const [image, setImage] = useState<File | null>(null);
+  const [mealType, setMealType] = useState<MealTypeType>(
+    recipe?.mealType || "any"
+  );
   const [ingredients, setIngredients] = useState<string[]>(
     recipe?.ingredients || []
   );
   const [title, setTitle] = useState(recipe?.title || "");
   const [summary, setSummary] = useState(recipe?.summary || "");
   const [steps, setSteps] = useState<string[]>(recipe?.steps || []);
-  const [mealType, setMealType] = useState<MealType>(recipe?.mealType || "any");
 
   const router = useRouter();
 
@@ -30,7 +32,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
     e.preventDefault();
 
     if (!title) {
-      alert("Title cannot be empty");
+      alert("Title can not be empty");
       return;
     }
 

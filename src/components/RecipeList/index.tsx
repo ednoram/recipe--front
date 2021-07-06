@@ -7,6 +7,7 @@ import StarIcon from "public/star-icon.svg";
 
 import { Recipe } from "@/types";
 import { selectUserData } from "@/store/selectors";
+import { RECIPE_ROUTE, USER_ROUTE } from "@/constants";
 import { createEmptyRecipe, getImageURL, toggleFavorite } from "@/utils";
 
 import styles from "./RecipeList.module.scss";
@@ -31,8 +32,8 @@ const RecipeList: FC<Props> = ({ recipes, favorites }) => {
   const sortedRecipes =
     filteredRecipes &&
     filteredRecipes.sort((a, b) =>
-      a.date && b.date
-        ? new Date(b.date).getTime() - new Date(a.date).getTime()
+      a.updatedAt && b.updatedAt
+        ? new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
         : -1
     );
 
@@ -72,13 +73,13 @@ const RecipeList: FC<Props> = ({ recipes, favorites }) => {
                 {title || "Recipe was not found"}
               </h4>
               <p className={styles.list_item__meal_type}>{mealType}</p>
-              <Link href={`/user/${email}`}>
+              <Link href={`${USER_ROUTE}/${email}`}>
                 <a className={styles.list_item__user_email}>{email}</a>
               </Link>
             </div>
             {email && (
               <div className="flex_right">
-                <Link href={`/recipe/${_id}`}>
+                <Link href={`${RECIPE_ROUTE}/${_id}`}>
                   <a className={styles.list_item__link}>Open→</a>
                 </Link>
               </div>

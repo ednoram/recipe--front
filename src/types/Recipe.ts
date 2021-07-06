@@ -1,21 +1,16 @@
-export type MealType =
-  | "any"
-  | "snack"
-  | "lunch"
-  | "dinner"
-  | "supper"
-  | "breakfast";
+import { MealTypeType } from "@/types";
 
 interface Recipe {
   _id?: string;
   title: string;
-  date?: string;
   email?: string;
   steps: string[];
   summary?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
   imagePath?: string;
-  mealType: MealType;
   ingredients: string[];
+  mealType: MealTypeType;
 }
 
 export default Recipe;

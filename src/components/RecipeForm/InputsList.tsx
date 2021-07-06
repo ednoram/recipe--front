@@ -1,6 +1,6 @@
 import { FC, Dispatch, SetStateAction } from "react";
 
-import { MealType } from "@/types";
+import { MealTypeType } from "@/types";
 
 import AddItems from "./AddItems";
 import styles from "./RecipeForm.module.scss";
@@ -9,7 +9,7 @@ interface Props {
   titleState: [string, Dispatch<SetStateAction<string>>];
   summaryState: [string, Dispatch<SetStateAction<string>>];
   stepsState: [string[], Dispatch<SetStateAction<string[]>>];
-  mealTypeState: [string, Dispatch<SetStateAction<MealType>>];
+  mealTypeState: [string, Dispatch<SetStateAction<MealTypeType>>];
   ingredientsState: [string[], Dispatch<SetStateAction<string[]>>];
 }
 

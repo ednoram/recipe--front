@@ -6,11 +6,12 @@ import {
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import { userReducer, recipesReducer } from "./reducers";
+import { userReducer, recipesReducer, commentsReducer } from "./reducers";
 
 const reducers = combineReducers({
   user: userReducer,
   recipes: recipesReducer,
+  comments: commentsReducer,
 });
 
 const store = createStore(

@@ -1,4 +1,10 @@
 export {
+  setComments,
+  postRecipeComment,
+  patchRecipeComment,
+  deleteRecipeComment,
+} from "./comments";
+export {
   loginUser,
   patchUser,
   logoutUser,

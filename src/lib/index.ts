@@ -1,2 +1,7 @@
+export {
+  getRecipes,
+  getRecipeById,
+  getUserRecipes,
+  getRecipeComments,
+} from "./recipes";
 export { getUsers } from "./user";
-export { getRecipes, getRecipeById, getUserRecipes } from "./recipes";

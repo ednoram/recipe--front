@@ -8,7 +8,7 @@ import {
 } from "react";
 
 import { getImageURL } from "@/utils";
-import { MealType, Recipe } from "@/types";
+import { MealTypeType, Recipe } from "@/types";
 
 import InputsList from "./InputsList";
 import styles from "./RecipeForm.module.scss";
@@ -21,7 +21,7 @@ interface Props {
   titleState: [string, Dispatch<SetStateAction<string>>];
   summaryState: [string, Dispatch<SetStateAction<string>>];
   stepsState: [string[], Dispatch<SetStateAction<string[]>>];
-  mealTypeState: [string, Dispatch<SetStateAction<MealType>>];
+  mealTypeState: [string, Dispatch<SetStateAction<MealTypeType>>];
   imageState: [File | null, Dispatch<SetStateAction<File | null>>];
   ingredientsState: [string[], Dispatch<SetStateAction<string[]>>];
 }

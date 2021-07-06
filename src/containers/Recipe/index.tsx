@@ -1,4 +1,4 @@
-import { useMemo, FC } from "react";
+import { useMemo, FC, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,19 +6,22 @@ import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "public/edit-icon.svg";
 import StarIcon from "public/star-icon.svg";
 
-import { Recipe } from "@/types";
+import { setComments } from "@/store/actions";
+import { Recipe, RecipeComment } from "@/types";
 import { selectUserData } from "@/store/selectors";
 import { DISCOVER_RECIPES_ROUTE } from "@/constants";
 import { getImageURL, toggleFavorite } from "@/utils";
 
 import ItemsDiv from "./ItemsDiv";
 import styles from "./Recipe.module.scss";
+import CommentsSection from "./CommentsSection";
 
 interface Props {
   recipe: Recipe;
+  recipeComments: RecipeComment[];
 }
 
-const RecipePage: FC<Props> = ({ recipe }) => {
+const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
   const user = useSelector(selectUserData);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -36,19 +39,30 @@ const RecipePage: FC<Props> = ({ recipe }) => {
     [recipe.imagePath]
   );
 
-  const dateString =
-    typeof recipe.date === "string"
-      ? new Date(recipe.date).toLocaleDateString("en", {
-          month: "long",
-          year: "numeric",
-          day: "numeric",
-        })
-      : "unknown";
+  const createdAtString = recipe.createdAt
+    ? new Date(recipe.createdAt).toLocaleDateString("en", {
+        month: "long",
+        year: "numeric",
+        day: "numeric",
+      })
+    : "unknown";
+
+  const updatedAtString = recipe.updatedAt
+    ? new Date(recipe.updatedAt).toLocaleDateString("en", {
+        month: "long",
+        year: "numeric",
+        day: "numeric",
+      })
+    : "unknown";
 
   const getStarClassName = (id?: string) =>
     id && user?.favoriteRecipes?.includes(id)
       ? styles.content__star_icon_active
       : styles.content__star_icon;
+
+  useEffect(() => {
+    dispatch(setComments(recipeComments));
+  }, []);
 
   const grid = (
     <div className={styles.content__grid}>
@@ -60,8 +74,11 @@ const RecipePage: FC<Props> = ({ recipe }) => {
           </Link>
           {isOwnRecipe && " (you)"}
         </p>
-        <p className={styles.content__date}>
-          Creation Date: <span className="color-primary">{dateString}</span>
+        <p className={styles.content__date_p}>
+          Created At: <span className="color-primary">{createdAtString}</span>
+        </p>
+        <p className={styles.content__date_p}>
+          Updated At: <span className="color-primary">{updatedAtString}</span>
         </p>
         <p className={styles.content__meal_type}>
           Meal type:
@@ -81,8 +98,8 @@ const RecipePage: FC<Props> = ({ recipe }) => {
   );
 
   return (
-    <section>
-      <div className={styles.content}>
+    <main className={styles.content}>
+      <section>
         <div className="container">
           <div>
             <Link href={DISCOVER_RECIPES_ROUTE}>
@@ -97,7 +114,7 @@ const RecipePage: FC<Props> = ({ recipe }) => {
               </a>
             </Link>
           )}
-          <div className={styles.content__star_and_title}>
+          <div className={user ? styles.content__title_grid : ""}>
             {user && (
               <StarIcon
                 className={getStarClassName(recipe._id)}
@@ -110,8 +127,9 @@ const RecipePage: FC<Props> = ({ recipe }) => {
           </div>
           {grid}
         </div>
-      </div>
-    </section>
+      </section>
+      <CommentsSection recipe={recipe} />
+    </main>
   );
 };
 

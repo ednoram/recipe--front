@@ -1,9 +1,14 @@
+import { Recipe } from "@/types";
 import { API } from "@/constants";
 import { blankRecipe } from "@/utils";
-import { Recipe, RecipeAction } from "@/types";
 import { SET_RECIPES } from "@/store/reducers/recipes";
 
-export const setRecipes = (recipes: Recipe[]): RecipeAction => ({
+interface SetRecipes {
+  type: string;
+  payload: { recipes: Recipe[] };
+}
+
+export const setRecipes = (recipes: Recipe[]): SetRecipes => ({
   type: SET_RECIPES,
   payload: {
     recipes: recipes,
@@ -15,7 +20,7 @@ export const postRecipe = async (recipe: Recipe): Promise<Recipe> => {
     const token = localStorage.getItem("token");
     const { data } = await API.post("/api/recipes", { ...recipe, token });
     return data;
-  } catch (err) {
+  } catch {
     alert("Something went wrong");
     return blankRecipe;
   }
@@ -45,7 +50,7 @@ export const deleteRecipe = async (id: string | undefined): Promise<Recipe> => {
       data: { token },
     });
     return data;
-  } catch (err) {
+  } catch {
     alert("Something went wrong");
     return blankRecipe;
   }
