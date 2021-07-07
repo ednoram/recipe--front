@@ -8,6 +8,7 @@ export { default as Custom404Container } from "./Custom404";
 export { default as PostRecipeContainer } from "./PostRecipe";
 export { default as EditRecipeContainer } from "./EditRecipe";
 export { default as EditAccountContainer } from "./EditAccount";
+export { default as ResetPasswordContainer } from "./ResetPassword";
 export { default as VerifyAccountContainer } from "./VerifyAccount";
 export { default as DeleteAccountContainer } from "./DeleteAccount";
 export { default as ChangePasswordContainer } from "./ChangePassword";

@@ -1,12 +1,13 @@
 import { useState, useEffect, FC, FormEvent } from "react";
 import { nanoid } from "nanoid";
+import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
   patchUser,
   deleteUser,
+  resetUserPassword,
   changeUserPassword,
-  recoverUserPassword,
 } from "@/store/actions";
 import { selectUserData } from "@/store/selectors";
 
@@ -15,25 +16,28 @@ import ChangePasswordInputs from "./ChangePasswordInputs";
 
 interface Props {
   deleteAccount?: boolean;
+  resetPassword?: boolean;
   changePassword?: boolean;
-  recoverPassword?: boolean;
 }
 
 const AccountForm: FC<Props> = ({
   deleteAccount,
+  resetPassword,
   changePassword,
-  recoverPassword,
 }) => {
   const [name, setName] = useState<string>("");
   const [errors, setErrors] = useState<string[]>([]);
-  const [accessToken, setAccessToken] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [currentPassword, setCurrentPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
 
   const user = useSelector(selectUserData);
 
+  const router = useRouter();
   const dispatch = useDispatch();
+
+  const queryEmail = String(router.query.email);
+  const queryToken = String(router.query.token);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -57,9 +61,9 @@ const AccountForm: FC<Props> = ({
       return;
     }
 
-    if (recoverPassword) {
-      const body = { token: accessToken, newPassword, passwordConfirmation };
-      recoverUserPassword(body, setErrors);
+    if (resetPassword) {
+      const body = { newPassword, passwordConfirmation };
+      resetUserPassword(queryEmail, queryToken, body, setErrors);
       return;
     }
 
@@ -83,14 +87,13 @@ const AccountForm: FC<Props> = ({
   );
 
   const inputs =
-    changePassword || recoverPassword ? (
+    changePassword || resetPassword ? (
       <ChangePasswordInputs
-        recoverPassword={recoverPassword}
+        resetPassword={resetPassword}
         passwordConfirmationState={[
           passwordConfirmation,
           setPasswordConfirmation,
         ]}
-        accessTokenState={[accessToken, setAccessToken]}
         newPasswordState={[newPassword, setNewPassword]}
         currentPasswordState={[currentPassword, setCurrentPassword]}
       />

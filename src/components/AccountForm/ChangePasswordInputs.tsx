@@ -3,21 +3,18 @@ import { FC, Dispatch, SetStateAction } from "react";
 import styles from "./AccountForm.module.scss";
 
 interface Props {
-  recoverPassword?: boolean;
-  accessTokenState: [string, Dispatch<SetStateAction<string>>];
+  resetPassword?: boolean;
   newPasswordState: [string, Dispatch<SetStateAction<string>>];
   currentPasswordState: [string, Dispatch<SetStateAction<string>>];
   passwordConfirmationState: [string, Dispatch<SetStateAction<string>>];
 }
 
 const ChangePasswordInputs: FC<Props> = ({
-  accessTokenState,
-  recoverPassword,
+  resetPassword,
   newPasswordState,
   currentPasswordState,
   passwordConfirmationState,
 }) => {
-  const [accessToken, setAccessToken] = accessTokenState;
   const [passwordConfirmation, setPasswordConfirmation] =
     passwordConfirmationState;
   const [newPassword, setNewPassword] = newPasswordState;
@@ -25,17 +22,7 @@ const ChangePasswordInputs: FC<Props> = ({
 
   return (
     <ul className={styles.form__inputs_list}>
-      {recoverPassword && "Copy and paste access access token from your inbox."}
-      {recoverPassword ? (
-        <li>
-          <input
-            value={accessToken}
-            placeholder="Access Token"
-            className={styles.form__input}
-            onChange={(e) => setAccessToken(e.target.value)}
-          />
-        </li>
-      ) : (
+      {!resetPassword && (
         <li>
           <input
             type="password"

@@ -244,9 +244,10 @@ export const sendRecoveryEmail = async (
   }
 };
 
-export const recoverUserPassword = async (
+export const resetUserPassword = async (
+  email: string,
+  token: string,
   body: {
-    token: string;
     newPassword: string;
     passwordConfirmation: string;
   },
@@ -257,7 +258,7 @@ export const recoverUserPassword = async (
   try {
     setErrors([]);
 
-    await API.post("/api/user/recover-password", body);
+    await API.post(`/api/user/reset-password/${email}/${token}`, body);
 
     alert("New password was successfully set.");
     location.href = LOGIN_ROUTE;

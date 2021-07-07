@@ -11,10 +11,10 @@ export {
   deleteUser,
   registerUser,
   loginWithToken,
+  resetUserPassword,
   addFavoriteRecipe,
   sendRecoveryEmail,
   changeUserPassword,
-  recoverUserPassword,
   removeFavoriteRecipe,
   sendVerificationEmail,
 } from "./user";
