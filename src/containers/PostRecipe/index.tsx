@@ -11,16 +11,16 @@ const PostRecipe: FC = () => {
   return (
     <main>
       <section>
-        {isLoggedIn ? (
-          <div className={styles.content}>
-            <div className="container">
-              <h1 className={styles.content__title}>Post Recipe</h1>
+        <div className={styles.content}>
+          <div className="container">
+            <h1 className={styles.content__title}>Post Recipe</h1>
+            {isLoggedIn ? (
               <RecipeForm />
-            </div>
+            ) : (
+              <p className="auth_problem_p">You are not logged in</p>
+            )}
           </div>
-        ) : (
-          <p className="auth_problem_p">You are not logged in</p>
-        )}
+        </div>
       </section>
     </main>
   );

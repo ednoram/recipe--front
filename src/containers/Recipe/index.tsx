@@ -28,6 +28,13 @@ const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
 
   const isOwnRecipe = recipe.email === user?.email;
 
+  const getDateString = (date: Date) =>
+    new Date(date).toLocaleDateString("en", {
+      month: "long",
+      year: "numeric",
+      day: "numeric",
+    });
+
   const imageDivStyle = useMemo(
     () =>
       recipe.imagePath
@@ -40,19 +47,11 @@ const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
   );
 
   const createdAtString = recipe.createdAt
-    ? new Date(recipe.createdAt).toLocaleDateString("en", {
-        month: "long",
-        year: "numeric",
-        day: "numeric",
-      })
+    ? getDateString(recipe.createdAt)
     : "unknown";
 
   const updatedAtString = recipe.updatedAt
-    ? new Date(recipe.updatedAt).toLocaleDateString("en", {
-        month: "long",
-        year: "numeric",
-        day: "numeric",
-      })
+    ? getDateString(recipe.updatedAt)
     : "unknown";
 
   const getStarClassName = (id?: string) =>

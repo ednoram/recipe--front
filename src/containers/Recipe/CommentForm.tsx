@@ -1,9 +1,13 @@
 import { useState, FC, FormEvent, Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
 
+import {
+  postRecipeComment,
+  patchRecipeComment,
+  deleteRecipeComment,
+} from "@/store/actions";
 import { useIsLoggedIn } from "@/hooks";
 import { RecipeComment } from "@/types";
-import { patchRecipeComment, postRecipeComment } from "@/store/actions";
 
 import styles from "./Recipe.module.scss";
 
@@ -19,6 +23,12 @@ const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
 
   const dispatch = useDispatch();
   const isLoggedIn = useIsLoggedIn();
+
+  const handleDeleteComment = (id: string) => {
+    if (confirm("Are you sure you want to delete comment?")) {
+      dispatch(deleteRecipeComment(id));
+    }
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -53,18 +63,30 @@ const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
         className={styles.content__comment_input}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button name="Submit" className={styles.content__comment_submit_button}>
-        {editing ? "Update Comment" : "Post Comment"}
-      </button>
-      {editing && setEditing && (
-        <button
-          name="Cancel Editing"
-          onClick={() => setEditing(false)}
-          className={styles.content__comment_cancel_button}
-        >
-          Cancel
+      <div className={styles.content__comment_buttons}>
+        <button name="Submit" className={styles.content__comment_submit_button}>
+          {editing ? "Update Comment" : "Post Comment"}
         </button>
-      )}
+        {editing && setEditing && comment && (
+          <>
+            <button
+              type="button"
+              name="Delete Comment"
+              className={styles.content__delete_comment_button}
+              onClick={() => handleDeleteComment(comment._id)}
+            >
+              Delete Comment
+            </button>
+            <button
+              name="Cancel Editing"
+              onClick={() => setEditing(false)}
+              className={styles.content__comment_cancel_button}
+            >
+              Cancel
+            </button>
+          </>
+        )}
+      </div>
     </form>
   );
 };

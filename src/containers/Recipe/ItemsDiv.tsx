@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { useState, FC } from "react";
 import { nanoid } from "nanoid";
 
 import { Recipe } from "@/types";
@@ -11,16 +11,20 @@ interface Props {
 }
 
 const ItemsDiv: FC<Props> = ({ recipe, type }) => {
+  const [expanded, setExpanded] = useState(false);
+
   const items = recipe[type];
   const typeIsIngredients = type === "ingredients";
   const listName = typeIsIngredients ? "Ingredients" : "Steps";
 
+  const visibleItems = expanded ? items : items.slice(0, 3);
+
   return (
     <div className={styles.content__items_div}>
       <h3 className={styles.content__heading}>{listName}</h3>
-      {items.length > 0 ? (
+      {visibleItems.length > 0 ? (
         <ul className={styles.content__items_list}>
-          {items.map((item, index) => (
+          {visibleItems.map((item, index) => (
             <li key={nanoid()}>
               {!typeIsIngredients && (
                 <h5 className={styles.content__steps_heading}>
@@ -30,6 +34,15 @@ const ItemsDiv: FC<Props> = ({ recipe, type }) => {
               <p>{item[0].toUpperCase() + item.slice(1)}</p>
             </li>
           ))}
+          {visibleItems.length < items.length && (
+            <button
+              name="Show all"
+              onClick={() => setExpanded(true)}
+              className={styles.content__show_all_items}
+            >
+              Show All
+            </button>
+          )}
         </ul>
       ) : (
         <p>No {listName}</p>

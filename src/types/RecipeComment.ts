@@ -3,6 +3,8 @@ interface RecipeComment {
   email: string;
   message: string;
   recipeId: string;
+  updatedAt: Date;
+  createdAt: Date;
 }
 
 export default RecipeComment;

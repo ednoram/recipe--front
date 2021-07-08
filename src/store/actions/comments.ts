@@ -17,31 +17,22 @@ interface Action {
 
 export const setComments = (comments: RecipeComment[]): Action => ({
   type: SET_COMMENTS,
-  payload: {
-    comments: comments,
-  },
+  payload: { comments },
 });
 
 const addComment = (comment: RecipeComment): Action => ({
   type: ADD_COMMENT,
-  payload: {
-    comment: comment,
-  },
+  payload: { comment },
 });
 
 const updateComment = (id: string, newComment: RecipeComment) => ({
   type: UPDATE_COMMENT,
-  payload: {
-    id,
-    comment: newComment,
-  },
+  payload: { id, comment: newComment },
 });
 
 const removeComment = (id: string) => ({
   type: REMOVE_COMMENT,
-  payload: {
-    id,
-  },
+  payload: { id },
 });
 
 export const postRecipeComment =
