@@ -1,5 +1,6 @@
 import { useState, FC, FormEvent } from "react";
 import { nanoid } from "nanoid";
+import { useDispatch } from "react-redux";
 
 import { sendRecoveryEmail, sendVerificationEmail } from "@/store/actions";
 
@@ -15,13 +16,15 @@ const SendEmailForm: FC<Props> = ({ recovery }) => {
   const [errors, setErrors] = useState<string[]>([]);
   const [success, setSuccess] = useState<string | null>(null);
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     if (recovery) {
-      sendRecoveryEmail(email, setLoading, setErrors, setSuccess);
+      dispatch(sendRecoveryEmail(email, setLoading, setErrors, setSuccess));
     } else {
-      sendVerificationEmail(email, setLoading, setErrors, setSuccess);
+      dispatch(sendVerificationEmail(email, setLoading, setErrors, setSuccess));
     }
   };
 

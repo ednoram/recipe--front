@@ -6,13 +6,39 @@ import {
   MY_ACCOUNT_ROUTE,
   VERIFY_ACCOUNT_ROUTE,
 } from "@/constants";
+import {
+  SEND_EMAIL,
+  SET_USER_DATA,
+  REGISTER_USER,
+  ADD_FAVORITE_RECIPE,
+  REMOVE_FAVORITE_RECIPE,
+} from "@/store/reducers/user";
 import { processErrors } from "@/utils";
 import { UserData, Dispatch } from "@/types";
-import { SET_USER_DATA } from "@/store/reducers/user";
 
 const setUserData = (data: UserData | null) => ({
   type: SET_USER_DATA,
   payload: { data },
+});
+
+const registerUserAction = () => ({
+  type: REGISTER_USER,
+  payload: {},
+});
+
+const sendEmailAction = () => ({
+  type: SEND_EMAIL,
+  payload: {},
+});
+
+const addFavRecipe = (recipeId: string) => ({
+  type: ADD_FAVORITE_RECIPE,
+  payload: { recipeId },
+});
+
+const removeFavRecipe = (recipeId: string) => ({
+  type: REMOVE_FAVORITE_RECIPE,
+  payload: { recipeId },
 });
 
 export const logoutUser =
@@ -124,6 +150,7 @@ export const deleteUser =
       const token = localStorage.getItem("token");
 
       await API.delete(`api/user/${id}`, { data: { ...body, token } });
+
       dispatch(logoutUser());
     } catch (err) {
       setErrors(processErrors(err as AxiosError));
@@ -136,11 +163,12 @@ export const addFavoriteRecipe =
     try {
       const token = localStorage.getItem("token");
 
-      const { data } = await API.post("/api/user/favorite-recipes/add", {
+      await API.post("/api/user/favorite-recipes/add", {
         token,
         recipeId,
       });
-      dispatch(setUserData(data));
+
+      dispatch(addFavRecipe(recipeId));
     } catch {
       alert("Something went wrong");
     }
@@ -152,97 +180,107 @@ export const removeFavoriteRecipe =
     try {
       const token = localStorage.getItem("token");
 
-      const { data } = await API.post("/api/user/favorite-recipes/remove", {
+      await API.post("/api/user/favorite-recipes/remove", {
         token,
         recipeId,
       });
-      dispatch(setUserData(data));
+
+      dispatch(removeFavRecipe(recipeId));
     } catch {
       alert("Something went wrong");
     }
   };
 
-export const registerUser = async (
-  body: {
-    name: string;
-    email: string;
-    password: string;
-    passwordConfirmation: string;
-  },
-  setLoading: {
-    (loading: boolean): void;
-  },
-  setErrors: {
-    (errors: string[]): void;
-  }
-): Promise<void> => {
-  try {
-    setErrors([]);
-    setLoading(true);
+export const registerUser =
+  (
+    body: {
+      name: string;
+      email: string;
+      password: string;
+      passwordConfirmation: string;
+    },
+    setLoading: {
+      (loading: boolean): void;
+    },
+    setErrors: {
+      (errors: string[]): void;
+    }
+  ) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      setErrors([]);
+      setLoading(true);
 
-    await API.post("/api/user/register", body);
+      await API.post("/api/user/register", body);
 
-    location.href = VERIFY_ACCOUNT_ROUTE;
-    setLoading(false);
-  } catch (err) {
-    setErrors(processErrors(err as AxiosError));
-    setLoading(false);
-  }
-};
+      dispatch(registerUserAction());
+      setLoading(false);
+      location.href = VERIFY_ACCOUNT_ROUTE;
+    } catch (err) {
+      setErrors(processErrors(err as AxiosError));
+      setLoading(false);
+    }
+  };
 
-export const sendVerificationEmail = async (
-  email: string,
-  setLoading: {
-    (loading: boolean): void;
-  },
-  setErrors: {
-    (errors: string[]): void;
-  },
-  setSuccess: {
-    (success: string | null): void;
-  }
-): Promise<void> => {
-  try {
-    setErrors([]);
-    setLoading(true);
+export const sendVerificationEmail =
+  (
+    email: string,
+    setLoading: {
+      (loading: boolean): void;
+    },
+    setErrors: {
+      (errors: string[]): void;
+    },
+    setSuccess: {
+      (success: string | null): void;
+    }
+  ) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      setErrors([]);
+      setLoading(true);
 
-    await API.post("/api/user/send-verification", { email });
+      await API.post("/api/user/send-verification", { email });
 
-    setSuccess("Email was sent");
-    setLoading(false);
-  } catch (err) {
-    setSuccess(null);
-    setErrors(processErrors(err as AxiosError));
-    setLoading(false);
-  }
-};
+      dispatch(sendEmailAction());
+      setSuccess("Email was sent");
+      setLoading(false);
+    } catch (err) {
+      setSuccess(null);
+      setErrors(processErrors(err as AxiosError));
+      setLoading(false);
+    }
+  };
 
-export const sendRecoveryEmail = async (
-  email: string,
-  setLoading: {
-    (loading: boolean): void;
-  },
-  setErrors: {
-    (errors: string[]): void;
-  },
-  setSuccess: {
-    (success: string | null): void;
-  }
-): Promise<void> => {
-  try {
-    setErrors([]);
-    setLoading(true);
+export const sendRecoveryEmail =
+  (
+    email: string,
+    setLoading: {
+      (loading: boolean): void;
+    },
+    setErrors: {
+      (errors: string[]): void;
+    },
+    setSuccess: {
+      (success: string | null): void;
+    }
+  ) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      setErrors([]);
+      setLoading(true);
 
-    await API.post("/api/user/send-recovery", { email });
+      await API.post("/api/user/send-recovery", { email });
 
-    setSuccess("Email was sent");
-    setLoading(false);
-  } catch (err) {
-    setSuccess(null);
-    setErrors(processErrors(err as AxiosError));
-    setLoading(false);
-  }
-};
+      dispatch(sendEmailAction());
+      setSuccess("Email was sent");
+      setLoading(false);
+    } catch (err) {
+      setSuccess(null);
+      setErrors(processErrors(err as AxiosError));
+      setLoading(false);
+    }
+  };
 
 export const resetUserPassword = async (
   email: string,

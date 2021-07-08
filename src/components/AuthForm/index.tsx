@@ -30,10 +30,12 @@ const AuthForm: FC<Props> = ({ register }) => {
     e.preventDefault();
 
     if (register) {
-      registerUser(
-        { name, email, password, passwordConfirmation },
-        setLoading,
-        setErrors
+      dispatch(
+        registerUser(
+          { name, email, password, passwordConfirmation },
+          setLoading,
+          setErrors
+        )
       );
     } else {
       dispatch(loginUser({ email, password }, setErrors));

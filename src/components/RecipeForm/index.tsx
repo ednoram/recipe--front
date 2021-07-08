@@ -1,8 +1,9 @@
 import { useState, FC, FormEvent } from "react";
+import { useDispatch } from "react-redux";
 import { Router, useRouter } from "next/router";
 
-import { MealTypeType, Recipe } from "@/types";
 import { handleRouteChange } from "@/utils";
+import { MealTypeType, Recipe } from "@/types";
 import { postRecipe, patchRecipe, postImage } from "@/store/actions";
 
 import FormGrid from "./FormGrid";
@@ -27,6 +28,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
   const [steps, setSteps] = useState<string[]>(recipe?.steps || []);
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -50,15 +52,14 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
       summary: summary.trim(),
     };
 
-    if (recipe) {
-      await patchRecipe(recipeID, newRecipe);
-      router.push(`/recipe/${recipeID}`);
-    } else {
-      const { _id } = await postRecipe(newRecipe);
-      router.push(`/recipe/${_id}`);
-    }
-
+    window.onbeforeunload = null;
     Router.events.off("routeChangeStart", handleRouteChange);
+
+    if (recipe) {
+      dispatch(patchRecipe(recipeID, newRecipe));
+    } else {
+      dispatch(postRecipe(newRecipe));
+    }
   };
 
   return (
