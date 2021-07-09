@@ -7,7 +7,7 @@ import {
 import { Dispatch, Recipe } from "@/types";
 import { API, MY_ACCOUNT_ROUTE, RECIPE_ROUTE } from "@/constants";
 
-interface Action {
+export interface Action {
   type: string;
   payload: {
     id?: string;

@@ -3,6 +3,7 @@ export const SET_USER_DATA = "SET_USER_DATA";
 export const REGISTER_USER = "REGISTER_USER";
 export const ADD_FAVORITE_RECIPE = "ADD_FAVORITE_RECIPE";
 export const REMOVE_FAVORITE_RECIPE = "REMOVE_FAVORITE_RECIPE";
+
 interface State {
   _id?: string;
   name?: string;
@@ -11,14 +12,17 @@ interface State {
   favoriteRecipes?: string[];
 }
 
-interface Payload {
-  data: State | null;
-  recipeId: string;
+export interface Action {
+  type: string;
+  payload: {
+    data: State | null;
+    recipeId: string;
+  };
 }
 
 const userReducer = (
   state: State | null = null,
-  { type, payload }: { type: string; payload: Payload }
+  { type, payload }: Action
 ): State | null => {
   switch (type) {
     case SET_USER_DATA:

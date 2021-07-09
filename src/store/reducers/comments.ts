@@ -10,15 +10,18 @@ interface State {
   comments: RecipeComment[];
 }
 
-interface Payload {
-  id: string;
-  comment: RecipeComment;
-  comments: RecipeComment[];
+export interface Action {
+  type: string;
+  payload: {
+    id?: string;
+    comment?: RecipeComment;
+    comments?: RecipeComment[];
+  };
 }
 
 const commentsReducer = (
   state: State = { comments: [] },
-  { type, payload }: { type: string; payload: Payload }
+  { type, payload }: Action
 ): State => {
   const commentIndex = state.comments.indexOf(
     state.comments.find((x) => x._id === payload.id) || blankRecipeComment
@@ -26,9 +29,13 @@ const commentsReducer = (
 
   switch (type) {
     case SET_COMMENTS:
-      return { comments: payload.comments };
+      return { comments: payload.comments || state.comments };
     case ADD_COMMENT:
-      return { comments: [...state.comments, payload.comment] };
+      return {
+        comments: payload.comment
+          ? [...state.comments, payload.comment]
+          : state.comments,
+      };
     case REMOVE_COMMENT:
       return {
         comments: [
@@ -38,11 +45,13 @@ const commentsReducer = (
       };
     case UPDATE_COMMENT:
       return {
-        comments: [
-          ...state.comments.slice(0, commentIndex),
-          payload.comment,
-          ...state.comments.slice(commentIndex + 1),
-        ],
+        comments: payload.comment
+          ? [
+              ...state.comments.slice(0, commentIndex),
+              payload.comment,
+              ...state.comments.slice(commentIndex + 1),
+            ]
+          : state.comments,
       };
     default:
       return state;

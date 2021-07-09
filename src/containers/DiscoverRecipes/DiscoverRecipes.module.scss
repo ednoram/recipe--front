@@ -1,5 +1,5 @@
 .content {
-  padding: 60px 0 120px;
+  padding: 60px 0 140px;
 
   &__title {
     color: $color-primary;
@@ -8,6 +8,108 @@
   }
 
   &__list {
+    margin-top: 32px;
+  }
+
+  &__list_filters {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+
+    @include breakpoint(laptop-small) {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  &__list_filters_left {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+
+    @include breakpoint(laptop-small) {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  &__searchbox {
+    width: 340px;
+    height: 40px;
+    border-bottom: 1px solid black;
+
+    input {
+      width: 320px;
+      border: none;
+      padding: 10px 4px;
+    }
+  }
+
+  &__clear_input_icon {
+    width: 20px;
+    fill: $color-primary;
+    cursor: pointer;
+  }
+
+  &__dropdown_filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__limit_dropdown {
+    @include breakpoint(phone-large) {
+      display: none;
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: flex-end;
     margin-top: 40px;
+
+    @include breakpoint(tablet) {
+      justify-content: center;
+    }
+
+    @include breakpoint(phone-large) {
+      display: none;
+    }
+  }
+
+  &__pagination_buttons {
+    display: flex;
+    border-bottom: 1px solid black;
+  }
+
+  &__pagination_button {
+    width: 48px;
+    height: 48px;
+    background: none;
+    color: $color-primary;
+  }
+
+  &__pagination_arrow_button {
+    @extend .content__pagination_button;
+    width: 75px;
+  }
+
+  &__pagination_button_active {
+    background: $color-primary;
+    color: white;
+  }
+
+  &__show_more_button {
+    display: none;
+    width: 100%;
+    height: 40px;
+    color: white;
+    background: $color-primary;
+    margin-top: 48px;
+
+    @include breakpoint(phone-large) {
+      display: block;
+    }
   }
 }

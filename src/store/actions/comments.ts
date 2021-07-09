@@ -1,19 +1,12 @@
 import { API } from "@/constants";
 import {
+  Action,
   ADD_COMMENT,
   SET_COMMENTS,
   REMOVE_COMMENT,
   UPDATE_COMMENT,
 } from "@/store/reducers/comments";
 import { Dispatch, RecipeComment } from "@/types";
-
-interface Action {
-  type: string;
-  payload: {
-    comment?: RecipeComment;
-    comments?: RecipeComment[];
-  };
-}
 
 export const setComments = (comments: RecipeComment[]): Action => ({
   type: SET_COMMENTS,

@@ -1,3 +1,4 @@
+export { default as debounce } from "./debounce";
 export { default as getImageURL } from "./getImageURL";
 export { default as blankRecipe } from "./blankRecipe";
 export { default as processTitle } from "./processTitle";

@@ -5,6 +5,15 @@ export {
   deleteRecipeComment,
 } from "./comments";
 export {
+  expandList,
+  setListPage,
+  setListLimit,
+  setSearchFilter,
+  changeToNextPage,
+  changeToPrevPage,
+  setMealTypeFilter,
+} from "./listFilters";
+export {
   loginUser,
   patchUser,
   logoutUser,

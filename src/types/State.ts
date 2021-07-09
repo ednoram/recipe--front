@@ -1,4 +1,5 @@
 import { UserData, Recipe } from "@/types";
+
 import RecipeComment from "./RecipeComment";
 
 interface State {
@@ -8,6 +9,12 @@ interface State {
   };
   comments: {
     comments: RecipeComment[];
+  };
+  listFilters: {
+    listLimit: number;
+    listOffset: number;
+    searchFilter: string;
+    mealTypeFilter: string;
   };
 }
 

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Router, useRouter } from "next/router";
 
 import { handleRouteChange } from "@/utils";
-import { MealTypeType, Recipe } from "@/types";
+import { MealType, Recipe } from "@/types";
 import { postRecipe, patchRecipe, postImage } from "@/store/actions";
 
 import FormGrid from "./FormGrid";
@@ -17,9 +17,7 @@ interface Props {
 
 const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
   const [image, setImage] = useState<File | null>(null);
-  const [mealType, setMealType] = useState<MealTypeType>(
-    recipe?.mealType || "any"
-  );
+  const [mealType, setMealType] = useState<MealType>(recipe?.mealType || "any");
   const [ingredients, setIngredients] = useState<string[]>(
     recipe?.ingredients || []
   );

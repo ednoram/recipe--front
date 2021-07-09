@@ -1,4 +1,4 @@
-import { MealTypeType } from "@/types";
+import { MealType } from "@/types";
 
 interface Recipe {
   _id?: string;
@@ -8,9 +8,9 @@ interface Recipe {
   summary?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  mealType: MealType;
   imagePath?: string;
   ingredients: string[];
-  mealType: MealTypeType;
 }
 
 export default Recipe;

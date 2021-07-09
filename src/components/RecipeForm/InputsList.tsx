@@ -1,6 +1,6 @@
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC, Dispatch, SetStateAction, KeyboardEvent } from "react";
 
-import { MealTypeType } from "@/types";
+import { MealType } from "@/types";
 
 import AddItems from "./AddItems";
 import styles from "./RecipeForm.module.scss";
@@ -9,7 +9,7 @@ interface Props {
   titleState: [string, Dispatch<SetStateAction<string>>];
   summaryState: [string, Dispatch<SetStateAction<string>>];
   stepsState: [string[], Dispatch<SetStateAction<string[]>>];
-  mealTypeState: [string, Dispatch<SetStateAction<MealTypeType>>];
+  mealTypeState: [string, Dispatch<SetStateAction<MealType>>];
   ingredientsState: [string[], Dispatch<SetStateAction<string[]>>];
 }
 
@@ -25,6 +25,12 @@ const InputsList: FC<Props> = ({
   const [summary, setSummary] = summaryState;
   const [mealType, setMealType] = mealTypeState;
   const [ingredients, setIngredients] = ingredientsState;
+
+  const disableEnterKeySubmit = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
 
   const selectMealType = (
     <select
@@ -61,6 +67,7 @@ const InputsList: FC<Props> = ({
             value={title}
             maxLength={40}
             placeholder="Title of recipe"
+            onKeyPress={disableEnterKeySubmit}
             className={styles.form__title_input}
             onChange={(e) => setTitle(e.target.value)}
           />
