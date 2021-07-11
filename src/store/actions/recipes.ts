@@ -4,37 +4,18 @@ import {
   UPDATE_RECIPE,
   REMOVE_RECIPE,
 } from "@/store/reducers/recipes";
+import { createAction } from "@/utils";
 import { Dispatch, Recipe } from "@/types";
 import { API, MY_ACCOUNT_ROUTE, RECIPES_ROUTE } from "@/constants";
 
-export interface Action {
+interface Action {
   type: string;
-  payload: {
-    id?: string;
-    recipe?: Recipe;
-    recipes?: Recipe[];
-  };
 }
 
-export const setRecipes = (recipes: Recipe[]): Action => ({
-  type: SET_RECIPES,
-  payload: { recipes },
-});
-
-export const addRecipe = (recipe: Recipe): Action => ({
-  type: ADD_RECIPE,
-  payload: { recipe },
-});
-
-export const updateRecipe = (recipe: Recipe): Action => ({
-  type: UPDATE_RECIPE,
-  payload: { recipe },
-});
-
-export const removeRecipe = (id: string): Action => ({
-  type: REMOVE_RECIPE,
-  payload: { id },
-});
+export const addRecipe = (): Action => createAction(ADD_RECIPE, {});
+export const setRecipes = (): Action => createAction(SET_RECIPES, {});
+export const updateRecipe = (): Action => createAction(UPDATE_RECIPE, {});
+export const removeRecipe = (): Action => createAction(REMOVE_RECIPE, {});
 
 export const postRecipe =
   (recipe: Recipe) =>
@@ -43,7 +24,7 @@ export const postRecipe =
       const token = localStorage.getItem("token");
       const { data } = await API.post("/api/recipes", { ...recipe, token });
 
-      dispatch(addRecipe(data));
+      dispatch(addRecipe());
       location.href = `${RECIPES_ROUTE}/${data._id}`;
     } catch {
       alert("Something went wrong");
@@ -60,7 +41,8 @@ export const patchRecipe =
         token,
       });
 
-      dispatch(updateRecipe(data));
+      dispatch(updateRecipe());
+
       location.href = `${RECIPES_ROUTE}/${data._id}`;
     } catch (err) {
       alert("Something went wrong");
@@ -72,11 +54,12 @@ export const deleteRecipe =
   async (dispatch: Dispatch): Promise<void> => {
     try {
       const token = localStorage.getItem("token");
-      const { data } = await API.delete(`/api/recipes/${id}`, {
+
+      await API.delete(`/api/recipes/${id}`, {
         data: { token },
       });
 
-      dispatch(removeRecipe(data._id));
+      dispatch(removeRecipe());
       location.href = MY_ACCOUNT_ROUTE;
     } catch {
       alert("Something went wrong");

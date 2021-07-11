@@ -12,7 +12,7 @@ interface State {
   favoriteRecipes?: string[];
 }
 
-export interface Action {
+interface Action {
   type: string;
   payload: {
     data: State | null;

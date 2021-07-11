@@ -5,5 +5,4 @@ export type { default as Recipe } from "./Recipe";
 export type { default as MealType } from "./MealType";
 export type { default as UserData } from "./UserData";
 export type { default as Dispatch } from "./Dispatch";
-export type { default as EmptyRecipe } from "./EmptyRecipe";
 export type { default as RecipeComment } from "./RecipeComment";

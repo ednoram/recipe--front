@@ -26,7 +26,7 @@ const UserPage: FC<Props> = ({ user, recipes }) => {
       </section>
       <section className={styles.content__recipes_section}>
         <div className="container">
-          <h2 className="color-primary">Recipes</h2>
+          <h2 className="color-primary">Recipes ({recipes.length})</h2>
           <RecipeList recipes={recipes} />
         </div>
       </section>

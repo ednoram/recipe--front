@@ -2,22 +2,25 @@ import { FC } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 
-import { expandList } from "@/store/actions";
 import {
-  selectRecipes,
   selectListLimit,
   selectListOffset,
   selectSearchFilter,
   selectMealTypeFilter,
 } from "@/store/selectors";
+import { Recipe } from "@/types";
 import { RecipeList } from "@/components";
+import { expandList } from "@/store/actions";
 
 import Pagination from "./Pagination";
 import ListFilters from "./ListFilters";
 import styles from "./DiscoverRecipes.module.scss";
 
-const DiscoverRecipes: FC = () => {
-  const recipes = useSelector(selectRecipes);
+interface Props {
+  recipes: Recipe[];
+}
+
+const DiscoverRecipes: FC<Props> = ({ recipes }) => {
   const listLimit = useSelector(selectListLimit);
   const listOffset = useSelector(selectListOffset);
   const searchFilter = useSelector(selectSearchFilter);

@@ -1,6 +1,7 @@
 export { default as debounce } from "./debounce";
 export { default as getImageURL } from "./getImageURL";
-export { default as blankRecipe } from "./blankRecipe";
+export { default as sortRecipes } from "./sortRecipes";
+export { default as createAction } from "./createAction";
 export { default as processTitle } from "./processTitle";
 export { default as processErrors } from "./processErrors";
 export { default as addProgressBar } from "./addProgressBar";

@@ -8,38 +8,24 @@ import {
   SET_SEARCH_FILTER,
   SET_MEAL_TYPE_FILTER,
 } from "@/store/reducers/listFilters";
+import { createAction } from "@/utils";
 
-export const setSearchFilter = (value: string): Action => ({
-  type: SET_SEARCH_FILTER,
-  payload: { searchFilter: value.trim().toLowerCase() || "" },
-});
+export const setListPage = (page: number): Action =>
+  createAction(SET_PAGE, { page });
 
-export const setMealTypeFilter = (value: string): Action => ({
-  type: SET_MEAL_TYPE_FILTER,
-  payload: { mealTypeFilter: value || "" },
-});
+export const setSearchFilter = (value: string): Action =>
+  createAction(SET_SEARCH_FILTER, {
+    searchFilter: value.trim().toLowerCase() || "",
+  });
 
-export const setListPage = (page: number): Action => ({
-  type: SET_PAGE,
-  payload: { page },
-});
+export const setListLimit = (listLimit: number): Action =>
+  createAction(SET_LIST_LIMIT, { listLimit });
 
-export const changeToNextPage = (): Action => ({
-  type: LIST_NEXT_PAGE,
-  payload: {},
-});
+export const setMealTypeFilter = (value: string): Action =>
+  createAction(SET_MEAL_TYPE_FILTER, { mealTypeFilter: value || "" });
 
-export const changeToPrevPage = (): Action => ({
-  type: LIST_PREV_PAGE,
-  payload: {},
-});
+export const expandList = (): Action => createAction(EXPAND_LIST, {});
 
-export const expandList = (): Action => ({
-  type: EXPAND_LIST,
-  payload: {},
-});
+export const changeToNextPage = (): Action => createAction(LIST_NEXT_PAGE, {});
 
-export const setListLimit = (listLimit: number): Action => ({
-  type: SET_LIST_LIMIT,
-  payload: { listLimit },
-});
+export const changeToPrevPage = (): Action => createAction(LIST_PREV_PAGE, {});

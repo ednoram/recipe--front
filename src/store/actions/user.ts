@@ -13,33 +13,21 @@ import {
   ADD_FAVORITE_RECIPE,
   REMOVE_FAVORITE_RECIPE,
 } from "@/store/reducers/user";
-import { processErrors } from "@/utils";
 import { UserData, Dispatch } from "@/types";
+import { processErrors, createAction } from "@/utils";
 
-const setUserData = (data: UserData | null) => ({
-  type: SET_USER_DATA,
-  payload: { data },
-});
+const setUserData = (data: UserData | null) =>
+  createAction(SET_USER_DATA, { data });
 
-const registerUserAction = () => ({
-  type: REGISTER_USER,
-  payload: {},
-});
+const addFavRecipe = (recipeId: string) =>
+  createAction(ADD_FAVORITE_RECIPE, { recipeId });
 
-const sendEmailAction = () => ({
-  type: SEND_EMAIL,
-  payload: {},
-});
+const removeFavRecipe = (recipeId: string) =>
+  createAction(REMOVE_FAVORITE_RECIPE, { recipeId });
 
-const addFavRecipe = (recipeId: string) => ({
-  type: ADD_FAVORITE_RECIPE,
-  payload: { recipeId },
-});
+const sendEmailAction = () => createAction(SEND_EMAIL, {});
 
-const removeFavRecipe = (recipeId: string) => ({
-  type: REMOVE_FAVORITE_RECIPE,
-  payload: { recipeId },
-});
+const registerUserAction = () => createAction(REGISTER_USER, {});
 
 export const logoutUser =
   () =>

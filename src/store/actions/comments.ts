@@ -6,27 +6,19 @@ import {
   REMOVE_COMMENT,
   UPDATE_COMMENT,
 } from "@/store/reducers/comments";
+import { createAction } from "@/utils";
 import { Dispatch, RecipeComment } from "@/types";
 
-export const setComments = (comments: RecipeComment[]): Action => ({
-  type: SET_COMMENTS,
-  payload: { comments },
-});
+export const setComments = (comments: RecipeComment[]): Action =>
+  createAction(SET_COMMENTS, { comments });
 
-const addComment = (comment: RecipeComment): Action => ({
-  type: ADD_COMMENT,
-  payload: { comment },
-});
+const addComment = (comment: RecipeComment) =>
+  createAction(ADD_COMMENT, { comment });
 
-const updateComment = (id: string, newComment: RecipeComment) => ({
-  type: UPDATE_COMMENT,
-  payload: { id, comment: newComment },
-});
+const updateComment = (id: string, newComment: RecipeComment) =>
+  createAction(UPDATE_COMMENT, { id, comment: newComment });
 
-const removeComment = (id: string) => ({
-  type: REMOVE_COMMENT,
-  payload: { id },
-});
+const removeComment = (id: string) => createAction(REMOVE_COMMENT, { id });
 
 export const postRecipeComment =
   (recipeId: string, message: string) =>

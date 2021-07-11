@@ -1,16 +1,18 @@
 import { FC } from "react";
 import Link from "next/link";
-import { useSelector } from "react-redux";
 
+import { Recipe } from "@/types";
 import { useIsLoggedIn } from "@/hooks";
-import { selectRecipes } from "@/store/selectors";
 import { ContactUs, RecipeList } from "@/components";
 import { RECIPES_ROUTE, REGISTER_ROUTE } from "@/constants";
 
 import styles from "./Home.module.scss";
 
-const Home: FC = () => {
-  const recipes = useSelector(selectRecipes);
+interface Props {
+  recipes: Recipe[];
+}
+
+const Home: FC<Props> = ({ recipes }) => {
   const isLoggedIn = useIsLoggedIn();
 
   const topSection = isLoggedIn ? (

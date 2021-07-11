@@ -21,9 +21,10 @@ const CommentsSection: FC<Props> = ({ recipe }) => {
   const visibleComments =
     comments &&
     comments
-      .sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      .sort((a, b) =>
+        b.createdAt && a.createdAt
+          ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          : -1
       )
       .slice(0, limit);
 

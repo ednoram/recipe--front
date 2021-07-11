@@ -92,7 +92,7 @@ const Navigation: FC = () => {
         <li>
           <Link href={RECIPES_ROUTE}>
             <a className={styles.content__nav_link}>
-              {pathname === RECIPES_ROUTE ? <u>Recipes</u> : "Recipes"}
+              {pathname === RECIPES_ROUTE ? <u>Discover</u> : "Discover"}
             </a>
           </Link>
         </li>

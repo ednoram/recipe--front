@@ -1,6 +1,5 @@
 import { FC } from "react";
 import Link from "next/link";
-import { nanoid } from "nanoid";
 import { useSelector, useDispatch } from "react-redux";
 
 import StarIcon from "public/star-icon.svg";
@@ -8,34 +7,20 @@ import StarIcon from "public/star-icon.svg";
 import { Recipe } from "@/types";
 import { selectUserData } from "@/store/selectors";
 import { RECIPES_ROUTE, USERS_ROUTE } from "@/constants";
-import { createEmptyRecipe, getImageURL, toggleFavorite } from "@/utils";
+import { getImageURL, sortRecipes, toggleFavorite } from "@/utils";
 
 import styles from "./RecipeList.module.scss";
 
 interface Props {
   recipes: Recipe[];
-  favorites?: boolean;
 }
 
-const RecipeList: FC<Props> = ({ recipes, favorites }) => {
+const RecipeList: FC<Props> = ({ recipes }) => {
   const user = useSelector(selectUserData);
 
   const dispatch = useDispatch();
 
-  const filteredRecipes =
-    favorites && user?.favoriteRecipes
-      ? user.favoriteRecipes.map(
-          (id) => recipes.find(({ _id }) => _id === id) || createEmptyRecipe(id)
-        )
-      : recipes;
-
-  const sortedRecipes =
-    filteredRecipes &&
-    filteredRecipes.sort((a, b) =>
-      a.updatedAt && b.updatedAt
-        ? new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-        : -1
-    );
+  const sortedRecipes = sortRecipes(recipes);
 
   const getImageDivStyle = (imagePath?: string | null) =>
     imagePath
@@ -55,7 +40,7 @@ const RecipeList: FC<Props> = ({ recipes, favorites }) => {
   ) : (
     <ul className={styles.list}>
       {sortedRecipes.map(({ _id, title, mealType, email, imagePath }) => (
-        <li key={nanoid()}>
+        <li key={_id}>
           <div className={styles.list_item}>
             <div>
               <div

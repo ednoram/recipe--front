@@ -1,10 +1,8 @@
-import { useEffect, FC } from "react";
-import { useDispatch } from "react-redux";
+import { FC } from "react";
 
 import { Recipe } from "@/types";
 import { getRecipes } from "@/lib";
 import { Layout } from "@/components";
-import { setRecipes } from "@/store/actions";
 import { DiscoverRecipesContainer } from "@/containers";
 
 const PAGE_TITLE = "Discover Recipes";
@@ -15,15 +13,9 @@ interface Props {
 }
 
 const DiscoverRecipes: FC<Props> = ({ recipes }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setRecipes(recipes));
-  }, []);
-
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
-      <DiscoverRecipesContainer />
+      <DiscoverRecipesContainer recipes={recipes} />
     </Layout>
   );
 };
