@@ -4,11 +4,12 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
 import {
+  POST_ROUTE,
   LOGIN_ROUTE,
+  USERS_ROUTE,
+  RECIPES_ROUTE,
   REGISTER_ROUTE,
   MY_ACCOUNT_ROUTE,
-  POST_RECIPE_ROUTE,
-  DISCOVER_RECIPES_ROUTE,
 } from "@/constants";
 import { useIsLoggedIn } from "@/hooks";
 import { logoutUser } from "@/store/actions";
@@ -29,25 +30,12 @@ const Navigation: FC = () => {
     }
   };
 
-  const discoverLink = (
-    <Link href={DISCOVER_RECIPES_ROUTE}>
-      <a className={styles.content__nav_link}>
-        {pathname === DISCOVER_RECIPES_ROUTE ? <u>Discover</u> : "Discover"}
-      </a>
-    </Link>
-  );
-
   const loggedInLinks = (
     <>
-      <li>{discoverLink}</li>
       <li>
-        <Link href={POST_RECIPE_ROUTE}>
+        <Link href={POST_ROUTE}>
           <a className={styles.content__nav_link}>
-            {pathname === POST_RECIPE_ROUTE ? (
-              <u>Post Recipe</u>
-            ) : (
-              "Post Recipe"
-            )}
+            {pathname === POST_ROUTE ? <u>Post</u> : "Post"}
           </a>
         </Link>
       </li>
@@ -72,7 +60,6 @@ const Navigation: FC = () => {
 
   const notLoggedInLinks = (
     <>
-      <li>{discoverLink}</li>
       <li>
         <Link href={LOGIN_ROUTE}>
           <a className={styles.content__nav_link}>
@@ -99,6 +86,20 @@ const Navigation: FC = () => {
           <Link href="/">
             <a className={styles.content__nav_link}>
               {pathname === "/" ? <u>Home</u> : "Home"}
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href={RECIPES_ROUTE}>
+            <a className={styles.content__nav_link}>
+              {pathname === RECIPES_ROUTE ? <u>Recipes</u> : "Recipes"}
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href={USERS_ROUTE}>
+            <a className={styles.content__nav_link}>
+              {pathname === USERS_ROUTE ? <u>Users</u> : "Users"}
             </a>
           </Link>
         </li>

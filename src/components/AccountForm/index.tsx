@@ -102,6 +102,7 @@ const AccountForm: FC<Props> = ({
     ) : (
       <input
         value={name}
+        maxLength={25}
         placeholder="Name"
         className={styles.form__input}
         onChange={(e) => setName(e.target.value)}

@@ -1,3 +1,3 @@
-type MealType = "any" | "snack" | "lunch" | "dinner" | "supper" | "breakfast";
+type MealType = "any" | "snack" | "lunch" | "dinner" | "dessert" | "breakfast";
 
 export default MealType;

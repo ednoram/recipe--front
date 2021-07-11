@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import EditIcon from "public/edit-icon.svg";
 
 import { RecipeComment } from "@/types";
-import { USER_ROUTE } from "@/constants";
+import { USERS_ROUTE } from "@/constants";
 import { selectUserData } from "@/store/selectors";
 
 import styles from "./Recipe.module.scss";
@@ -67,7 +67,7 @@ const CommentItem: FC<Props> = ({ comment, recipeId }) => {
       )}
       <p className={styles.content__comment_date}>{dateString}</p>
       <div className={styles.content__comment_email}>
-        <Link href={`${USER_ROUTE}/${comment.email}`}>
+        <Link href={`${USERS_ROUTE}/${comment.email}`}>
           <a className="color-primary">{comment.email}</a>
         </Link>
       </div>

@@ -5,6 +5,6 @@ export const MEAL_TYPES: MealType[] = [
   "breakfast",
   "dinner",
   "lunch",
-  "supper",
+  "dessert",
   "snack",
 ];

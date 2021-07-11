@@ -1,28 +1,25 @@
 import { FC } from "react";
 
 import { Layout } from "@/components";
-import { Path, Recipe } from "@/types";
 import { processTitle } from "@/utils";
-import { useConfirmBeforeLeaving } from "@/hooks";
-import { getRecipes, getRecipeById } from "@/lib";
-import { EditRecipeContainer } from "@/containers";
+import { RecipeContainer } from "@/containers";
+import { Recipe, Path, RecipeComment } from "@/types";
+import { getRecipes, getRecipeById, getRecipeComments } from "@/lib";
 
 interface Props {
   recipe: Recipe;
-  recipeID: string;
+  recipeComments: RecipeComment[];
 }
 
-const EditRecipePage: FC<Props> = ({ recipe, recipeID }) => {
-  useConfirmBeforeLeaving();
-
+const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
   const recipeTitle = processTitle(recipe.title);
 
-  const PAGE_TITLE = `Edit Recipe: ${recipeTitle}`;
-  const PAGE_DESCRIPTION = "Edit Recipe page";
+  const PAGE_TITLE = `Recipe: ${recipeTitle}`;
+  const PAGE_DESCRIPTION = "Recipe page";
 
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
-      <EditRecipeContainer recipe={recipe} recipeID={recipeID} />
+      <RecipeContainer recipe={recipe} recipeComments={recipeComments} />
     </Layout>
   );
 };
@@ -34,7 +31,9 @@ export const getStaticPaths = async (): Promise<{
   const recipes = await getRecipes();
 
   const paths = recipes.map(({ _id }) => ({
-    params: { id: _id },
+    params: {
+      id: _id,
+    },
   }));
 
   return {
@@ -49,10 +48,14 @@ export const getStaticProps = async ({
   params: { id: string };
 }): Promise<{ props: Props } | { notFound: boolean }> => {
   try {
-    const recipe: Recipe = await getRecipeById(params.id);
+    const recipe = await getRecipeById(params.id);
+    const recipeComments = await getRecipeComments(params.id);
 
     return {
-      props: { recipe, recipeID: params.id },
+      props: {
+        recipe,
+        recipeComments,
+      },
     };
   } catch {
     return {
@@ -61,4 +64,4 @@ export const getStaticProps = async ({
   }
 };
 
-export default EditRecipePage;
+export default RecipePage;

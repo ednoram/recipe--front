@@ -1,5 +1,5 @@
 .content {
-  padding: 60px 0 120px;
+  padding: 60px 0 130px;
 
   &__edit_icon {
     display: inline-block;
@@ -12,10 +12,14 @@
   &__title {
     text-align: center;
     color: $color-primary;
-    margin-bottom: 16px;
   }
 
   &__account_info {
+    margin-top: 40px;
+  }
+
+  &__user_name {
+    color: $color-primary;
     margin-top: 20px;
   }
 

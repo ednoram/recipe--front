@@ -9,6 +9,12 @@
     gap: 8px;
   }
 
+  &__title {
+    color: $color-primary;
+    text-transform: capitalize;
+    margin-top: 20px;
+  }
+
   &__star_icon {
     height: 28px;
     width: 28px;
@@ -61,12 +67,6 @@
     @include breakpoint(laptop-small) {
       gap: 40px;
     }
-  }
-
-  &__title {
-    color: $color-primary;
-    text-transform: capitalize;
-    margin-top: 10px;
   }
 
   &__date_p {
@@ -147,17 +147,23 @@
     margin-top: 20px;
 
     @include breakpoint(tablet-small) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @include breakpoint(phone-large) {
+      display: flex;
       flex-direction: column;
-      gap: 10px;
     }
   }
 
   &__comment_submit_button {
     background-color: $color-primary;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 28px;
 
-    @include breakpoint(phone-large) {
+    @include breakpoint(tablet-small) {
       width: 100%;
     }
   }
@@ -165,9 +171,9 @@
   &__delete_comment_button {
     color: white;
     background: $color-red;
-    padding: 10px 20px;
+    padding: 10px 28px;
 
-    @include breakpoint(phone-large) {
+    @include breakpoint(tablet-small) {
       width: 100%;
     }
   }
@@ -175,7 +181,12 @@
   &__comment_cancel_button {
     color: $color-red;
     background: none;
-    padding: 10px 20px;
+    padding: 10px 28px;
+
+    @include breakpoint(tablet-small) {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
   }
 
   &__comments_list {

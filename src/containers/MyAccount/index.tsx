@@ -8,7 +8,7 @@ import { Recipe } from "@/types";
 import { useIsLoggedIn } from "@/hooks";
 import { RecipeList } from "@/components";
 import { selectRecipes, selectUserData } from "@/store/selectors";
-import { EDIT_ACCOUNT_ROUTE, POST_RECIPE_ROUTE } from "@/constants";
+import { EDIT_ACCOUNT_ROUTE, POST_ROUTE } from "@/constants";
 
 import styles from "./MyAccount.module.scss";
 
@@ -26,17 +26,17 @@ const MyAccount: FC = () => {
       <section>
         <div className="container">
           <h1 className={styles.content__title}>My Account</h1>
-          <Link href={EDIT_ACCOUNT_ROUTE}>
-            <a className="color-primary">
-              <EditIcon className={styles.content__edit_icon} />
-              Edit Account
-            </a>
-          </Link>
           <div className={styles.content__account_info}>
-            <h2 className="color-primary">{user?.name}</h2>
+            <Link href={EDIT_ACCOUNT_ROUTE}>
+              <a className="color-primary">
+                <EditIcon className={styles.content__edit_icon} />
+                Edit Account
+              </a>
+            </Link>
+            <h2 className={styles.content__user_name}>{user?.name}</h2>
             <p className={styles.content__email}>{user?.email}</p>
           </div>
-          <Link href={POST_RECIPE_ROUTE}>
+          <Link href={POST_ROUTE}>
             <a className={styles.content__post_recipe_link}>Post Recipe</a>
           </Link>
         </div>

@@ -27,7 +27,7 @@
     color: white;
 
     @include breakpoint(tablet-small) {
-      font-size: 40px;
+      font-size: 2.5rem;
     }
   }
 
@@ -37,7 +37,7 @@
     margin-top: 16px;
 
     @include breakpoint(tablet-small) {
-      font-size: 20px;
+      font-size: 1.25rem;
     }
   }
 

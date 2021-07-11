@@ -1,9 +1,9 @@
 .content {
-  padding-top: 60px;
-  padding-bottom: 120px;
+  padding: 60px 0 130px;
 
   &__title {
     color: $color-primary;
+    overflow-wrap: break-word;
     margin-top: 20px;
   }
 

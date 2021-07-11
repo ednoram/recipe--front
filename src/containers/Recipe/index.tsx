@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "public/edit-icon.svg";
 import StarIcon from "public/star-icon.svg";
 
+import { RECIPES_ROUTE } from "@/constants";
 import { setComments } from "@/store/actions";
 import { Recipe, RecipeComment } from "@/types";
 import { selectUserData } from "@/store/selectors";
-import { DISCOVER_RECIPES_ROUTE } from "@/constants";
 import { getImageURL, toggleFavorite } from "@/utils";
 
 import ItemsDiv from "./ItemsDiv";
@@ -101,7 +101,7 @@ const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
       <section>
         <div className="container">
           <div>
-            <Link href={DISCOVER_RECIPES_ROUTE}>
+            <Link href={RECIPES_ROUTE}>
               <a className="color-primary">← Discover Recipes</a>
             </Link>
           </div>

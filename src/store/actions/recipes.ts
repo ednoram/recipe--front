@@ -5,7 +5,7 @@ import {
   REMOVE_RECIPE,
 } from "@/store/reducers/recipes";
 import { Dispatch, Recipe } from "@/types";
-import { API, MY_ACCOUNT_ROUTE, RECIPE_ROUTE } from "@/constants";
+import { API, MY_ACCOUNT_ROUTE, RECIPES_ROUTE } from "@/constants";
 
 export interface Action {
   type: string;
@@ -44,7 +44,7 @@ export const postRecipe =
       const { data } = await API.post("/api/recipes", { ...recipe, token });
 
       dispatch(addRecipe(data));
-      location.href = `${RECIPE_ROUTE}/${data._id}`;
+      location.href = `${RECIPES_ROUTE}/${data._id}`;
     } catch {
       alert("Something went wrong");
     }
@@ -61,7 +61,7 @@ export const patchRecipe =
       });
 
       dispatch(updateRecipe(data));
-      location.href = `${RECIPE_ROUTE}/${data._id}`;
+      location.href = `${RECIPES_ROUTE}/${data._id}`;
     } catch (err) {
       alert("Something went wrong");
     }

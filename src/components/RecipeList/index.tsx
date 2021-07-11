@@ -7,7 +7,7 @@ import StarIcon from "public/star-icon.svg";
 
 import { Recipe } from "@/types";
 import { selectUserData } from "@/store/selectors";
-import { RECIPE_ROUTE, USER_ROUTE } from "@/constants";
+import { RECIPES_ROUTE, USERS_ROUTE } from "@/constants";
 import { createEmptyRecipe, getImageURL, toggleFavorite } from "@/utils";
 
 import styles from "./RecipeList.module.scss";
@@ -69,18 +69,18 @@ const RecipeList: FC<Props> = ({ recipes, favorites }) => {
                   />
                 )}
               </div>
-              <h4 className={styles.list_item__title}>
+              <h4 className={styles.list_item__recipe_title}>
                 {title || "Recipe was not found"}
               </h4>
               <p className={styles.list_item__meal_type}>{mealType}</p>
-              <Link href={`${USER_ROUTE}/${email}`}>
+              <Link href={`${USERS_ROUTE}/${email}`}>
                 <a className={styles.list_item__user_email}>{email}</a>
               </Link>
             </div>
             {email && (
               <div className="flex_right">
-                <Link href={`${RECIPE_ROUTE}/${_id}`}>
-                  <a className={styles.list_item__link}>Open→</a>
+                <Link href={`${RECIPES_ROUTE}/${_id}`}>
+                  <a className={styles.list_item__link}>Open →</a>
                 </Link>
               </div>
             )}

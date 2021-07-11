@@ -47,10 +47,17 @@ const Pagination: FC<Props> = ({ recipes }) => {
 
   const handlePrevClick = () => {
     dispatch(changeToPrevPage());
+    window.scroll(0, 0);
   };
 
   const handleNextClick = () => {
     dispatch(changeToNextPage());
+    window.scroll(0, 0);
+  };
+
+  const goToPage = (page: number) => {
+    dispatch(setListPage(Number(page)));
+    window.scroll(0, 0);
   };
 
   return (
@@ -71,7 +78,7 @@ const Pagination: FC<Props> = ({ recipes }) => {
             <button
               name="pagination button"
               className={getButtonClassName(name)}
-              onClick={() => dispatch(setListPage(Number(name)))}
+              onClick={() => goToPage(Number(name))}
             >
               {name}
             </button>

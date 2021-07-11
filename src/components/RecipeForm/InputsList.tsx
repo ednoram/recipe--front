@@ -42,7 +42,7 @@ const InputsList: FC<Props> = ({
           value === "breakfast" ||
             value === "lunch" ||
             value === "dinner" ||
-            value === "supper" ||
+            value === "dessert" ||
             value === "snack"
             ? value
             : "any"
@@ -53,7 +53,7 @@ const InputsList: FC<Props> = ({
       <option value="breakfast">Breakfast</option>
       <option value="lunch">Lunch</option>
       <option value="dinner">Dinner</option>
-      <option value="supper">Supper</option>
+      <option value="dessert">Dessert</option>
       <option value="snack">Snack</option>
     </select>
   );

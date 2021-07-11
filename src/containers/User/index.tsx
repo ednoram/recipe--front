@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { User, Recipe } from "@/types";
 import { RecipeList } from "@/components";
+import { USERS_ROUTE } from "@/constants";
 
 import styles from "./User.module.scss";
 
@@ -16,8 +17,8 @@ const UserPage: FC<Props> = ({ user, recipes }) => {
     <main className={styles.content}>
       <section>
         <div className="container">
-          <Link href="/">
-            <a className="color-primary">← Home</a>
+          <Link href={USERS_ROUTE}>
+            <a className="color-primary">← Users</a>
           </Link>
           <h1 className={styles.content__title}>{user.name}</h1>
           <p className={styles.content__email}>{user.email}</p>
@@ -26,9 +27,7 @@ const UserPage: FC<Props> = ({ user, recipes }) => {
       <section className={styles.content__recipes_section}>
         <div className="container">
           <h2 className="color-primary">Recipes</h2>
-          <p>
-            <RecipeList recipes={recipes} />
-          </p>
+          <RecipeList recipes={recipes} />
         </div>
       </section>
     </main>

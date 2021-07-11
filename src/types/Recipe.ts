@@ -6,11 +6,11 @@ interface Recipe {
   email?: string;
   steps: string[];
   summary?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
   mealType: MealType;
   imagePath?: string;
   ingredients: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export default Recipe;

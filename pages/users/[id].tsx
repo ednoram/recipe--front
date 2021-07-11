@@ -2,11 +2,9 @@ import { FC } from "react";
 
 import { Layout } from "@/components";
 import { User, Recipe } from "@/types";
+import { processTitle } from "@/utils";
 import { UserContainer } from "@/containers";
 import { getUsers, getUserRecipes } from "@/lib";
-
-const PAGE_TITLE = "User";
-const PAGE_DESCRIPTION = "User page";
 
 interface Props {
   user: User;
@@ -14,6 +12,9 @@ interface Props {
 }
 
 const UserPage: FC<Props> = ({ user, recipes }) => {
+  const PAGE_TITLE = `User: ${processTitle(user.name)}`;
+  const PAGE_DESCRIPTION = "User page";
+
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <UserContainer user={user} recipes={recipes} />
