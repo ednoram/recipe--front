@@ -1,18 +1,18 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
+import { useIsLoggedIn } from "@/hooks";
 import { loginWithToken } from "@/store/actions";
-import { selectUserData } from "@/store/selectors";
 
 const useLoginWithToken = (): void => {
-  const user = useSelector(selectUserData);
   const dispatch = useDispatch();
+  const isLoggedIn = useIsLoggedIn();
 
   useEffect(() => {
-    if (!user) {
+    if (isLoggedIn) {
       dispatch(loginWithToken());
     }
-  }, [user]);
+  }, [isLoggedIn]);
 };
 
 export default useLoginWithToken;

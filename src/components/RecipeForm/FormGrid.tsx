@@ -1,14 +1,10 @@
-import {
-  FC,
-  useRef,
-  useMemo,
-  Dispatch,
-  ChangeEvent,
-  SetStateAction,
-} from "react";
+import { FC, useRef, useMemo, ChangeEvent } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { Recipe } from "@/types";
 import { getImageURL } from "@/utils";
-import { MealType, Recipe } from "@/types";
+import { setFormImage } from "@/store/actions";
+import { selectFormImage } from "@/store/selectors";
 
 import InputsList from "./InputsList";
 import styles from "./RecipeForm.module.scss";
@@ -18,26 +14,13 @@ const ACCEPTED_FILE_TYPES = ["image/png", "image/jpg", "image/jpeg"];
 
 interface Props {
   recipe: Recipe | undefined;
-  titleState: [string, Dispatch<SetStateAction<string>>];
-  summaryState: [string, Dispatch<SetStateAction<string>>];
-  stepsState: [string[], Dispatch<SetStateAction<string[]>>];
-  mealTypeState: [string, Dispatch<SetStateAction<MealType>>];
-  imageState: [File | null, Dispatch<SetStateAction<File | null>>];
-  ingredientsState: [string[], Dispatch<SetStateAction<string[]>>];
 }
 
-const FormGrid: FC<Props> = ({
-  recipe,
-  titleState,
-  stepsState,
-  imageState,
-  summaryState,
-  mealTypeState,
-  ingredientsState,
-}) => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+const FormGrid: FC<Props> = ({ recipe }) => {
+  const image = useSelector(selectFormImage);
+  const dispatch = useDispatch();
 
-  const [image, setImage] = imageState;
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const uploadImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -54,7 +37,7 @@ const FormGrid: FC<Props> = ({
         alert("File is too big!");
       } else {
         const file = e.target.files[0];
-        setImage(file);
+        dispatch(setFormImage(file));
       }
     }
   };
@@ -94,13 +77,7 @@ const FormGrid: FC<Props> = ({
         />
       </div>
       <div>
-        <InputsList
-          stepsState={stepsState}
-          titleState={titleState}
-          summaryState={summaryState}
-          mealTypeState={mealTypeState}
-          ingredientsState={ingredientsState}
-        />
+        <InputsList />
       </div>
     </div>
   );

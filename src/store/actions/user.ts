@@ -42,7 +42,7 @@ export const loginUser =
 
       const { data } = await API.post("/api/user/login", body);
 
-      sessionStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("isLoggedIn", "true");
       dispatch(setUserData(data));
       location.href = MY_ACCOUNT_ROUTE;
     } catch (err) {
@@ -58,7 +58,9 @@ export const loginWithToken =
 
       if (data) {
         dispatch(setUserData(data));
-        sessionStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("isLoggedIn", "true");
+      } else {
+        dispatch(logoutUser());
       }
     } catch {
       dispatch(logoutUser());
@@ -74,7 +76,7 @@ export const logoutUser =
       alert("Something went wrong");
     }
 
-    sessionStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("isLoggedIn");
     dispatch(setUserData(null));
     location.href = "/";
   };

@@ -113,7 +113,7 @@ const AccountForm: FC<Props> = ({
     <ul className={styles.form__errors}>
       {errors.map((message) => (
         <li key={nanoid()}>
-          <p>{message.toString().replace("jwt", "Access token")}</p>
+          <p>• {message.toString().replace("jwt", "Access token")}</p>
         </li>
       ))}
     </ul>

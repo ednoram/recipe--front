@@ -11,6 +11,7 @@ import { createEmptyRecipe, sortRecipes } from "@/utils";
 import { EDIT_ACCOUNT_ROUTE, POST_ROUTE } from "@/constants";
 
 import styles from "./MyAccount.module.scss";
+import { useIsLoggedIn } from "@/hooks";
 
 interface Props {
   recipes: Recipe[];
@@ -20,6 +21,7 @@ const MyAccount: FC<Props> = ({ recipes }) => {
   const [myRecipesLimit, setMyRecipesLimit] = useState(4);
   const [favRecipesLimit, setFavRecipesLimit] = useState(4);
 
+  const isLoggedIn = useIsLoggedIn();
   const user = useSelector(selectUserData);
 
   const myRecipes: Recipe[] =
@@ -59,7 +61,7 @@ const MyAccount: FC<Props> = ({ recipes }) => {
 
   return (
     <main className={styles.content}>
-      {user ? (
+      {isLoggedIn ? (
         <>
           {topSection}
           <section>

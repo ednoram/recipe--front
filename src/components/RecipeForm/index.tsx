@@ -1,10 +1,28 @@
-import { useState, FC, FormEvent } from "react";
-import { useDispatch } from "react-redux";
+import { FC, FormEvent, useEffect } from "react";
 import { Router, useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 
+import {
+  postImage,
+  postRecipe,
+  patchRecipe,
+  setFormTitle,
+  setFormSteps,
+  setFormSummary,
+  clearRecipeForm,
+  setFormMealType,
+  setFormIngredients,
+} from "@/store/actions";
+import {
+  selectFormTitle,
+  selectFormImage,
+  selectFormSteps,
+  selectFormSummary,
+  selectFormMealType,
+  selectFormIngredients,
+} from "@/store/selectors";
+import { Recipe } from "@/types";
 import { handleRouteChange } from "@/utils";
-import { MealType, Recipe } from "@/types";
-import { postRecipe, patchRecipe, postImage } from "@/store/actions";
 
 import FormGrid from "./FormGrid";
 import SubmitButton from "./SubmitButton";
@@ -16,14 +34,21 @@ interface Props {
 }
 
 const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
-  const [image, setImage] = useState<File | null>(null);
-  const [mealType, setMealType] = useState<MealType>(recipe?.mealType || "any");
-  const [ingredients, setIngredients] = useState<string[]>(
-    recipe?.ingredients || []
-  );
-  const [title, setTitle] = useState(recipe?.title || "");
-  const [summary, setSummary] = useState(recipe?.summary || "");
-  const [steps, setSteps] = useState<string[]>(recipe?.steps || []);
+  // const [image, setImage] = useState<File | null>(null);
+  // const [ingredients, setIngredients] = useState<string[]>(
+  //   recipe?.ingredients || []
+  // );
+  // const [title, setTitle] = useState(recipe?.title || "");
+  // const [summary, setSummary] = useState(recipe?.summary || "");
+  // const [steps, setSteps] = useState<string[]>(recipe?.steps || []);
+  // const [mealType, setMealType] = useState<MealType>(recipe?.mealType || "any");
+
+  const image = useSelector(selectFormImage);
+  const title = useSelector(selectFormTitle);
+  const steps = useSelector(selectFormSteps);
+  const summary = useSelector(selectFormSummary);
+  const mealType = useSelector(selectFormMealType);
+  const ingredients = useSelector(selectFormIngredients);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -58,7 +83,21 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
     } else {
       dispatch(postRecipe(newRecipe));
     }
+
+    dispatch(clearRecipeForm());
   };
+
+  useEffect(() => {
+    dispatch(clearRecipeForm());
+
+    if (recipe) {
+      recipe.title && dispatch(setFormTitle(recipe.title));
+      recipe.steps && dispatch(setFormSteps(recipe.steps));
+      recipe.summary && dispatch(setFormSummary(recipe.summary));
+      recipe.mealType && dispatch(setFormMealType(recipe.mealType));
+      recipe.ingredients && dispatch(setFormIngredients(recipe.ingredients));
+    }
+  }, []);
 
   return (
     <form
@@ -74,15 +113,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
       >
         Cancel
       </button>
-      <FormGrid
-        recipe={recipe}
-        stepsState={[steps, setSteps]}
-        titleState={[title, setTitle]}
-        imageState={[image, setImage]}
-        summaryState={[summary, setSummary]}
-        mealTypeState={[mealType, setMealType]}
-        ingredientsState={[ingredients, setIngredients]}
-      />
+      <FormGrid recipe={recipe} />
       <SubmitButton recipe={recipe} recipeID={recipeID} />
     </form>
   );

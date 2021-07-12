@@ -1,4 +1,5 @@
 import { UserData, Recipe } from "@/types";
+import MealType from "./MealType";
 
 import RecipeComment from "./RecipeComment";
 
@@ -15,6 +16,14 @@ interface State {
     listOffset: number;
     searchFilter: string;
     mealTypeFilter: string;
+  };
+  recipeForm: {
+    title: string;
+    steps: string[];
+    summary: string;
+    mealType: MealType;
+    image: File | null;
+    ingredients: string[];
   };
 }
 

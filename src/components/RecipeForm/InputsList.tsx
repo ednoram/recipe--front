@@ -1,30 +1,22 @@
-import { FC, Dispatch, SetStateAction, KeyboardEvent } from "react";
+import { FC, KeyboardEvent } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { MealType } from "@/types";
+import {
+  selectFormTitle,
+  selectFormSummary,
+  selectFormMealType,
+} from "@/store/selectors";
+import { setFormMealType, setFormSummary, setFormTitle } from "@/store/actions";
 
 import AddItems from "./AddItems";
 import styles from "./RecipeForm.module.scss";
 
-interface Props {
-  titleState: [string, Dispatch<SetStateAction<string>>];
-  summaryState: [string, Dispatch<SetStateAction<string>>];
-  stepsState: [string[], Dispatch<SetStateAction<string[]>>];
-  mealTypeState: [string, Dispatch<SetStateAction<MealType>>];
-  ingredientsState: [string[], Dispatch<SetStateAction<string[]>>];
-}
+const InputsList: FC = () => {
+  const title = useSelector(selectFormTitle);
+  const summary = useSelector(selectFormSummary);
+  const mealType = useSelector(selectFormMealType);
 
-const InputsList: FC<Props> = ({
-  titleState,
-  stepsState,
-  summaryState,
-  mealTypeState,
-  ingredientsState,
-}) => {
-  const [title, setTitle] = titleState;
-  const [steps, setSteps] = stepsState;
-  const [summary, setSummary] = summaryState;
-  const [mealType, setMealType] = mealTypeState;
-  const [ingredients, setIngredients] = ingredientsState;
+  const dispatch = useDispatch();
 
   const disableEnterKeySubmit = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -38,14 +30,16 @@ const InputsList: FC<Props> = ({
       className={styles.form__select_meal_type}
       onChange={(e) => {
         const value = e.target.value;
-        setMealType(
-          value === "breakfast" ||
-            value === "lunch" ||
-            value === "dinner" ||
-            value === "dessert" ||
-            value === "snack"
-            ? value
-            : "any"
+        dispatch(
+          setFormMealType(
+            value === "breakfast" ||
+              value === "lunch" ||
+              value === "dinner" ||
+              value === "dessert" ||
+              value === "snack"
+              ? value
+              : "any"
+          )
         );
       }}
     >
@@ -69,7 +63,7 @@ const InputsList: FC<Props> = ({
             placeholder="Title of recipe"
             onKeyPress={disableEnterKeySubmit}
             className={styles.form__title_input}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => dispatch(setFormTitle(e.target.value))}
           />
         </label>
       </li>
@@ -85,28 +79,20 @@ const InputsList: FC<Props> = ({
             maxLength={250}
             placeholder="Summary of recipe"
             className={styles.form__summary_textarea}
-            onChange={(e) => setSummary(e.target.value)}
+            onChange={(e) => dispatch(setFormSummary(e.target.value))}
           />
         </label>
       </li>
       <li className={styles.form__input_list_li}>
         <label>
           <h5 className="color-primary">Add Ingredient:</h5>
-          <AddItems
-            type="ingredients"
-            stepsState={[steps, setSteps]}
-            ingredientsState={[ingredients, setIngredients]}
-          />
+          <AddItems type="ingredients" />
         </label>
       </li>
       <li className={styles.form__input_list_li}>
         <label>
           <h5 className="color-primary">Add Step:</h5>
-          <AddItems
-            type="steps"
-            stepsState={[steps, setSteps]}
-            ingredientsState={[ingredients, setIngredients]}
-          />
+          <AddItems type="steps" />
         </label>
       </li>
     </ul>

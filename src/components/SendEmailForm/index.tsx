@@ -32,7 +32,7 @@ const SendEmailForm: FC<Props> = ({ recovery }) => {
     <ul className={styles.form__errors}>
       {errors.map((message) => (
         <li key={nanoid()}>
-          <p>{message}</p>
+          <p>• {message}</p>
         </li>
       ))}
     </ul>

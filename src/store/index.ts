@@ -10,6 +10,7 @@ import {
   userReducer,
   recipesReducer,
   commentsReducer,
+  recipeFormReducer,
   listFiltersReducer,
 } from "./reducers";
 
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   user: userReducer,
   recipes: recipesReducer,
   comments: commentsReducer,
+  recipeForm: recipeFormReducer,
   listFilters: listFiltersReducer,
 });
 

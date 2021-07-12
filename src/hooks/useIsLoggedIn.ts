@@ -4,7 +4,7 @@ const useIsLoggedIn = (): boolean => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem("isLoggedIn")) {
+    if (localStorage.getItem("isLoggedIn")) {
       setIsLoggedIn(true);
     }
   }, []);
