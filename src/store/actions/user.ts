@@ -29,14 +29,6 @@ const sendEmailAction = () => createAction(SEND_EMAIL, {});
 
 const registerUserAction = () => createAction(REGISTER_USER, {});
 
-export const logoutUser =
-  () =>
-  (dispatch: Dispatch): void => {
-    dispatch(setUserData(null));
-    localStorage.clear();
-    location.href = "/";
-  };
-
 export const loginUser =
   (
     body: { email: string; password: string },
@@ -50,23 +42,41 @@ export const loginUser =
 
       const { data } = await API.post("/api/user/login", body);
 
-      localStorage.setItem("token", data.token);
-      dispatch(setUserData(data.data));
+      sessionStorage.setItem("isLoggedIn", "true");
+      dispatch(setUserData(data));
+      location.href = MY_ACCOUNT_ROUTE;
     } catch (err) {
       setErrors(processErrors(err as AxiosError));
     }
   };
 
 export const loginWithToken =
-  (token: string) =>
+  () =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const { data } = await API.post("/api/user/login-with-token", { token });
-      localStorage.setItem("token", data.token);
-      dispatch(setUserData(data.data));
+      const { data } = await API.post("/api/user/login-with-token");
+
+      if (data) {
+        dispatch(setUserData(data));
+        sessionStorage.setItem("isLoggedIn", "true");
+      }
     } catch {
       dispatch(logoutUser());
     }
+  };
+
+export const logoutUser =
+  () =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      await API.post("/api/user/logout");
+    } catch {
+      alert("Something went wrong");
+    }
+
+    sessionStorage.removeItem("isLoggedIn");
+    dispatch(setUserData(null));
+    location.href = "/";
   };
 
 export const patchUser =
@@ -83,8 +93,7 @@ export const patchUser =
     try {
       setErrors([]);
 
-      const token = localStorage.getItem("token");
-      const { data } = await API.patch(`api/user/${id}`, { ...body, token });
+      const { data } = await API.patch(`api/user/${id}`, body);
 
       dispatch(setUserData(data));
       location.href = MY_ACCOUNT_ROUTE;
@@ -109,11 +118,7 @@ export const changeUserPassword =
     try {
       setErrors([]);
 
-      const token = localStorage.getItem("token");
-      const { data } = await API.patch(`api/user/${id}/password`, {
-        ...body,
-        token,
-      });
+      const { data } = await API.patch(`api/user/${id}/password`, body);
 
       dispatch(setUserData(data));
       location.href = MY_ACCOUNT_ROUTE;
@@ -135,9 +140,8 @@ export const deleteUser =
   async (dispatch: Dispatch): Promise<void> => {
     try {
       setErrors([]);
-      const token = localStorage.getItem("token");
 
-      await API.delete(`api/user/${id}`, { data: { ...body, token } });
+      await API.delete(`api/user/${id}`, { data: body });
 
       dispatch(logoutUser());
     } catch (err) {
@@ -149,13 +153,7 @@ export const addFavoriteRecipe =
   (recipeId: string) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = localStorage.getItem("token");
-
-      await API.post("/api/user/favorite-recipes/add", {
-        token,
-        recipeId,
-      });
-
+      await API.post("/api/user/favorite-recipes/add", { recipeId });
       dispatch(addFavRecipe(recipeId));
     } catch {
       alert("Something went wrong");
@@ -166,13 +164,7 @@ export const removeFavoriteRecipe =
   (recipeId: string) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = localStorage.getItem("token");
-
-      await API.post("/api/user/favorite-recipes/remove", {
-        token,
-        recipeId,
-      });
-
+      await API.post("/api/user/favorite-recipes/remove", { recipeId });
       dispatch(removeFavRecipe(recipeId));
     } catch {
       alert("Something went wrong");

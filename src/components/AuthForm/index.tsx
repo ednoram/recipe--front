@@ -1,10 +1,8 @@
 import { useState, FC, FormEvent } from "react";
 import { nanoid } from "nanoid";
-import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
 import { useIsLoggedIn } from "@/hooks";
-import { MY_ACCOUNT_ROUTE } from "@/constants";
 import { loginUser, registerUser } from "@/store/actions";
 
 import styles from "./AuthForm.module.scss";
@@ -22,7 +20,6 @@ const AuthForm: FC<Props> = ({ register }) => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
 
-  const router = useRouter();
   const dispatch = useDispatch();
   const isLoggedIn = useIsLoggedIn();
 
@@ -40,12 +37,6 @@ const AuthForm: FC<Props> = ({ register }) => {
     } else {
       dispatch(loginUser({ email, password }, setErrors));
     }
-
-    setTimeout(() => {
-      if (localStorage.getItem("token")) {
-        router.push(MY_ACCOUNT_ROUTE);
-      }
-    }, 1000);
   };
 
   const errorsList = (

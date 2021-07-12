@@ -21,8 +21,7 @@ export const postRecipe =
   (recipe: Recipe) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = localStorage.getItem("token");
-      const { data } = await API.post("/api/recipes", { ...recipe, token });
+      const { data } = await API.post("/api/recipes", recipe);
 
       dispatch(addRecipe());
       location.href = `${RECIPES_ROUTE}/${data._id}`;
@@ -35,11 +34,7 @@ export const patchRecipe =
   (id: string | undefined, recipe: Recipe) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = localStorage.getItem("token");
-      const { data } = await API.patch(`/api/recipes/${id}`, {
-        ...recipe,
-        token,
-      });
+      const { data } = await API.patch(`/api/recipes/${id}`, recipe);
 
       dispatch(updateRecipe());
 
@@ -53,11 +48,7 @@ export const deleteRecipe =
   (id: string | undefined) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = localStorage.getItem("token");
-
-      await API.delete(`/api/recipes/${id}`, {
-        data: { token },
-      });
+      await API.delete(`/api/recipes/${id}`);
 
       dispatch(removeRecipe());
       location.href = MY_ACCOUNT_ROUTE;

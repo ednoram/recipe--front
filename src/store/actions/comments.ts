@@ -24,13 +24,7 @@ export const postRecipeComment =
   (recipeId: string, message: string) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = localStorage.getItem("token");
-      const { data } = await API.post("/api/comments", {
-        token,
-        recipeId,
-        message,
-      });
-
+      const { data } = await API.post("/api/comments", { recipeId, message });
       dispatch(addComment(data));
     } catch {
       alert("Something went wrong");
@@ -41,12 +35,7 @@ export const deleteRecipeComment =
   (id: string) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = localStorage.getItem("token");
-
-      await API.delete(`/api/comments/${id}`, {
-        data: { token },
-      });
-
+      await API.delete(`/api/comments/${id}`);
       dispatch(removeComment(id));
     } catch {
       alert("Something went wrong");
@@ -57,12 +46,7 @@ export const patchRecipeComment =
   (id: string, message: string) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = localStorage.getItem("token");
-      const { data } = await API.patch(`/api/comments/${id}`, {
-        token,
-        message,
-      });
-
+      const { data } = await API.patch(`/api/comments/${id}`, { message });
       dispatch(updateComment(id, data));
     } catch {
       alert("Something went wrong");

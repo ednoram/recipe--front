@@ -9,10 +9,8 @@ const useLoginWithToken = (): void => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!user && token) {
-      dispatch(loginWithToken(token));
+    if (!user) {
+      dispatch(loginWithToken());
     }
   }, [user]);
 };

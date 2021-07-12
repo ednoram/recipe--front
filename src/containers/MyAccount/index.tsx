@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import EditIcon from "public/edit-icon.svg";
 
 import { Recipe } from "@/types";
-import { useIsLoggedIn } from "@/hooks";
 import { RecipeList } from "@/components";
 import { selectUserData } from "@/store/selectors";
 import { createEmptyRecipe, sortRecipes } from "@/utils";
@@ -22,8 +21,6 @@ const MyAccount: FC<Props> = ({ recipes }) => {
   const [favRecipesLimit, setFavRecipesLimit] = useState(4);
 
   const user = useSelector(selectUserData);
-
-  const isLoggedIn = useIsLoggedIn();
 
   const myRecipes: Recipe[] =
     recipes &&
@@ -62,7 +59,7 @@ const MyAccount: FC<Props> = ({ recipes }) => {
 
   return (
     <main className={styles.content}>
-      {isLoggedIn ? (
+      {user ? (
         <>
           {topSection}
           <section>
