@@ -5,9 +5,10 @@ import { useSelector, useDispatch } from "react-redux";
 import StarIcon from "public/star-icon.svg";
 
 import { Recipe } from "@/types";
-import { selectUserData } from "@/store/selectors";
+import { useFetchFavoriteRecipes } from "@/hooks";
 import { RECIPES_ROUTE, USERS_ROUTE } from "@/constants";
 import { getImageURL, sortRecipes, toggleFavorite } from "@/utils";
+import { selectFavoriteRecipes, selectUserData } from "@/store/selectors";
 
 import styles from "./RecipeList.module.scss";
 
@@ -17,21 +18,24 @@ interface Props {
 
 const RecipeList: FC<Props> = ({ recipes }) => {
   const user = useSelector(selectUserData);
+  const favoriteRecipes = useSelector(selectFavoriteRecipes);
 
   const dispatch = useDispatch();
 
   const sortedRecipes = sortRecipes(recipes);
 
+  useFetchFavoriteRecipes();
+
   const getImageDivStyle = (imagePath?: string | null) =>
     imagePath
       ? {
           backgroundSize: "cover",
-          backgroundImage: getImageURL(imagePath),
+          backgroundImage: `url(${getImageURL(imagePath)})`,
         }
       : {};
 
   const getStarClassName = (id?: string) =>
-    id && user?.favoriteRecipes?.includes(id)
+    id && favoriteRecipes?.includes(id)
       ? styles.list_item__star_icon_active
       : styles.list_item__star_icon;
 
@@ -47,10 +51,12 @@ const RecipeList: FC<Props> = ({ recipes }) => {
                 className={styles.list_item__image}
                 style={getImageDivStyle(imagePath)}
               >
-                {user && (
+                {user && favoriteRecipes && (
                   <StarIcon
                     className={getStarClassName(_id)}
-                    onClick={() => _id && toggleFavorite(user, _id, dispatch)}
+                    onClick={() =>
+                      _id && toggleFavorite(favoriteRecipes, _id, dispatch)
+                    }
                   />
                 )}
               </div>

@@ -31,7 +31,11 @@ const ItemsDiv: FC<Props> = ({ recipe, type }) => {
                   Step {index + 1}
                 </h5>
               )}
-              <p>{item[0].toUpperCase() + item.slice(1)}</p>
+              <p>
+                {(typeIsIngredients && "• ") +
+                  item[0].toUpperCase() +
+                  item.slice(1)}
+              </p>
             </li>
           ))}
           {visibleItems.length < items.length && (

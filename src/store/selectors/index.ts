@@ -14,3 +14,4 @@ export {
 } from "./listFilters";
 export { selectUserData } from "./user";
 export { selectRecipeComments } from "./comments";
+export { selectFavoriteRecipes } from "./favoriteRecipes";

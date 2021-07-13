@@ -1,21 +1,19 @@
 .hamburger_menu {
   display: none;
+  place-items: center;
   position: fixed;
   top: 0;
   right: 0;
   width: 0;
-  height: calc(100vh + 60px);
+  height: 100vh;
   background-color: $color-primary;
   z-index: 999;
   transition: 0.3s;
   touch-action: none;
+  padding-bottom: 20%;
 
   @include breakpoint(tablet) {
-    display: block;
-  }
-
-  &__content {
-    padding: 120px 0;
+    display: grid;
   }
 }
 
@@ -62,6 +60,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 14px;
     }
 
     li {

@@ -10,14 +10,12 @@ const ResetPassword: FC = () => {
   return (
     <main className={styles.content}>
       <section>
-        <div className="container">
+        <div className="form_container">
           <h1 className={styles.content__title}>Reset Password</h1>
           {isLoggedIn ? (
             <p className="auth_problem_p">You are logged in.</p>
           ) : (
-            <div className="form_container">
-              <AccountForm resetPassword />
-            </div>
+            <AccountForm resetPassword />
           )}
         </div>
       </section>

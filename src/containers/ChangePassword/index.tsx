@@ -13,7 +13,7 @@ const ChangePassword: FC = () => {
   return (
     <main>
       <section className={styles.content}>
-        <div className="container">
+        <div className="form_container">
           {isLoggedIn && (
             <Link href={EDIT_ACCOUNT_ROUTE}>
               <a className={styles.content__back_link}>← Edit Account</a>
@@ -21,9 +21,7 @@ const ChangePassword: FC = () => {
           )}
           <h1 className={styles.content__title}>Change Password</h1>
           {isLoggedIn ? (
-            <div className="form_container">
-              <AccountForm changePassword />
-            </div>
+            <AccountForm changePassword />
           ) : (
             <p className="auth_problem_p">You are not logged in</p>
           )}

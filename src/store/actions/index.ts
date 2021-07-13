@@ -6,10 +6,8 @@ export {
   registerUser,
   loginWithToken,
   resetUserPassword,
-  addFavoriteRecipe,
   sendRecoveryEmail,
   changeUserPassword,
-  removeFavoriteRecipe,
   sendVerificationEmail,
 } from "./user";
 export {
@@ -42,5 +40,10 @@ export {
   updateFormIngredient,
   removeFormIngredient,
 } from "./recipeForm";
+export {
+  setFavoriteRecipes,
+  addFavoriteRecipe,
+  removeFavoriteRecipe,
+} from "./favoriteRecipes";
 export { postImage } from "./uploads";
 export { setRecipes, postRecipe, patchRecipe, deleteRecipe } from "./recipes";

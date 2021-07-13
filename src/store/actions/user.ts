@@ -10,20 +10,12 @@ import {
   SEND_EMAIL,
   SET_USER_DATA,
   REGISTER_USER,
-  ADD_FAVORITE_RECIPE,
-  REMOVE_FAVORITE_RECIPE,
 } from "@/store/reducers/user";
 import { UserData, Dispatch } from "@/types";
 import { processErrors, createAction } from "@/utils";
 
 const setUserData = (data: UserData | null) =>
   createAction(SET_USER_DATA, { data });
-
-const addFavRecipe = (recipeId: string) =>
-  createAction(ADD_FAVORITE_RECIPE, { recipeId });
-
-const removeFavRecipe = (recipeId: string) =>
-  createAction(REMOVE_FAVORITE_RECIPE, { recipeId });
 
 const sendEmailAction = () => createAction(SEND_EMAIL, {});
 
@@ -148,28 +140,6 @@ export const deleteUser =
       dispatch(logoutUser());
     } catch (err) {
       setErrors(processErrors(err as AxiosError));
-    }
-  };
-
-export const addFavoriteRecipe =
-  (recipeId: string) =>
-  async (dispatch: Dispatch): Promise<void> => {
-    try {
-      await API.post("/api/user/favorite-recipes/add", { recipeId });
-      dispatch(addFavRecipe(recipeId));
-    } catch {
-      alert("Something went wrong");
-    }
-  };
-
-export const removeFavoriteRecipe =
-  (recipeId: string) =>
-  async (dispatch: Dispatch): Promise<void> => {
-    try {
-      await API.post("/api/user/favorite-recipes/remove", { recipeId });
-      dispatch(removeFavRecipe(recipeId));
-    } catch {
-      alert("Something went wrong");
     }
   };
 

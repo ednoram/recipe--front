@@ -14,6 +14,8 @@ interface Props {
 const Item: FC<Props> = ({ typeIsIngredients, item, index }) => {
   const [editing, setEditing] = useState(false);
 
+  const itemText = item[0].toUpperCase() + item.slice(1);
+
   return (
     <li className={`${styles.form__add_item_item} flex`}>
       {editing ? (
@@ -26,7 +28,9 @@ const Item: FC<Props> = ({ typeIsIngredients, item, index }) => {
         />
       ) : (
         <>
-          <p>{index + 1 + ". " + item[0].toUpperCase() + item.slice(1)}</p>
+          <p>
+            {typeIsIngredients ? "• " + itemText : index + 1 + ". " + itemText}
+          </p>
           <EditIcon
             aria-label="edit item"
             onClick={() => setEditing(true)}

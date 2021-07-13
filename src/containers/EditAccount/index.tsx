@@ -17,7 +17,7 @@ const EditAccount: FC = () => {
   return (
     <main>
       <section className={styles.content}>
-        <div className="container">
+        <div className="form_container">
           {isLoggedIn && (
             <Link href={MY_ACCOUNT_ROUTE}>
               <a className={styles.content__back_link}>← My Account</a>
@@ -25,7 +25,7 @@ const EditAccount: FC = () => {
           )}
           <h1 className={styles.content__title}>Edit Account</h1>
           {isLoggedIn ? (
-            <div className="form_container">
+            <>
               <AccountForm />
               <div className="flex_center">
                 <Link href={CHANGE_PASSWORD_ROUTE}>
@@ -39,7 +39,7 @@ const EditAccount: FC = () => {
                   <a className={styles.content__delete_link}>Delete Account</a>
                 </Link>
               </div>
-            </div>
+            </>
           ) : (
             <p className="auth_problem_p">You are not logged in</p>
           )}

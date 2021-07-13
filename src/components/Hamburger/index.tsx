@@ -1,23 +1,23 @@
-import { useState, FC } from "react";
+import { FC } from "react";
 
 import styles from "./Hamburger.module.scss";
 
 interface Props {
+  menuIsOpen: boolean;
   clickFunc?: () => void;
+  setMenuIsOpen: (arg: boolean) => void;
 }
 
-const Hamburger: FC<Props> = ({ clickFunc }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
+const Hamburger: FC<Props> = ({ menuIsOpen, setMenuIsOpen, clickFunc }) => {
   const handleClick = () => {
-    setIsOpen(!isOpen);
+    setMenuIsOpen(!menuIsOpen);
     clickFunc && clickFunc();
   };
 
   return (
     <div
       onClick={handleClick}
-      className={`${styles.container} ${isOpen ? styles.change : ""}`}
+      className={`${styles.container} ${menuIsOpen ? styles.change : ""}`}
     >
       <div className={styles.bar1}></div>
       <div className={styles.bar2}></div>

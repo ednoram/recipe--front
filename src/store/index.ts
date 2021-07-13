@@ -12,6 +12,7 @@ import {
   commentsReducer,
   recipeFormReducer,
   listFiltersReducer,
+  favoriteRecipesReducer,
 } from "./reducers";
 
 const reducers = combineReducers({
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   comments: commentsReducer,
   recipeForm: recipeFormReducer,
   listFilters: listFiltersReducer,
+  favoriteRecipes: favoriteRecipesReducer,
 });
 
 const middleware = composeWithDevTools(applyMiddleware(thunk));

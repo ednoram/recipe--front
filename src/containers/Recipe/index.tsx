@@ -9,8 +9,9 @@ import StarIcon from "public/star-icon.svg";
 import { RECIPES_ROUTE } from "@/constants";
 import { setComments } from "@/store/actions";
 import { Recipe, RecipeComment } from "@/types";
-import { selectUserData } from "@/store/selectors";
+import { useFetchFavoriteRecipes } from "@/hooks";
 import { getImageURL, toggleFavorite } from "@/utils";
+import { selectFavoriteRecipes, selectUserData } from "@/store/selectors";
 
 import ItemsDiv from "./ItemsDiv";
 import styles from "./Recipe.module.scss";
@@ -23,8 +24,16 @@ interface Props {
 
 const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
   const user = useSelector(selectUserData);
+  const favoriteRecipes = useSelector(selectFavoriteRecipes);
+
   const router = useRouter();
   const dispatch = useDispatch();
+
+  useFetchFavoriteRecipes();
+
+  useEffect(() => {
+    dispatch(setComments(recipeComments));
+  }, []);
 
   const isOwnRecipe = recipe.email === user?.email;
 
@@ -55,13 +64,9 @@ const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
     : "unknown";
 
   const getStarClassName = (id?: string) =>
-    id && user?.favoriteRecipes?.includes(id)
+    id && favoriteRecipes?.includes(id)
       ? styles.content__star_icon_active
       : styles.content__star_icon;
-
-  useEffect(() => {
-    dispatch(setComments(recipeComments));
-  }, []);
 
   const grid = (
     <div className={styles.content__grid}>
@@ -118,7 +123,8 @@ const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
               <StarIcon
                 className={getStarClassName(recipe._id)}
                 onClick={() =>
-                  recipe._id && toggleFavorite(user, recipe._id, dispatch)
+                  recipe._id &&
+                  toggleFavorite(favoriteRecipes, recipe._id, dispatch)
                 }
               />
             )}

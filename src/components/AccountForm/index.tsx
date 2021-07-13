@@ -36,6 +36,12 @@ const AccountForm: FC<Props> = ({
   const router = useRouter();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (user?.name && !name) {
+      setName(user.name);
+    }
+  }, [user]);
+
   const queryEmail = String(router.query.email);
   const queryToken = String(router.query.token);
 
@@ -69,12 +75,6 @@ const AccountForm: FC<Props> = ({
 
     dispatch(patchUser(user._id, { name }, setErrors));
   };
-
-  useEffect(() => {
-    if (user?.name && !name) {
-      setName(user.name);
-    }
-  }, [user]);
 
   const deleteAccountInputs = (
     <input

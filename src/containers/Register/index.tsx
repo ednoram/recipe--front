@@ -9,11 +9,9 @@ const Register: FC = () => {
     <main>
       <section>
         <div className={styles.content}>
-          <div className="container">
+          <div className="form_container">
             <h1 className={styles.content__title}>Register</h1>
-            <div className="form_container">
-              <AuthForm register />
-            </div>
+            <AuthForm register />
           </div>
         </div>
       </section>

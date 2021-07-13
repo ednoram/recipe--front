@@ -1,4 +1,4 @@
-import { useState, FC, KeyboardEvent } from "react";
+import { useState, useEffect, useRef, FC, KeyboardEvent } from "react";
 import { useDispatch } from "react-redux";
 
 import {
@@ -28,18 +28,29 @@ const ItemsInput: FC<Props> = ({
   typeIsIngredients,
 }) => {
   const [inputValue, setInputValue] = useState(item || "");
+
   const dispatch = useDispatch();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const addItem = () => {
-    if (inputValue) {
-      if (typeIsIngredients) {
-        dispatch(addFormIngredient(inputValue));
-      } else {
-        dispatch(addFormStep(inputValue));
-      }
-
-      setInputValue("");
+  useEffect(() => {
+    if (editing && inputRef.current) {
+      inputRef.current.focus();
     }
+  }, []);
+
+  const addItem = (item: string) => {
+    if (!inputValue) {
+      alert("Input value is empty");
+      return;
+    }
+
+    if (typeIsIngredients) {
+      dispatch(addFormIngredient(item));
+    } else {
+      dispatch(addFormStep(item));
+    }
+
+    setInputValue("");
   };
 
   const removeItem = (index: number) => {
@@ -53,6 +64,11 @@ const ItemsInput: FC<Props> = ({
   };
 
   const updateItem = (index: number, item: string) => {
+    if (!inputValue) {
+      alert("Input value is empty");
+      return;
+    }
+
     if (typeIsIngredients) {
       dispatch(updateFormIngredient(index, item));
     } else {
@@ -65,22 +81,24 @@ const ItemsInput: FC<Props> = ({
   const handleInputKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
+
       if (editing && index !== undefined && setEditing) {
         updateItem(index, inputValue);
         setEditing(false);
-      } else if (typeIsIngredients && inputValue) {
-        addItem();
+      } else {
+        addItem(inputValue);
       }
     }
   };
 
-  const handleSubmitOnClick = editing
+  const handleSubmitClick = editing
     ? () => index !== undefined && updateItem(index, inputValue)
-    : addItem;
+    : () => addItem(inputValue);
 
   return (
     <div className={editing ? styles.form__edit_items_input_div : "flex"}>
       <input
+        ref={inputRef}
         maxLength={250}
         value={inputValue}
         onKeyDown={handleInputKeyDown}
@@ -91,8 +109,8 @@ const ItemsInput: FC<Props> = ({
       <div className="flex">
         <button
           type="button"
-          name="submit"
-          onClick={handleSubmitOnClick}
+          name="add or update item"
+          onClick={() => handleSubmitClick()}
           className={
             editing ? styles.form__update_button : styles.form__add_button
           }

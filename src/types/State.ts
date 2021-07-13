@@ -25,6 +25,9 @@ interface State {
     image: File | null;
     ingredients: string[];
   };
+  favoriteRecipes: {
+    recipeIds: string[];
+  };
 }
 
 export default State;

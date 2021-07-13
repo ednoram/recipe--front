@@ -6,9 +6,9 @@ import EditIcon from "public/edit-icon.svg";
 
 import { Recipe } from "@/types";
 import { RecipeList } from "@/components";
-import { selectUserData } from "@/store/selectors";
 import { createEmptyRecipe, sortRecipes } from "@/utils";
 import { EDIT_ACCOUNT_ROUTE, POST_ROUTE } from "@/constants";
+import { selectFavoriteRecipes, selectUserData } from "@/store/selectors";
 
 import styles from "./MyAccount.module.scss";
 import { useIsLoggedIn } from "@/hooks";
@@ -21,8 +21,10 @@ const MyAccount: FC<Props> = ({ recipes }) => {
   const [myRecipesLimit, setMyRecipesLimit] = useState(4);
   const [favRecipesLimit, setFavRecipesLimit] = useState(4);
 
-  const isLoggedIn = useIsLoggedIn();
   const user = useSelector(selectUserData);
+  const favoriteRecipes = useSelector(selectFavoriteRecipes);
+
+  const isLoggedIn = useIsLoggedIn();
 
   const myRecipes: Recipe[] =
     recipes &&
@@ -30,9 +32,9 @@ const MyAccount: FC<Props> = ({ recipes }) => {
       recipes.filter((recipe: Recipe) => recipe.email === user?.email)
     );
 
-  const favRecipes: Recipe[] = user?.favoriteRecipes
+  const favRecipes: Recipe[] = favoriteRecipes
     ? sortRecipes(
-        user.favoriteRecipes.map(
+        favoriteRecipes.map(
           (id) => recipes.find(({ _id }) => _id === id) || createEmptyRecipe(id)
         )
       )

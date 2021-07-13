@@ -5,9 +5,25 @@ import { Hamburger } from "@/components";
 
 import Navigation from "./Navigation";
 import styles from "./Header.module.scss";
+import { useRouter } from "next/router";
 
 const Header: FC = () => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setMenuIsOpen(false);
+  }, [router]);
+
+  useEffect(() => {
+    return () => {
+      const body = document.querySelector("body");
+      if (body?.style.overflow) {
+        body.style.overflow = "unset";
+      }
+    };
+  }, []);
 
   const handleHamburgerClick = () => {
     const body = document.querySelector("body");
@@ -24,28 +40,19 @@ const Header: FC = () => {
     setTimeout(() => window.scroll(0, 0), 150);
   };
 
-  useEffect(() => {
-    return () => {
-      const body = document.querySelector("body");
-      if (body?.style.overflow) {
-        body.style.overflow = "unset";
-      }
-    };
-  }, []);
-
   const hamburger = (
     <div className={styles.content__hamburger}>
-      <Hamburger clickFunc={handleHamburgerClick} />
+      <Hamburger
+        menuIsOpen={menuIsOpen}
+        setMenuIsOpen={setMenuIsOpen}
+        clickFunc={handleHamburgerClick}
+      />
       <div
         className={`${styles.hamburger_menu} ${
           menuIsOpen ? styles.hamburger_menu_open : ""
         }`}
       >
-        {menuIsOpen && (
-          <div className={styles.hamburger_menu__content}>
-            <Navigation />
-          </div>
-        )}
+        {menuIsOpen && <Navigation />}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { useState, FC } from "react";
 import Link from "next/link";
 
+import { sortRecipes } from "@/utils";
 import { User, Recipe } from "@/types";
 import { RecipeList } from "@/components";
 import { USERS_ROUTE } from "@/constants";
@@ -13,6 +14,12 @@ interface Props {
 }
 
 const UserPage: FC<Props> = ({ user, recipes }) => {
+  const [recipeListLimit, setRecipeListLimit] = useState(4);
+
+  const sortedRecipes = sortRecipes(recipes);
+
+  const visibleRecipes = sortedRecipes.slice(0, recipeListLimit);
+
   return (
     <main className={styles.content}>
       <section>
@@ -27,7 +34,18 @@ const UserPage: FC<Props> = ({ user, recipes }) => {
       <section className={styles.content__recipes_section}>
         <div className="container">
           <h2 className="color-primary">Recipes ({recipes.length})</h2>
-          <RecipeList recipes={recipes} />
+          <RecipeList recipes={visibleRecipes} />
+          <div className="flex_center">
+            {recipeListLimit < recipes.length && (
+              <button
+                name="Show more"
+                className={styles.content__show_more_button}
+                onClick={() => setRecipeListLimit(recipeListLimit + 4)}
+              >
+                Show More
+              </button>
+            )}
+          </div>
         </div>
       </section>
     </main>
