@@ -4,7 +4,7 @@ import {
   applyMiddleware,
 } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 
 import {
   userReducer,
@@ -22,9 +22,8 @@ const reducers = combineReducers({
   listFilters: listFiltersReducer,
 });
 
-const store = createStore(
-  reducers,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+const middleware = composeWithDevTools(applyMiddleware(thunk));
+
+const store = createStore(reducers, middleware);
 
 export default store;

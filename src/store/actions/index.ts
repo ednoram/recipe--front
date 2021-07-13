@@ -33,11 +33,13 @@ export {
   setFormTitle,
   setFormSteps,
   setFormSummary,
+  updateFormStep,
   removeFormStep,
   setFormMealType,
   clearRecipeForm,
   addFormIngredient,
   setFormIngredients,
+  updateFormIngredient,
   removeFormIngredient,
 } from "./recipeForm";
 export { postImage } from "./uploads";

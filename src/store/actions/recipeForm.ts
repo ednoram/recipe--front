@@ -7,10 +7,12 @@ import {
   SET_FORM_TITLE,
   SET_FORM_SUMMARY,
   REMOVE_FORM_STEP,
+  UPDATE_FORM_STEP,
   CLEAR_RECIPE_FORM,
   SET_FORM_MEAL_TYPE,
   ADD_FORM_INGREDIENT,
   SET_FORM_INGREDIENTS,
+  UPDATE_FORM_INGREDIENT,
   REMOVE_FORM_INGREDIENT,
 } from "@/store/reducers/recipeForm";
 import { createAction } from "@/utils";
@@ -36,9 +38,6 @@ export const setFormSteps = (steps: string[]): Action =>
 export const setFormSummary = (summary: string): Action =>
   createAction(SET_FORM_SUMMARY, { summary });
 
-export const setFormIngredients = (ingredients: string[]): Action =>
-  createAction(SET_FORM_INGREDIENTS, { ingredients });
-
 export const setFormMealType = (mealType: MealType): Action =>
   createAction(SET_FORM_MEAL_TYPE, { mealType });
 
@@ -47,3 +46,14 @@ export const removeFormIngredient = (index: number): Action =>
 
 export const addFormIngredient = (ingredient: string): Action =>
   createAction(ADD_FORM_INGREDIENT, { ingredient });
+
+export const setFormIngredients = (ingredients: string[]): Action =>
+  createAction(SET_FORM_INGREDIENTS, { ingredients });
+
+export const updateFormStep = (index: number, step: string): Action =>
+  createAction(UPDATE_FORM_STEP, { index, step });
+
+export const updateFormIngredient = (
+  index: number,
+  ingredient: string
+): Action => createAction(UPDATE_FORM_INGREDIENT, { index, ingredient });

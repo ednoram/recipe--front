@@ -34,15 +34,6 @@ interface Props {
 }
 
 const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
-  // const [image, setImage] = useState<File | null>(null);
-  // const [ingredients, setIngredients] = useState<string[]>(
-  //   recipe?.ingredients || []
-  // );
-  // const [title, setTitle] = useState(recipe?.title || "");
-  // const [summary, setSummary] = useState(recipe?.summary || "");
-  // const [steps, setSteps] = useState<string[]>(recipe?.steps || []);
-  // const [mealType, setMealType] = useState<MealType>(recipe?.mealType || "any");
-
   const image = useSelector(selectFormImage);
   const title = useSelector(selectFormTitle);
   const steps = useSelector(selectFormSteps);
@@ -91,11 +82,12 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
     dispatch(clearRecipeForm());
 
     if (recipe) {
+      recipe.ingredients.length > 0 &&
+        dispatch(setFormIngredients(recipe.ingredients));
       recipe.title && dispatch(setFormTitle(recipe.title));
-      recipe.steps && dispatch(setFormSteps(recipe.steps));
       recipe.summary && dispatch(setFormSummary(recipe.summary));
       recipe.mealType && dispatch(setFormMealType(recipe.mealType));
-      recipe.ingredients && dispatch(setFormIngredients(recipe.ingredients));
+      recipe.steps.length > 0 && dispatch(setFormSteps(recipe.steps));
     }
   }, []);
 

@@ -4,6 +4,7 @@ export const ADD_FORM_STEP = "ADD_FORM_STEP";
 export const SET_FORM_IMAGE = "SET_FORM_IMAGE";
 export const SET_FORM_TITLE = "SET_FORM_TITLE";
 export const SET_FORM_STEPS = "SET_FORM_STEPS";
+export const UPDATE_FORM_STEP = "UPDATE_FORM_STEP";
 export const SET_FORM_SUMMARY = "SET_FORM_SUMMARY";
 export const REMOVE_FORM_STEP = "REMOVE_FORM_STEP";
 export const CLEAR_RECIPE_FORM = "CLEAR_RECIPE_FORM";
@@ -11,6 +12,7 @@ export const SET_FORM_MEAL_TYPE = "SET_FORM_MEAL_TYPE";
 export const ADD_FORM_INGREDIENT = "ADD_FORM_INGREDIENT";
 export const SET_FORM_INGREDIENTS = "SET_FORM_INGREDIENTS";
 export const REMOVE_FORM_INGREDIENT = "REMOVE_FORM_INGREDIENT";
+export const UPDATE_FORM_INGREDIENT = "UPDATE_FORM_INGREDIENT";
 
 interface State {
   title: string;
@@ -90,6 +92,28 @@ const listFiltersReducer = (
             ...state,
             ingredients: [
               ...state.ingredients.slice(0, payload.index),
+              ...state.ingredients.slice(payload.index + 1),
+            ],
+          }
+        : state;
+    case UPDATE_FORM_STEP:
+      return payload.index !== undefined && payload.step
+        ? {
+            ...state,
+            steps: [
+              ...state.steps.slice(0, payload.index),
+              payload.step,
+              ...state.steps.slice(payload.index + 1),
+            ],
+          }
+        : state;
+    case UPDATE_FORM_INGREDIENT:
+      return payload.index !== undefined && payload.ingredient
+        ? {
+            ...state,
+            ingredients: [
+              ...state.ingredients.slice(0, payload.index),
+              payload.ingredient,
               ...state.ingredients.slice(payload.index + 1),
             ],
           }
