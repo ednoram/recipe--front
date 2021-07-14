@@ -49,7 +49,7 @@ const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
       recipe.imagePath
         ? {
             backgroundSize: "cover",
-            backgroundImage: getImageURL(recipe.imagePath),
+            backgroundImage: `url(${getImageURL(recipe.imagePath)})`,
           }
         : {},
     [recipe.imagePath]

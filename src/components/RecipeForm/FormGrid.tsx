@@ -46,7 +46,9 @@ const FormGrid: FC<Props> = ({ recipe }) => {
     fileInputRef.current && fileInputRef.current.click();
 
   const backgroundImageStyle = useMemo(() => {
-    const noImageStyle = recipe?.imagePath ? getImageURL(recipe.imagePath) : "";
+    const noImageStyle = recipe?.imagePath
+      ? `url(${getImageURL(recipe.imagePath)})`
+      : "";
     return !image ? noImageStyle : `url(${URL.createObjectURL(image)})`;
   }, [image]);
 

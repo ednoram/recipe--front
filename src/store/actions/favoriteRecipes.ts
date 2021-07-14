@@ -27,6 +27,7 @@ export const addFavoriteRecipe =
       });
     } catch {
       alert("Something went wrong");
+      dispatch(removeFavRecipe(recipeId));
     }
   };
 
@@ -38,5 +39,6 @@ export const removeFavoriteRecipe =
       await API.delete(`/api/favorite-recipes/${recipeId}`);
     } catch {
       alert("Something went wrong");
+      dispatch(addFavRecipe(recipeId));
     }
   };
