@@ -8,8 +8,9 @@ import { RecipeComment } from "@/types";
 import { USERS_ROUTE } from "@/constants";
 import { selectUserData } from "@/store/selectors";
 
-import styles from "./Recipe.module.scss";
+import RateDiv from "./RateDiv";
 import CommentForm from "./CommentForm";
+import styles from "./Recipe.module.scss";
 
 interface Props {
   recipeId: string;
@@ -24,11 +25,13 @@ const CommentItem: FC<Props> = ({ comment, recipeId }) => {
 
   const toggleEditing = () => setEditing(!editing);
 
-  const dateString = new Date(comment.createdAt).toLocaleDateString("en", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  const dateString = comment.createdAt
+    ? new Date(comment.createdAt).toLocaleDateString("en", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      })
+    : "unknown";
 
   const commentIsLong = comment.message.length > 250;
 
@@ -41,6 +44,7 @@ const CommentItem: FC<Props> = ({ comment, recipeId }) => {
     />
   ) : (
     <div>
+      <RateDiv rate={comment.rate} />
       <p>
         {commentIsLong && !expanded
           ? comment.message.slice(0, 250) + "..."

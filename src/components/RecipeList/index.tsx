@@ -60,9 +60,9 @@ const RecipeList: FC<Props> = ({ recipes }) => {
                   />
                 )}
               </div>
-              <h4 className={styles.list_item__recipe_title}>
+              <p className={styles.list_item__recipe_title}>
                 {title || "Recipe was not found"}
-              </h4>
+              </p>
               <p className={styles.list_item__meal_type}>{mealType}</p>
               <Link href={`${USERS_ROUTE}/${email}`}>
                 <a className={styles.list_item__user_email}>{email}</a>

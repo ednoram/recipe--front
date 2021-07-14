@@ -118,7 +118,11 @@ const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
               </a>
             </Link>
           )}
-          <div className={user ? styles.content__title_grid : ""}>
+          <div
+            className={
+              user ? styles.content__title_grid : styles.content__title_div
+            }
+          >
             {user && (
               <StarIcon
                 className={getStarClassName(recipe._id)}

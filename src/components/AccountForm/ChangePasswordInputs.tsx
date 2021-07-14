@@ -1,12 +1,12 @@
-import { FC, Dispatch, SetStateAction } from "react";
+import { FC } from "react";
 
 import styles from "./AccountForm.module.scss";
 
 interface Props {
   resetPassword?: boolean;
-  newPasswordState: [string, Dispatch<SetStateAction<string>>];
-  currentPasswordState: [string, Dispatch<SetStateAction<string>>];
-  passwordConfirmationState: [string, Dispatch<SetStateAction<string>>];
+  newPasswordState: [string, (arg: string) => void];
+  currentPasswordState: [string, (arg: string) => void];
+  passwordConfirmationState: [string, (arg: string) => void];
 }
 
 const ChangePasswordInputs: FC<Props> = ({

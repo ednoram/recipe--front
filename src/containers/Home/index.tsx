@@ -31,9 +31,9 @@ const Home: FC<Props> = ({ recipes }) => {
           <h1 className={styles.content__title}>
             {"It's all about good food & taste!"}
           </h1>
-          <h3 className={styles.content__subtitle}>
+          <h2 className={styles.content__subtitle}>
             Discover recipes. Post your own recipes.
-          </h3>
+          </h2>
           <Link href={REGISTER_ROUTE}>
             <a>
               <div className={styles.content__join_button}>Join Now</div>

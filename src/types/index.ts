@@ -1,5 +1,6 @@
 export type { default as User } from "./User";
 export type { default as Path } from "./Path";
+export type { default as Rate } from "./Rate";
 export type { default as State } from "./State";
 export type { default as Recipe } from "./Recipe";
 export type { default as MealType } from "./MealType";

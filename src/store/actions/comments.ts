@@ -21,11 +21,29 @@ const updateComment = (id: string, newComment: RecipeComment) =>
 const removeComment = (id: string) => createAction(REMOVE_COMMENT, { id });
 
 export const postRecipeComment =
-  (recipeId: string, message: string) =>
+  (recipeId: string, message: string, rate: 1 | 2 | 3 | 4 | 5) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const { data } = await API.post("/api/comments", { recipeId, message });
+      const { data } = await API.post("/api/comments", {
+        rate,
+        message,
+        recipeId,
+      });
       dispatch(addComment(data));
+    } catch {
+      alert("Something went wrong");
+    }
+  };
+
+export const patchRecipeComment =
+  (id: string, message: string, rate: 1 | 2 | 3 | 4 | 5) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      const { data } = await API.patch(`/api/comments/${id}`, {
+        rate,
+        message,
+      });
+      dispatch(updateComment(id, data));
     } catch {
       alert("Something went wrong");
     }
@@ -37,17 +55,6 @@ export const deleteRecipeComment =
     try {
       await API.delete(`/api/comments/${id}`);
       dispatch(removeComment(id));
-    } catch {
-      alert("Something went wrong");
-    }
-  };
-
-export const patchRecipeComment =
-  (id: string, message: string) =>
-  async (dispatch: Dispatch): Promise<void> => {
-    try {
-      const { data } = await API.patch(`/api/comments/${id}`, { message });
-      dispatch(updateComment(id, data));
     } catch {
       alert("Something went wrong");
     }

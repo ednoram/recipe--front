@@ -14,9 +14,8 @@ interface Props {
 
 const CommentsSection: FC<Props> = ({ recipe }) => {
   const [limit, setLimit] = useState(3);
-  const comments = useSelector((state: State) =>
-    selectRecipeComments(state, String(recipe._id))
-  );
+
+  const comments = useSelector((state: State) => selectRecipeComments(state));
 
   const visibleComments =
     comments &&

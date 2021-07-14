@@ -6,12 +6,16 @@
     grid-template-columns: 32px auto;
     align-items: center;
     gap: 8px;
+    margin-top: 20px;
+  }
+
+  &__title_div {
+    margin-top: 20px;
   }
 
   &__title {
     color: $color-primary;
     text-transform: capitalize;
-    margin-top: 20px;
   }
 
   &__star_icon {
@@ -20,7 +24,6 @@
     fill: black;
     opacity: 0.7;
     cursor: pointer;
-    margin-top: 8px;
   }
 
   &__star_icon:hover {
@@ -128,8 +131,34 @@
     margin-top: 48px;
   }
 
+  &__comments_rate_div {
+    display: flex;
+    gap: 10px;
+    padding: 12px 0;
+  }
+
   &__comments_form {
     margin-top: 20px;
+  }
+
+  &__comments_rate_icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.3;
+    cursor: pointer;
+  }
+
+  &__comments_rate_icon_filled {
+    @extend .content__comments_rate_icon;
+    fill: $color-yellow;
+    opacity: 1;
+  }
+
+  &__comments_rate_icon_passive {
+    @extend .content__comments_rate_icon;
+    cursor: unset;
+    width: 20px;
+    height: 20px;
   }
 
   &__comment_input {

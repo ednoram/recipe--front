@@ -1,4 +1,4 @@
-import { useState, FC, FormEvent, Dispatch, SetStateAction } from "react";
+import { useState, FC, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 
 import {
@@ -7,18 +7,20 @@ import {
   deleteRecipeComment,
 } from "@/store/actions";
 import { useIsLoggedIn } from "@/hooks";
-import { RecipeComment } from "@/types";
+import { RecipeComment, Rate } from "@/types";
 
+import RateDiv from "./RateDiv";
 import styles from "./Recipe.module.scss";
 
 interface Props {
   recipeId: string;
   editing?: boolean;
   comment?: RecipeComment;
-  setEditing?: Dispatch<SetStateAction<boolean>>;
+  setEditing?: (arg: boolean) => void;
 }
 
 const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
+  const [rate, setRate] = useState<Rate>(comment ? comment.rate : 0);
   const [message, setMessage] = useState(comment ? comment.message : "");
 
   const dispatch = useDispatch();
@@ -38,28 +40,36 @@ const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
       return;
     }
 
-    if (message.trim().length < 1) {
-      alert("Comment can not be empty");
+    if (!rate) {
+      alert("Rate comment to continue.");
+      return;
+    }
+
+    if (!message || message.trim().length < 1) {
+      alert("Review can not be empty");
       return;
     }
 
     if (recipeId) {
       if (editing && comment && setEditing) {
-        dispatch(patchRecipeComment(comment._id, message.trim()));
+        dispatch(patchRecipeComment(comment._id, message.trim(), rate));
         setEditing(false);
       } else {
-        dispatch(postRecipeComment(recipeId, message.trim()));
+        dispatch(postRecipeComment(recipeId, message.trim(), rate));
         setMessage("");
       }
     }
+
+    setRate(0);
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.content__comments_form}>
+      <RateDiv rate={rate} setRate={setRate} />
       <input
         value={message}
         maxLength={1000}
-        placeholder="Comment Text"
+        placeholder="Review"
         className={styles.content__comment_input}
         onChange={(e) => setMessage(e.target.value)}
       />
