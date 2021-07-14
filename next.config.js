@@ -1,5 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
-module.exports = {
+const withPWA = require("next-pwa");
+
+module.exports = withPWA({
+  pwa: {
+    dest: "public",
+    disable: process.env.NODE_ENV === "development",
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -17,4 +24,4 @@ module.exports = {
   env: {
     API_URL: process.env.API_URL,
   },
-};
+});

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Dispatch, SetStateAction } from "react";
 
 import StarIcon from "public/star-icon.svg";
 
@@ -8,18 +8,24 @@ import styles from "./Recipe.module.scss";
 
 interface Props {
   rate: Rate;
-  setRate?: (arg: number) => void;
+  setRate?: Dispatch<SetStateAction<Rate>>;
 }
 
 const RateDiv: FC<Props> = ({ rate, setRate }) => {
+  const changeRate = (rate: number) => {
+    if (setRate && rate === 0) {
+      setRate(rate);
+    }
+  };
+
   return (
     <div className={styles.content__comments_rate_div}>
       {[...Array(5).keys()].map((key) => (
         <StarIcon
           aria-label={setRate && "Change Rate"}
           key={key}
-          onClick={() => setRate && setRate(key + 1)}
           style={!setRate ? { cursor: "unset" } : {}}
+          onClick={() => setRate && changeRate(key + 1)}
           className={`${
             rate >= key + 1
               ? styles.content__comments_rate_icon_filled

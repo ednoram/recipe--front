@@ -20,7 +20,10 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <meta name="theme-color" content="#ffffff" />
+          <meta name="theme-color" content="#ffffff" />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         </Head>
         <body>
           <Main />
