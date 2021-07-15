@@ -21,9 +21,9 @@ class MyDocument extends Document {
         <Head>
           <meta name="theme-color" content="#ffffff" />
           <meta name="theme-color" content="#ffffff" />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/static/favicon.ico" />
           <link rel="manifest" href="/manifest.json" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+          <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
         </Head>
         <body>
           <Main />

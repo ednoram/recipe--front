@@ -2,10 +2,9 @@ import { useState, FC } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
-import EditIcon from "public/edit-icon.svg";
-
 import { Recipe } from "@/types";
 import { RecipeList } from "@/components";
+import EditIcon from "@/assets/edit-icon.svg";
 import { createEmptyRecipe, sortRecipes } from "@/utils";
 import { EDIT_ACCOUNT_ROUTE, POST_ROUTE } from "@/constants";
 import { selectFavoriteRecipes, selectUserData } from "@/store/selectors";

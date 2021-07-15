@@ -2,10 +2,9 @@ import { useState, FC } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 
-import EditIcon from "public/edit-icon.svg";
-
 import { RecipeComment } from "@/types";
 import { USERS_ROUTE } from "@/constants";
+import EditIcon from "@/assets/edit-icon.svg";
 import { selectUserData } from "@/store/selectors";
 
 import RateDiv from "./RateDiv";

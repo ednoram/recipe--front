@@ -1,77 +1,61 @@
-import { useState, useMemo, FC } from "react";
-import Link from "next/link";
-import { nanoid } from "nanoid";
+import { useState, useEffect, FC } from "react";
 
 import { User } from "@/types";
-import { USERS_ROUTE } from "@/constants";
+import CloseIcon from "@/assets/close-icon.svg";
 
+import List from "./List";
 import styles from "./FindUsers.module.scss";
 
 interface Props {
   users: User[];
 }
 
+const LIST_STEP = 10;
+
 const FindUsers: FC<Props> = ({ users }) => {
   const [listLimit, setListLimit] = useState(10);
+  const [searchValue, setSearchValue] = useState("");
 
-  const sortedUsers = users.sort(
+  useEffect(() => setListLimit(10), [searchValue]);
+
+  const searchFilter = searchValue.trim().toLowerCase();
+
+  const filteredUsers = searchFilter
+    ? users.filter(
+        (user) =>
+          user.name.toLowerCase().includes(searchFilter) ||
+          user.email.toLowerCase().includes(searchFilter)
+      )
+    : users;
+
+  const sortedUsers = filteredUsers.sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 
   const visibleUsers = sortedUsers.slice(0, listLimit);
 
-  const getCreatedAtString = (createdAt: Date) =>
-    new Date(createdAt).toLocaleDateString("en", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-
-  const columnNames = useMemo(
-    () => ["Name", "Email Address", "Joined On", "Link"],
-    []
-  );
-
-  const list = (
-    <ul className={styles.content__list}>
-      <li className={styles.content__list_item}>
-        <ul className={styles.content__list_item_grid_first}>
-          {columnNames.map((name) => (
-            <li key={nanoid()}>
-              <p>{name}</p>
-            </li>
-          ))}
-        </ul>
-      </li>
-      {visibleUsers.map((user) => (
-        <li key={nanoid()} className={styles.content__list_item}>
-          <ul className={styles.content__list_item_grid}>
-            <li>
-              <p className={styles.content__list_user_name}>{user.name}</p>
-            </li>
-            <li>
-              <p className={styles.content__list_label}>Email Address: </p>
-              <p>{user.email}</p>
-            </li>
-            <li>
-              <p className={styles.content__list_label}>Joined On: </p>
-              <p>{getCreatedAtString(user.createdAt)}</p>
-            </li>
-            <li>
-              <Link href={`${USERS_ROUTE}/${user.email}`}>
-                <a className="color-primary">See User →</a>
-              </Link>
-            </li>
-          </ul>
-        </li>
-      ))}
-    </ul>
+  const searchbox = (
+    <div className={styles.content__searchbox}>
+      <input
+        maxLength={40}
+        value={searchValue}
+        placeholder="Search by name or email"
+        onChange={(e) => setSearchValue(e.target.value)}
+      />
+      {searchValue && (
+        <CloseIcon
+          aria-label="Clear input"
+          onClick={() => setSearchValue("")}
+          className={styles.content__clear_input_icon}
+        />
+      )}
+    </div>
   );
 
   const showMoreButton = (
     <button
       name="Show more"
-      onClick={() => setListLimit(listLimit + 10)}
+      onClick={() => setListLimit(listLimit + LIST_STEP)}
       className={styles.content__show_more_button}
     >
       Show More
@@ -83,7 +67,8 @@ const FindUsers: FC<Props> = ({ users }) => {
       <section className={styles.content}>
         <div className="container">
           <h1 className={styles.content__title}>Find Users</h1>
-          {list}
+          {searchbox}
+          <List visibleUsers={visibleUsers} />
           {listLimit < users.length && (
             <div className="flex_center">{showMoreButton}</div>
           )}

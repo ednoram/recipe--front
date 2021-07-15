@@ -16,6 +16,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 48px;
+    width: 100%;
 
     @include breakpoint(laptop-small) {
       flex-direction: column;
@@ -40,11 +41,17 @@
     width: 340px;
     height: 40px;
     border-bottom: 1px solid black;
+    padding: 10px 4px;
+
+    @include breakpoint(phone) {
+      width: 100%;
+    }
 
     input {
-      width: 320px;
+      max-width: 320px;
+      width: 100%;
       border: none;
-      padding: 10px 4px;
+      padding-right: 4px;
     }
   }
 

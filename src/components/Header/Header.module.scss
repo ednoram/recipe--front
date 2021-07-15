@@ -1,6 +1,5 @@
 .hamburger_menu {
   display: none;
-  place-items: center;
   position: fixed;
   top: 0;
   right: 0;
@@ -9,11 +8,11 @@
   background-color: $color-primary;
   z-index: 999;
   transition: 0.3s;
-  touch-action: none;
-  padding-bottom: 20%;
+  overflow-y: scroll;
+  touch-action: pan-y;
 
   @include breakpoint(tablet) {
-    display: grid;
+    display: block;
   }
 }
 
@@ -37,7 +36,7 @@
     color: white;
   }
 
-  &__navigation {
+  &__nav_container {
     @include breakpoint(tablet) {
       display: none;
     }
@@ -61,6 +60,7 @@
       justify-content: center;
       align-items: center;
       gap: 14px;
+      padding: 120px 40px;
     }
 
     li {

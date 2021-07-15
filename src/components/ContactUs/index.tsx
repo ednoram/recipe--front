@@ -1,9 +1,9 @@
 import { FC } from "react";
 
-import PhoneIcon from "public/phone-icon.svg";
-import EmailIcon from "public/email-icon.svg";
-import GitHubIcon from "public/github-icon.svg";
-import LinkedInIcon from "public/linkedin-icon.svg";
+import PhoneIcon from "@/assets/phone-icon.svg";
+import EmailIcon from "@/assets/email-icon.svg";
+import GitHubIcon from "@/assets/github-icon.svg";
+import LinkedInIcon from "@/assets/linkedin-icon.svg";
 
 import styles from "./ContactUs.module.scss";
 

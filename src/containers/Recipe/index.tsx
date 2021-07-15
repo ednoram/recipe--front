@@ -3,10 +3,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
-import EditIcon from "public/edit-icon.svg";
-import StarIcon from "public/star-icon.svg";
-
 import { RECIPES_ROUTE } from "@/constants";
+import EditIcon from "@/assets/edit-icon.svg";
+import StarIcon from "@/assets/star-icon.svg";
 import { setComments } from "@/store/actions";
 import { Recipe, RecipeComment } from "@/types";
 import { useFetchFavoriteRecipes } from "@/hooks";

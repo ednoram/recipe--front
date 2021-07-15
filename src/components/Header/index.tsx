@@ -17,36 +17,40 @@ const Header: FC = () => {
   }, [router]);
 
   useEffect(() => {
-    return () => {
-      const body = document.querySelector("body");
-      if (body?.style.overflow) {
-        body.style.overflow = "unset";
-      }
-    };
+    if (menuIsOpen) {
+      disableHtmlScroll();
+    } else {
+      enableHtmlScroll();
+    }
+  }, [menuIsOpen]);
+
+  useEffect(() => {
+    return () => enableHtmlScroll();
   }, []);
 
-  const handleHamburgerClick = () => {
+  const disableHtmlScroll = () => {
     const body = document.querySelector("body");
 
     if (body?.style) {
-      if (!menuIsOpen) {
-        body.style.overflow = "hidden";
-      } else {
-        body.style.overflow = "unset";
-      }
+      body.style.position = "fixed";
+      body.style.overflow = "hidden";
+      body.style.touchAction = "none";
     }
+  };
 
-    setMenuIsOpen(!menuIsOpen);
-    setTimeout(() => window.scroll(0, 0), 150);
+  const enableHtmlScroll = () => {
+    const body = document.querySelector("body");
+
+    if (body?.style) {
+      body.style.position = "";
+      body.style.overflow = "";
+      body.style.touchAction = "";
+    }
   };
 
   const hamburger = (
     <div className={styles.content__hamburger}>
-      <Hamburger
-        menuIsOpen={menuIsOpen}
-        setMenuIsOpen={setMenuIsOpen}
-        clickFunc={handleHamburgerClick}
-      />
+      <Hamburger menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} />
       <div
         className={`${styles.hamburger_menu} ${
           menuIsOpen ? styles.hamburger_menu_open : ""
@@ -67,7 +71,7 @@ const Header: FC = () => {
                 <h3 className={styles.content__logo_text}>Recipe</h3>
               </a>
             </Link>
-            <div className={styles.content__navigation}>
+            <div className={styles.content__nav_container}>
               <Navigation />
             </div>
             {hamburger}

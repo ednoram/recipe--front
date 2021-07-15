@@ -1,8 +1,6 @@
 import { useRef, FC, ChangeEvent } from "react";
 import { useDispatch } from "react-redux";
 
-import CloseIcon from "public/close-icon.svg";
-
 import {
   setListLimit,
   setSearchFilter,
@@ -10,8 +8,9 @@ import {
 } from "@/store/actions";
 import { Recipe } from "@/types";
 import { debounce } from "@/utils";
-import { MEAL_TYPES } from "@/constants";
 import { Dropdown } from "@/components";
+import { MEAL_TYPES } from "@/constants";
+import CloseIcon from "@/assets/close-icon.svg";
 
 import styles from "./DiscoverRecipes.module.scss";
 
@@ -63,18 +62,22 @@ const ListFilters: FC<Props> = ({ searchResults }) => {
     />
   );
 
+  const searchbox = (
+    <div className={styles.content__searchbox}>
+      <input
+        maxLength={40}
+        ref={searchInputRef}
+        onChange={handleSearchChange}
+        placeholder="Search by recipe title"
+      />
+      {searchInputRef.current?.value && clearInputIcon}
+    </div>
+  );
+
   return (
     <div className={styles.content__list_filters}>
       <div className={styles.content__list_filters_left}>
-        <div className={styles.content__searchbox}>
-          <input
-            maxLength={40}
-            ref={searchInputRef}
-            onChange={handleSearchChange}
-            placeholder="Search for recipes"
-          />
-          {searchInputRef.current?.value && clearInputIcon}
-        </div>
+        {searchbox}
         <div className={styles.content__dropdown_filter}>
           <p className="color-primary">Meal Type: </p>
           <Dropdown options={MEAL_TYPES} selectFunc={handleSelectMealType} />

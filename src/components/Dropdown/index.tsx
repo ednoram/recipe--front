@@ -1,9 +1,8 @@
 import { useState, useRef, FC, useEffect } from "react";
 import { nanoid } from "nanoid";
 
-import ExpandIcon from "public/expand-arrow-icon.svg";
-
 import { useOutsideClick } from "@/hooks";
+import ExpandIcon from "@/assets/expand-arrow-icon.svg";
 
 import styles from "./Dropdown.module.scss";
 

@@ -44,7 +44,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     dispatch(clearRecipeForm());
 
     if (recipe) {
@@ -55,6 +55,8 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
       recipe.mealType && dispatch(setFormMealType(recipe.mealType));
       recipe.steps.length > 0 && dispatch(setFormSteps(recipe.steps));
     }
+
+    return () => dispatch(clearRecipeForm());
   }, []);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -87,8 +89,6 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
     } else {
       dispatch(postRecipe(newRecipe));
     }
-
-    dispatch(clearRecipeForm());
   };
 
   return (

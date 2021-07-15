@@ -6,10 +6,47 @@
     text-align: center;
   }
 
+  &__searchbox {
+    display: flex;
+    align-items: center;
+    width: 340px;
+    height: 40px;
+    border-bottom: 1px solid black;
+    padding: 10px 4px;
+    margin-top: 24px;
+
+    @include breakpoint(tablet) {
+      margin: 24px auto 0;
+    }
+
+    @include breakpoint(phone) {
+      width: 100%;
+    }
+
+    input {
+      max-width: 320px;
+      width: 100%;
+      border: none;
+      padding-right: 4px;
+    }
+  }
+
+  &__nothing_was_found_p {
+    color: $color-primary;
+    text-align: center;
+    margin-top: 48px;
+  }
+
+  &__clear_input_icon {
+    width: 20px;
+    fill: $color-primary;
+    cursor: pointer;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;
-    margin-top: 48px;
+    margin-top: 32px;
 
     @include breakpoint(tablet) {
       gap: 28px;

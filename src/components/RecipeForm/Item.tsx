@@ -1,6 +1,6 @@
 import { useState, FC } from "react";
 
-import EditIcon from "public/edit-icon.svg";
+import EditIcon from "@/assets/edit-icon.svg";
 
 import ItemsInput from "./ItemsInput";
 import styles from "./RecipeForm.module.scss";

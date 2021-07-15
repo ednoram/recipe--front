@@ -26,6 +26,7 @@
       "@/utils": ["src/utils"],
       "@/store/*": ["src/store/*"],
       "@/styles/*": ["src/styles/*"],
+      "@/assets/*": ["src/assets/*"],
       "@/constants": ["src/constants"],
       "@/containers": ["src/containers"],
       "@/components": ["src/components"]

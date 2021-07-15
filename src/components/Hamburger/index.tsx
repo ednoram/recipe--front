@@ -1,17 +1,19 @@
-import { FC } from "react";
+import { FC, Dispatch, SetStateAction } from "react";
 
 import styles from "./Hamburger.module.scss";
 
 interface Props {
   menuIsOpen: boolean;
-  clickFunc?: () => void;
-  setMenuIsOpen: (arg: boolean) => void;
+  setMenuIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const Hamburger: FC<Props> = ({ menuIsOpen, setMenuIsOpen, clickFunc }) => {
+const Hamburger: FC<Props> = ({ menuIsOpen, setMenuIsOpen }) => {
   const handleClick = () => {
+    if (window.scrollY !== 0) {
+      window.scroll(0, 0);
+    }
+
     setMenuIsOpen(!menuIsOpen);
-    clickFunc && clickFunc();
   };
 
   return (

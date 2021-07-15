@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
 
-import RecipeIcon from "public/blank-recipe-icon.svg";
+import RecipeIcon from "@/assets/blank-recipe-icon.svg";
 
 import styles from "./Custom404.module.scss";
 

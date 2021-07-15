@@ -2,9 +2,8 @@ import { FC } from "react";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 
-import StarIcon from "public/star-icon.svg";
-
 import { Recipe } from "@/types";
+import StarIcon from "@/assets/star-icon.svg";
 import { useFetchFavoriteRecipes } from "@/hooks";
 import { RECIPES_ROUTE, USERS_ROUTE } from "@/constants";
 import { getImageURL, sortRecipes, toggleFavorite } from "@/utils";

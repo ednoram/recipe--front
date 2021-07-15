@@ -7,7 +7,7 @@
 
   &__top_section {
     width: 100%;
-    background-image: url(/main-background.jpg);
+    background-image: url(/static/main-background.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -49,7 +49,7 @@
   }
 
   &__discover_section {
-    margin-top: 64px;
+    margin-top: 48px;
   }
 
   &__see_more_link {
@@ -58,6 +58,6 @@
   }
 
   &__contact_us_section {
-    margin-top: 64px;
+    margin-top: 48px;
   }
 }
