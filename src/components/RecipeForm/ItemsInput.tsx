@@ -1,23 +1,30 @@
-import { useState, useEffect, useRef, FC, KeyboardEvent } from "react";
+import {
+  FC,
+  useRef,
+  useState,
+  Dispatch,
+  useEffect,
+  KeyboardEvent,
+  SetStateAction,
+} from "react";
 import { useDispatch } from "react-redux";
 
 import {
   addFormStep,
   updateFormStep,
-  removeFormStep,
   addFormIngredient,
   updateFormIngredient,
-  removeFormIngredient,
 } from "@/store/actions";
 
 import styles from "./RecipeForm.module.scss";
+import CommentFormButtons from "./CommentFormButtons";
 
 interface Props {
   item?: string;
   index?: number;
   editing?: boolean;
   typeIsIngredients: boolean;
-  setEditing?: (arg: boolean) => void;
+  setEditing?: Dispatch<SetStateAction<boolean>>;
 }
 
 const ItemsInput: FC<Props> = ({
@@ -53,16 +60,6 @@ const ItemsInput: FC<Props> = ({
     setInputValue("");
   };
 
-  const removeItem = (index: number) => {
-    if (confirm("Remove item?")) {
-      if (typeIsIngredients) {
-        dispatch(removeFormIngredient(index));
-      } else {
-        dispatch(removeFormStep(index));
-      }
-    }
-  };
-
   const updateItem = (index: number, item: string) => {
     if (!inputValue) {
       alert("Input value is empty");
@@ -91,10 +88,6 @@ const ItemsInput: FC<Props> = ({
     }
   };
 
-  const handleSubmitClick = editing
-    ? () => index !== undefined && updateItem(index, inputValue)
-    : () => addItem(inputValue);
-
   return (
     <div className={editing ? styles.form__edit_items_input_div : "flex"}>
       <input
@@ -106,36 +99,15 @@ const ItemsInput: FC<Props> = ({
         onChange={(e) => setInputValue(e.target.value)}
         placeholder={editing ? "Update Item" : "Add item"}
       />
-      <div className="flex">
-        <button
-          type="button"
-          name="add or update item"
-          onClick={() => handleSubmitClick()}
-          className={
-            editing ? styles.form__update_button : styles.form__add_button
-          }
-        >
-          {editing ? "Update" : "Add"}
-        </button>
-        {editing && setEditing && index !== undefined && (
-          <>
-            <button
-              name="remove item"
-              onClick={() => removeItem(index)}
-              className={styles.form__remove_item_button}
-            >
-              Remove
-            </button>
-            <button
-              name="cancel"
-              onClick={() => setEditing(false)}
-              className={styles.form__cancel_editing_button}
-            >
-              Cancel
-            </button>
-          </>
-        )}
-      </div>
+      <CommentFormButtons
+        index={index}
+        editing={editing}
+        addItem={addItem}
+        setEditing={setEditing}
+        inputValue={inputValue}
+        updateItem={updateItem}
+        typeIsIngredients={typeIsIngredients}
+      />
     </div>
   );
 };

@@ -71,13 +71,10 @@
     }
   }
 
-  &__date_p {
-    margin-top: 6px;
-  }
-
-  &__meal_type {
-    text-transform: capitalize;
-    margin-top: 6px;
+  &__grid_info_div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   &__image {
@@ -100,6 +97,10 @@
     @include breakpoint(phone-large) {
       height: 280px;
     }
+  }
+  
+  &__summary_div {
+    margin-top: 28px;
   }
 
   &__items_div {

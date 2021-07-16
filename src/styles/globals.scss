@@ -102,6 +102,10 @@ select {
   display: none !important;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .auth_problem_p {
   text-align: center;
   color: $color-primary;

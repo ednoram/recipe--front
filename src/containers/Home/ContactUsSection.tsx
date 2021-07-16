@@ -5,7 +5,7 @@ import EmailIcon from "@/assets/email-icon.svg";
 import GitHubIcon from "@/assets/github-icon.svg";
 import LinkedInIcon from "@/assets/linkedin-icon.svg";
 
-import styles from "./ContactUs.module.scss";
+import styles from "./Home.module.scss";
 
 const ContactUs: FC = () => {
   const phonePart = (
@@ -67,7 +67,7 @@ const ContactUs: FC = () => {
   );
 
   return (
-    <div className={styles.content}>
+    <section className={styles.content__contact_us_section}>
       <div className="container">
         <h2 className="color-primary">Contact Us</h2>
         <div className={styles.content__contact_us_grid}>
@@ -77,7 +77,7 @@ const ContactUs: FC = () => {
           {gitHubPart}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

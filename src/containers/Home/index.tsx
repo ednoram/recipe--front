@@ -4,9 +4,10 @@ import Link from "next/link";
 import { Recipe } from "@/types";
 import { sortRecipes } from "@/utils";
 import { useIsLoggedIn } from "@/hooks";
-import { ContactUs, RecipeList } from "@/components";
+import { RecipeList } from "@/components";
 import { RECIPES_ROUTE, REGISTER_ROUTE } from "@/constants";
 
+import ContactUsSection from "./ContactUsSection";
 import styles from "./Home.module.scss";
 
 interface Props {
@@ -60,12 +61,6 @@ const Home: FC<Props> = ({ recipes }) => {
     </section>
   );
 
-  const contactUsSection = (
-    <section className={styles.content__contact_us_section}>
-      <ContactUs />
-    </section>
-  );
-
   const mainClassName = `${styles.content} ${
     !isLoggedIn ? styles.logged_in_content : ""
   } `;
@@ -74,7 +69,7 @@ const Home: FC<Props> = ({ recipes }) => {
     <main className={mainClassName}>
       {topSection}
       {discoverSection}
-      {contactUsSection}
+      <ContactUsSection />
     </main>
   );
 };

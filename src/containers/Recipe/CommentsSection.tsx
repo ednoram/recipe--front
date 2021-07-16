@@ -48,7 +48,7 @@ const CommentsSection: FC<Props> = ({ recipe }) => {
         <h2 className="color-primary">Comments ({comments.length})</h2>
         <CommentForm recipeId={String(recipe._id)} />
         {commentsList}
-        {comments.length > 5 && limit < comments.length && (
+        {comments.length > 3 && limit < comments.length && (
           <div className="flex_center">
             <button
               name="show more comments"

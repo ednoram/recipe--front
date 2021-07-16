@@ -1,4 +1,4 @@
-import { useState, FC, FormEvent } from "react";
+import { useState, FC, FormEvent, Dispatch, SetStateAction } from "react";
 import { useDispatch } from "react-redux";
 
 import {
@@ -16,7 +16,7 @@ interface Props {
   recipeId: string;
   editing?: boolean;
   comment?: RecipeComment;
-  setEditing?: (arg: boolean) => void;
+  setEditing?: Dispatch<SetStateAction<boolean>>;
 }
 
 const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
@@ -46,7 +46,7 @@ const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
     }
 
     if (!message || message.trim().length < 1) {
-      alert("Review can not be empty");
+      alert("Comment message can not be empty");
       return;
     }
 
@@ -69,7 +69,7 @@ const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
       <input
         value={message}
         maxLength={1000}
-        placeholder="Review"
+        placeholder="Comment"
         className={styles.content__comment_input}
         onChange={(e) => setMessage(e.target.value)}
       />
