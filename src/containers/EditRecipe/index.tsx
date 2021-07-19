@@ -7,17 +7,17 @@ import styles from "./EditRecipe.module.scss";
 
 interface Props {
   recipe: Recipe;
-  recipeID: string;
+  recipeId: string;
 }
 
-const EditRecipeContainer: FC<Props> = ({ recipe, recipeID }) => {
+const EditRecipeContainer: FC<Props> = ({ recipe, recipeId }) => {
   return (
     <main>
       <section>
         <div className="container">
           <div className={styles.content}>
             <h1 className={styles.content__title}>Edit Recipe</h1>
-            <RecipeForm recipe={recipe} recipeID={recipeID} />
+            <RecipeForm recipe={recipe} recipeId={recipeId} />
           </div>
         </div>
       </section>

@@ -9,16 +9,17 @@ import { deleteRecipe } from "@/store/actions";
 import styles from "./RecipeForm.module.scss";
 
 interface Props {
+  loading: boolean;
   recipe: Recipe | undefined;
-  recipeID: string | undefined;
+  recipeId: string | undefined;
 }
 
-const SubmitButton: FC<Props> = ({ recipe, recipeID }) => {
+const SubmitButton: FC<Props> = ({ recipe, recipeId, loading }) => {
   const dispatch = useDispatch();
 
   const handleDeleteRecipe = () => {
     if (confirm("Are you sure you want to delete recipe?")) {
-      dispatch(deleteRecipe(recipeID));
+      dispatch(deleteRecipe(recipeId));
 
       window.onbeforeunload = null;
       Router.events.off("routeChangeStart", handleRouteChange);
@@ -30,6 +31,7 @@ const SubmitButton: FC<Props> = ({ recipe, recipeID }) => {
       <button
         type="submit"
         name="Submit"
+        disabled={loading}
         className={styles.form__submit_button}
       >
         {recipe ? "Submit Changes" : "Post Recipe"}
@@ -37,6 +39,7 @@ const SubmitButton: FC<Props> = ({ recipe, recipeID }) => {
       {recipe && (
         <button
           type="button"
+          disabled={loading}
           name="Delete Recipe"
           onClick={handleDeleteRecipe}
           className={styles.form__delete_recipe_button}

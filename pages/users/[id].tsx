@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { Layout } from "@/components";
 import { User, Recipe } from "@/types";
@@ -7,12 +7,12 @@ import { UserContainer } from "@/containers";
 import { getUsers, getUserRecipes } from "@/lib";
 
 interface Props {
-  user: User;
+  user: User | null;
   recipes: Recipe[];
 }
 
-const UserPage: FC<Props> = ({ user, recipes }) => {
-  const PAGE_TITLE = `User: ${processTitle(user.name)}`;
+const UserPage: NextPage<Props> = ({ user, recipes }) => {
+  const PAGE_TITLE = `User: ${processTitle(user?.name || "")}`;
   const PAGE_DESCRIPTION = "User page";
 
   return (
@@ -22,25 +22,15 @@ const UserPage: FC<Props> = ({ user, recipes }) => {
   );
 };
 
-export const getServerSideProps = async ({
-  params,
-}: {
-  params: { id: string };
-}): Promise<{ props: Props } | { notFound: boolean }> => {
+UserPage.getInitialProps = async ({ query }) => {
   const users = await getUsers();
 
-  const email = params.id;
-  const user = users.find((user) => user.email === email);
-
-  if (!user) {
-    return { notFound: true };
-  }
+  const email = String(query.id);
+  const user = users.find((user) => user.email === email) || null;
 
   const recipes = await getUserRecipes(email);
 
-  return {
-    props: { user, recipes },
-  };
+  return { user, recipes };
 };
 
 export default UserPage;

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { User } from "@/types";
 import { getUsers } from "@/lib";
@@ -12,7 +12,7 @@ interface Props {
   users: User[];
 }
 
-const FindUsers: FC<Props> = ({ users }) => {
+const FindUsers: NextPage<Props> = ({ users }) => {
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <FindUsersContainer users={users} />
@@ -20,18 +20,10 @@ const FindUsers: FC<Props> = ({ users }) => {
   );
 };
 
-export const getServerSideProps = async (): Promise<
-  { props: Props } | { notFound: boolean }
-> => {
+FindUsers.getInitialProps = async () => {
   const users = await getUsers();
 
-  if (!users) {
-    return { notFound: true };
-  }
-
-  return {
-    props: { users },
-  };
+  return { users };
 };
 
 export default FindUsers;

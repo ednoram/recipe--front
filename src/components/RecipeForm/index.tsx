@@ -1,4 +1,4 @@
-import { FC, FormEvent, useEffect } from "react";
+import { useState, FC, FormEvent, useEffect } from "react";
 import { Router, useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,10 +30,12 @@ import styles from "./RecipeForm.module.scss";
 
 interface Props {
   recipe?: Recipe;
-  recipeID?: string;
+  recipeId?: string;
 }
 
-const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
+const RecipeForm: FC<Props> = ({ recipe, recipeId }) => {
+  const [loading, setLoading] = useState(false);
+
   const image = useSelector(selectFormImage);
   const title = useSelector(selectFormTitle);
   const steps = useSelector(selectFormSteps);
@@ -70,6 +72,8 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
       return;
     }
 
+    setLoading(true);
+
     const formData = new FormData();
     formData.append("image", image || "");
 
@@ -88,10 +92,12 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
     Router.events.off("routeChangeStart", handleRouteChange);
 
     if (recipe) {
-      dispatch(patchRecipe(recipeID, newRecipe));
+      dispatch(patchRecipe(recipeId, newRecipe));
     } else {
       dispatch(postRecipe(newRecipe));
     }
+
+    setLoading(false);
   };
 
   return (
@@ -109,7 +115,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
         Cancel
       </button>
       <FormGrid recipe={recipe} />
-      <SubmitButton recipe={recipe} recipeID={recipeID} />
+      <SubmitButton recipe={recipe} recipeId={recipeId} loading={loading} />
     </form>
   );
 };

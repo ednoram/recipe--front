@@ -9,7 +9,7 @@ import { USERS_ROUTE } from "@/constants";
 import styles from "./User.module.scss";
 
 interface Props {
-  user: User;
+  user: User | null;
   recipes: Recipe[];
 }
 
@@ -20,7 +20,7 @@ const UserPage: FC<Props> = ({ user, recipes }) => {
 
   const visibleRecipes = sortedRecipes.slice(0, recipeListLimit);
 
-  return (
+  return user ? (
     <main className={styles.content}>
       <section>
         <div className="container">
@@ -49,6 +49,8 @@ const UserPage: FC<Props> = ({ user, recipes }) => {
         </div>
       </section>
     </main>
+  ) : (
+    <></>
   );
 };
 

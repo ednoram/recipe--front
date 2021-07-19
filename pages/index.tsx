@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { Recipe } from "@/types";
 import { getRecipes } from "@/lib";
@@ -12,7 +12,7 @@ interface Props {
   recipes: Recipe[];
 }
 
-const HomePage: FC<Props> = ({ recipes }) => {
+const HomePage: NextPage<Props> = ({ recipes }) => {
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <HomeContainer recipes={recipes} />
@@ -20,18 +20,10 @@ const HomePage: FC<Props> = ({ recipes }) => {
   );
 };
 
-export const getServerSideProps = async (): Promise<
-  { props: Props } | { notFound: boolean }
-> => {
+HomePage.getInitialProps = async () => {
   const recipes = await getRecipes();
 
-  if (!recipes) {
-    return { notFound: true };
-  }
-
-  return {
-    props: { recipes },
-  };
+  return { recipes };
 };
 
 export default HomePage;

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { Recipe } from "@/types";
 import { Layout } from "@/components";
@@ -9,10 +9,10 @@ import { EditRecipeContainer } from "@/containers";
 
 interface Props {
   recipe: Recipe;
-  recipeID: string;
+  recipeId: string;
 }
 
-const EditRecipePage: FC<Props> = ({ recipe, recipeID }) => {
+const EditRecipePage: NextPage<Props> = ({ recipe, recipeId }) => {
   useConfirmBeforeLeaving();
 
   const recipeTitle = processTitle(recipe.title);
@@ -22,28 +22,17 @@ const EditRecipePage: FC<Props> = ({ recipe, recipeID }) => {
 
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
-      <EditRecipeContainer recipe={recipe} recipeID={recipeID} />
+      <EditRecipeContainer recipe={recipe} recipeId={recipeId} />
     </Layout>
   );
 };
 
-export const getServerSideProps = async ({
-  params,
-}: {
-  params: { id: string };
-}): Promise<{ props: Props } | { notFound: boolean }> => {
-  const recipe: Recipe = await getRecipeById(params.id);
+EditRecipePage.getInitialProps = async ({ query }) => {
+  const recipeId = String(query.id);
 
-  if (!recipe) {
-    return { notFound: true };
-  }
+  const recipe = await getRecipeById(recipeId);
 
-  return {
-    props: {
-      recipe,
-      recipeID: params.id,
-    },
-  };
+  return { recipe, recipeId };
 };
 
 export default EditRecipePage;
