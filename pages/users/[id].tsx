@@ -27,26 +27,20 @@ export const getServerSideProps = async ({
 }: {
   params: { id: string };
 }): Promise<{ props: Props } | { notFound: boolean }> => {
-  try {
-    const users = await getUsers();
+  const users = await getUsers();
 
-    const email = params.id;
-    const user = users.find((user) => user.email === email);
+  const email = params.id;
+  const user = users.find((user) => user.email === email);
 
-    if (!user) {
-      return { notFound: true };
-    }
-
-    const recipes = await getUserRecipes(email);
-
-    return {
-      props: { user, recipes },
-    };
-  } catch {
-    return {
-      notFound: true,
-    };
+  if (!user) {
+    return { notFound: true };
   }
+
+  const recipes = await getUserRecipes(email);
+
+  return {
+    props: { user, recipes },
+  };
 };
 
 export default UserPage;

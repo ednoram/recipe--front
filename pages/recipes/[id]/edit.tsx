@@ -32,20 +32,18 @@ export const getServerSideProps = async ({
 }: {
   params: { id: string };
 }): Promise<{ props: Props } | { notFound: boolean }> => {
-  try {
-    const recipe: Recipe = await getRecipeById(params.id);
+  const recipe: Recipe = await getRecipeById(params.id);
 
-    return {
-      props: {
-        recipe,
-        recipeID: params.id,
-      },
-    };
-  } catch {
-    return {
-      notFound: true,
-    };
+  if (!recipe) {
+    return { notFound: true };
   }
+
+  return {
+    props: {
+      recipe,
+      recipeID: params.id,
+    },
+  };
 };
 
 export default EditRecipePage;

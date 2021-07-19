@@ -23,15 +23,15 @@ const HomePage: FC<Props> = ({ recipes }) => {
 export const getServerSideProps = async (): Promise<
   { props: Props } | { notFound: boolean }
 > => {
-  try {
-    const recipes = await getRecipes();
+  const recipes = await getRecipes();
 
-    return {
-      props: { recipes },
-    };
-  } catch {
+  if (!recipes) {
     return { notFound: true };
   }
+
+  return {
+    props: { recipes },
+  };
 };
 
 export default HomePage;

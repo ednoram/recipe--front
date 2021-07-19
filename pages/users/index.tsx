@@ -23,15 +23,15 @@ const FindUsers: FC<Props> = ({ users }) => {
 export const getServerSideProps = async (): Promise<
   { props: Props } | { notFound: boolean }
 > => {
-  try {
-    const users = await getUsers();
+  const users = await getUsers();
 
-    return {
-      props: { users },
-    };
-  } catch {
+  if (!users) {
     return { notFound: true };
   }
+
+  return {
+    props: { users },
+  };
 };
 
 export default FindUsers;
