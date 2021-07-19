@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { FC } from "react";
 
 import { Recipe } from "@/types";
 import { getRecipes } from "@/lib";
@@ -12,7 +12,7 @@ interface Props {
   recipes: Recipe[];
 }
 
-const DiscoverRecipes: NextPage<Props> = ({ recipes }) => {
+const DiscoverRecipes: FC<Props> = ({ recipes }) => {
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <DiscoverRecipesContainer recipes={recipes} />
@@ -20,10 +20,18 @@ const DiscoverRecipes: NextPage<Props> = ({ recipes }) => {
   );
 };
 
-DiscoverRecipes.getInitialProps = async () => {
-  const recipes = await getRecipes();
+export const getServerSideProps = async (): Promise<
+  { props: Props } | { notFound: boolean }
+> => {
+  try {
+    const recipes = await getRecipes();
 
-  return { recipes };
+    return {
+      props: { recipes },
+    };
+  } catch {
+    return { notFound: true };
+  }
 };
 
 export default DiscoverRecipes;

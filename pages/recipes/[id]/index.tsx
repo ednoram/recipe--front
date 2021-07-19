@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { FC } from "react";
 
 import { Layout } from "@/components";
 import { processTitle } from "@/utils";
@@ -11,7 +11,7 @@ interface Props {
   recipeComments: RecipeComment[];
 }
 
-const RecipePage: NextPage<Props> = ({ recipe, recipeComments }) => {
+const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
   const recipeTitle = processTitle(recipe.title);
 
   const PAGE_TITLE = `Recipe: ${recipeTitle}`;
@@ -24,13 +24,26 @@ const RecipePage: NextPage<Props> = ({ recipe, recipeComments }) => {
   );
 };
 
-RecipePage.getInitialProps = async ({ query }) => {
-  const id = String(query.id);
+export const getServerSideProps = async ({
+  params,
+}: {
+  params: { id: string };
+}): Promise<{ props: Props } | { notFound: boolean }> => {
+  try {
+    const recipe = await getRecipeById(params.id);
+    const recipeComments = await getRecipeComments(params.id);
 
-  const recipe = await getRecipeById(id);
-  const recipeComments = await getRecipeComments(id);
-
-  return { recipe, recipeComments };
+    return {
+      props: {
+        recipe,
+        recipeComments,
+      },
+    };
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default RecipePage;

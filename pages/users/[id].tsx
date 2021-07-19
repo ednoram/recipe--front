@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { FC } from "react";
 
 import { Layout } from "@/components";
 import { User, Recipe } from "@/types";
@@ -7,12 +7,12 @@ import { UserContainer } from "@/containers";
 import { getUsers, getUserRecipes } from "@/lib";
 
 interface Props {
-  user: User | null;
+  user: User;
   recipes: Recipe[];
 }
 
-const UserPage: NextPage<Props> = ({ user, recipes }) => {
-  const PAGE_TITLE = `User: ${processTitle(user?.name || "")}`;
+const UserPage: FC<Props> = ({ user, recipes }) => {
+  const PAGE_TITLE = `User: ${processTitle(user.name)}`;
   const PAGE_DESCRIPTION = "User page";
 
   return (
@@ -22,15 +22,31 @@ const UserPage: NextPage<Props> = ({ user, recipes }) => {
   );
 };
 
-UserPage.getInitialProps = async ({ query }) => {
-  const users = await getUsers();
+export const getServerSideProps = async ({
+  params,
+}: {
+  params: { id: string };
+}): Promise<{ props: Props } | { notFound: boolean }> => {
+  try {
+    const users = await getUsers();
 
-  const email = String(query.id);
-  const user = users.find((user) => user.email === email) || null;
+    const email = params.id;
+    const user = users.find((user) => user.email === email);
 
-  const recipes = await getUserRecipes(email);
+    if (!user) {
+      return { notFound: true };
+    }
 
-  return { user, recipes };
+    const recipes = await getUserRecipes(email);
+
+    return {
+      props: { user, recipes },
+    };
+  } catch {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default UserPage;
