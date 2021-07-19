@@ -19,34 +19,36 @@ const ItemsDiv: FC<Props> = ({ recipe, type }) => {
 
   const visibleItems = expanded ? items : items.slice(0, 3);
 
+  const showAllButton = visibleItems.length < items.length && (
+    <button
+      name="Show all"
+      onClick={() => setExpanded(true)}
+      className={styles.content__show_all_items}
+    >
+      Show All
+    </button>
+  );
+
+  const itemLis = visibleItems.map((item, index) => (
+    <li key={nanoid()} className={styles.content__items_list_li}>
+      {!typeIsIngredients && (
+        <h5 className={styles.content__steps_heading}>Step {index + 1}</h5>
+      )}
+      <p>
+        {(typeIsIngredients ? "• " : "") +
+          item[0].toUpperCase() +
+          item.slice(1)}
+      </p>
+    </li>
+  ));
+
   return (
     <div className={styles.content__items_div}>
       <h3 className={styles.content__heading}>{listName}</h3>
       {visibleItems.length > 0 ? (
         <ul>
-          {visibleItems.map((item, index) => (
-            <li key={nanoid()} className={styles.content__items_list_li}>
-              {!typeIsIngredients && (
-                <h5 className={styles.content__steps_heading}>
-                  Step {index + 1}
-                </h5>
-              )}
-              <p>
-                {(typeIsIngredients ? "• " : "") +
-                  item[0].toUpperCase() +
-                  item.slice(1)}
-              </p>
-            </li>
-          ))}
-          {visibleItems.length < items.length && (
-            <button
-              name="Show all"
-              onClick={() => setExpanded(true)}
-              className={styles.content__show_all_items}
-            >
-              Show All
-            </button>
-          )}
+          {itemLis}
+          {showAllButton}
         </ul>
       ) : (
         <p>No {listName}</p>

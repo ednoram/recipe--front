@@ -34,6 +34,32 @@ const CommentItem: FC<Props> = ({ comment, recipeId }) => {
 
   const commentIsLong = comment.message.length > 250;
 
+  const visibleCommentMessage =
+    commentIsLong && !expanded
+      ? comment.message.slice(0, 250) + "..."
+      : comment.message;
+
+  const readMoreButton = commentIsLong && !expanded && (
+    <button
+      name="Read more"
+      onClick={() => setExpanded(true)}
+      className={styles.content__comment_read_more}
+    >
+      Read More
+    </button>
+  );
+
+  const editCommentButton = user?.email === comment.email && (
+    <button
+      name="Edit Comment"
+      onClick={toggleEditing}
+      className={styles.content__edit_comment_button}
+    >
+      <EditIcon className={styles.content__edit_comment_icon} />
+      Edit Comment
+    </button>
+  );
+
   return editing ? (
     <CommentForm
       editing={editing}
@@ -44,34 +70,9 @@ const CommentItem: FC<Props> = ({ comment, recipeId }) => {
   ) : (
     <div>
       <RateDiv rate={comment.rate} />
-      <p className={styles.content__comment_message}>
-        {commentIsLong && !expanded
-          ? comment.message.slice(0, 250) + "..."
-          : comment.message}
-      </p>
-      <div>
-        {commentIsLong && !expanded && (
-          <button
-            name="Read more"
-            onClick={() => setExpanded(true)}
-            className={styles.content__comment_read_more}
-          >
-            Read More
-          </button>
-        )}
-      </div>
-      <div>
-        {user?.email === comment.email && (
-          <button
-            name="Edit Comment"
-            onClick={toggleEditing}
-            className={styles.content__edit_comment_button}
-          >
-            <EditIcon className={styles.content__edit_comment_icon} />
-            Edit Comment
-          </button>
-        )}
-      </div>
+      <p className={styles.content__comment_message}>{visibleCommentMessage}</p>
+      <div>{readMoreButton}</div>
+      <div>{editCommentButton}</div>
       <p className={styles.content__comment_date}>{dateString}</p>
       <div className={styles.content__comment_email}>
         <Link href={`${USERS_ROUTE}/${comment.email}`}>

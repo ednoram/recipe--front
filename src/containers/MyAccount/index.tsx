@@ -39,7 +39,7 @@ const MyAccount: FC<Props> = ({ recipes }) => {
       )
     : [];
 
-  const topSection = (
+  const topPartSection = (
     <section>
       <div className="container">
         <h1 className={styles.content__title}>My Account</h1>
@@ -60,53 +60,59 @@ const MyAccount: FC<Props> = ({ recipes }) => {
     </section>
   );
 
+  const myRecipesSection = (
+    <section>
+      <div className="container">
+        <div className={styles.content__my_recipes}>
+          <h2 className="color-primary">My Recipes ({myRecipes.length})</h2>
+          <RecipeList recipes={myRecipes.slice(0, myRecipesLimit)} />
+          <div className="flex_center">
+            {myRecipesLimit < myRecipes.length && (
+              <button
+                name="Show more"
+                className={styles.content__show_more_button}
+                onClick={() => setMyRecipesLimit(myRecipesLimit + 4)}
+              >
+                Show More
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+  const favoriteRecipesSection = (
+    <section>
+      <div className="container">
+        <div className={styles.content__favorite_recipes}>
+          <h2 className="color-primary">
+            Favorite Recipes ({favRecipes.length})
+          </h2>
+          <RecipeList recipes={favRecipes.slice(0, favRecipesLimit)} />
+          {favRecipesLimit < favRecipes.length && (
+            <div className="flex_center">
+              <button
+                name="Show more"
+                className={styles.content__show_more_button}
+                onClick={() => setFavRecipesLimit(favRecipesLimit + 4)}
+              >
+                Show More
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+
   return (
     <main className={styles.content}>
       {isLoggedIn ? (
         <>
-          {topSection}
-          <section>
-            <div className="container">
-              <div className={styles.content__my_recipes}>
-                <h2 className="color-primary">
-                  My Recipes ({myRecipes.length})
-                </h2>
-                <RecipeList recipes={myRecipes.slice(0, myRecipesLimit)} />
-                <div className="flex_center">
-                  {myRecipesLimit < myRecipes.length && (
-                    <button
-                      name="Show more"
-                      className={styles.content__show_more_button}
-                      onClick={() => setMyRecipesLimit(myRecipesLimit + 4)}
-                    >
-                      Show More
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-          </section>
-          <section>
-            <div className="container">
-              <div className={styles.content__favorite_recipes}>
-                <h2 className="color-primary">
-                  Favorite Recipes ({favRecipes.length})
-                </h2>
-                <RecipeList recipes={favRecipes.slice(0, favRecipesLimit)} />
-                {favRecipesLimit < favRecipes.length && (
-                  <div className="flex_center">
-                    <button
-                      name="Show more"
-                      className={styles.content__show_more_button}
-                      onClick={() => setFavRecipesLimit(favRecipesLimit + 4)}
-                    >
-                      Show More
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </section>
+          {topPartSection}
+          {myRecipesSection}
+          {favoriteRecipesSection}
         </>
       ) : (
         <section>

@@ -60,6 +60,18 @@ const Pagination: FC<Props> = ({ recipes }) => {
     window.scroll(0, 0);
   };
 
+  const numberButtons = buttonNames.map((name) => (
+    <li key={nanoid()}>
+      <button
+        name="pagination button"
+        className={getButtonClassName(name)}
+        onClick={() => goToPage(Number(name))}
+      >
+        {name}
+      </button>
+    </li>
+  ));
+
   return (
     <div className={styles.content__pagination}>
       <ul className={styles.content__pagination_buttons}>
@@ -73,17 +85,7 @@ const Pagination: FC<Props> = ({ recipes }) => {
             ← Prev
           </button>
         </li>
-        {buttonNames.map((name) => (
-          <li key={nanoid()}>
-            <button
-              name="pagination button"
-              className={getButtonClassName(name)}
-              onClick={() => goToPage(Number(name))}
-            >
-              {name}
-            </button>
-          </li>
-        ))}
+        {numberButtons}
         <li>
           <button
             name="next page"

@@ -63,6 +63,26 @@ const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
     setRate(0);
   };
 
+  const deleteCancelButtons = editing && setEditing && comment && (
+    <>
+      <button
+        type="button"
+        name="Delete Comment"
+        className={styles.content__delete_comment_button}
+        onClick={() => handleDeleteComment(comment._id)}
+      >
+        Delete Comment
+      </button>
+      <button
+        name="Cancel Editing"
+        onClick={() => setEditing(false)}
+        className={styles.content__comment_cancel_button}
+      >
+        Cancel
+      </button>
+    </>
+  );
+
   return (
     <form onSubmit={handleSubmit} className={styles.content__comments_form}>
       <RateDiv rate={rate} setRate={setRate} />
@@ -77,25 +97,7 @@ const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
         <button name="Submit" className={styles.content__comment_submit_button}>
           {editing ? "Update Comment" : "Post Comment"}
         </button>
-        {editing && setEditing && comment && (
-          <>
-            <button
-              type="button"
-              name="Delete Comment"
-              className={styles.content__delete_comment_button}
-              onClick={() => handleDeleteComment(comment._id)}
-            >
-              Delete Comment
-            </button>
-            <button
-              name="Cancel Editing"
-              onClick={() => setEditing(false)}
-              className={styles.content__comment_cancel_button}
-            >
-              Cancel
-            </button>
-          </>
-        )}
+        {deleteCancelButtons}
       </div>
     </form>
   );

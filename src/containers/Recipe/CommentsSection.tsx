@@ -42,23 +42,23 @@ const CommentsSection: FC<Props> = ({ recipe }) => {
     </ul>
   );
 
+  const showMoreButton = comments.length > 3 && limit < comments.length && (
+    <button
+      name="show more comments"
+      onClick={increaseLimit}
+      className={styles.content__more_comments_button}
+    >
+      Show More Comments
+    </button>
+  );
+
   return (
     <section className={styles.content__comments_section}>
       <div className="container">
         <h2 className="color-primary">Comments ({comments.length})</h2>
         <CommentForm recipeId={String(recipe._id)} />
         {commentsList}
-        {comments.length > 3 && limit < comments.length && (
-          <div className="flex_center">
-            <button
-              name="show more comments"
-              onClick={increaseLimit}
-              className={styles.content__more_comments_button}
-            >
-              Show More Comments
-            </button>
-          </div>
-        )}
+        <div className="flex_center">{showMoreButton}</div>
       </div>
     </section>
   );
