@@ -23,16 +23,16 @@ const ItemsDiv: FC<Props> = ({ recipe, type }) => {
     <div className={styles.content__items_div}>
       <h3 className={styles.content__heading}>{listName}</h3>
       {visibleItems.length > 0 ? (
-        <ul className={styles.content__items_list}>
+        <ul>
           {visibleItems.map((item, index) => (
-            <li key={nanoid()}>
+            <li key={nanoid()} className={styles.content__items_list_li}>
               {!typeIsIngredients && (
                 <h5 className={styles.content__steps_heading}>
                   Step {index + 1}
                 </h5>
               )}
               <p>
-                {(typeIsIngredients && "• ") +
+                {(typeIsIngredients ? "• " : "") +
                   item[0].toUpperCase() +
                   item.slice(1)}
               </p>

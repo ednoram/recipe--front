@@ -1,3 +1,4 @@
+$phone-small: 340px;
 $phone: 380px;
 $phone-large: 480px;
 $tablet-small: 550px;
@@ -7,7 +8,11 @@ $laptop-small: 1000px;
 $laptop: 1200px;
 
 @mixin breakpoint($point) {
-  @if $point == phone {
+  @if $point == phone-small {
+    @media (max-width: $phone-small) {
+      @content;
+    }
+  } @else if $point == phone {
     @media (max-width: $phone) {
       @content;
     }

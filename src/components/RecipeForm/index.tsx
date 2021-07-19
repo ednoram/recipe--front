@@ -46,7 +46,12 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
 
   useEffect((): (() => void) => {
     dispatch(clearRecipeForm());
+    insertExistingData();
 
+    return () => dispatch(clearRecipeForm());
+  }, []);
+
+  const insertExistingData = () => {
     if (recipe) {
       recipe.ingredients.length > 0 &&
         dispatch(setFormIngredients(recipe.ingredients));
@@ -55,9 +60,7 @@ const RecipeForm: FC<Props> = ({ recipe, recipeID }) => {
       recipe.mealType && dispatch(setFormMealType(recipe.mealType));
       recipe.steps.length > 0 && dispatch(setFormSteps(recipe.steps));
     }
-
-    return () => dispatch(clearRecipeForm());
-  }, []);
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
