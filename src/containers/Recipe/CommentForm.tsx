@@ -68,7 +68,7 @@ const CommentForm: FC<Props> = ({ recipeId, editing, setEditing, comment }) => {
       <RateDiv rate={rate} setRate={setRate} />
       <input
         value={message}
-        maxLength={1000}
+        maxLength={800}
         placeholder="Comment"
         className={styles.content__comment_input}
         onChange={(e) => setMessage(e.target.value)}

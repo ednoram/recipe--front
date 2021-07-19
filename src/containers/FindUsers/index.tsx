@@ -18,7 +18,7 @@ const FindUsers: FC<Props> = ({ users }) => {
 
   useEffect(() => setListLimit(10), [searchValue]);
 
-  const searchFilter = searchValue.trim().toLowerCase();
+  const searchFilter = searchValue.trim().replace(/\s\s+/g, " ").toLowerCase();
 
   const filteredUsers = searchFilter
     ? users.filter(

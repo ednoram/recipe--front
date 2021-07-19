@@ -98,7 +98,7 @@
       height: 280px;
     }
   }
-  
+
   &__summary_div {
     margin-top: 28px;
   }
@@ -226,10 +226,15 @@
     }
   }
 
+  &__comment_message {
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+
   &__comment_read_more {
     color: $color-primary;
     background: none;
-    margin-left: 6px;
+    margin-top: 6px;
   }
 
   &__comment_date {

@@ -15,7 +15,7 @@ export const setListPage = (page: number): Action =>
 
 export const setSearchFilter = (value: string): Action =>
   createAction(SET_SEARCH_FILTER, {
-    searchFilter: value.trim().toLowerCase() || "",
+    searchFilter: value.trim().replace(/\s\s+/g, " ").toLowerCase() || "",
   });
 
 export const setListLimit = (listLimit: number): Action =>

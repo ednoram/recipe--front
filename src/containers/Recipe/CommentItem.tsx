@@ -44,10 +44,12 @@ const CommentItem: FC<Props> = ({ comment, recipeId }) => {
   ) : (
     <div>
       <RateDiv rate={comment.rate} />
-      <p>
+      <p className={styles.content__comment_message}>
         {commentIsLong && !expanded
           ? comment.message.slice(0, 250) + "..."
           : comment.message}
+      </p>
+      <div>
         {commentIsLong && !expanded && (
           <button
             name="Read more"
@@ -57,17 +59,19 @@ const CommentItem: FC<Props> = ({ comment, recipeId }) => {
             Read More
           </button>
         )}
-      </p>
-      {user?.email === comment.email && (
-        <button
-          name="Edit Comment"
-          onClick={toggleEditing}
-          className={styles.content__edit_comment_button}
-        >
-          <EditIcon className={styles.content__edit_comment_icon} />
-          Edit Comment
-        </button>
-      )}
+      </div>
+      <div>
+        {user?.email === comment.email && (
+          <button
+            name="Edit Comment"
+            onClick={toggleEditing}
+            className={styles.content__edit_comment_button}
+          >
+            <EditIcon className={styles.content__edit_comment_icon} />
+            Edit Comment
+          </button>
+        )}
+      </div>
       <p className={styles.content__comment_date}>{dateString}</p>
       <div className={styles.content__comment_email}>
         <Link href={`${USERS_ROUTE}/${comment.email}`}>
