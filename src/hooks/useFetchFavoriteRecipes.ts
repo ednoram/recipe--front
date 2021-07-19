@@ -11,7 +11,9 @@ const useFetchFavoriteRecipes = (): void => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user) {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (user && isLoggedIn) {
       const fetchFavoriteRecipes = async () => {
         const favoriteRecipes = await getFavoriteRecipes();
         dispatch(setFavoriteRecipes(favoriteRecipes));
