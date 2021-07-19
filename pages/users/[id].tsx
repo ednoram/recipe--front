@@ -22,26 +22,7 @@ const UserPage: FC<Props> = ({ user, recipes }) => {
   );
 };
 
-export const getStaticPaths = async (): Promise<{
-  paths: { params: { id: string } }[];
-  fallback: boolean;
-}> => {
-  const users = await getUsers();
-  const emails = users.map((user: { email: string }) => user.email);
-
-  const paths = emails.map((email) => ({
-    params: {
-      id: email,
-    },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps = async ({
+export const getServerSideProps = async ({
   params,
 }: {
   params: { id: string };
@@ -52,13 +33,15 @@ export const getStaticProps = async ({
     const email = params.id;
     const user = users.find((user) => user.email === email);
 
+    if (!user) {
+      return { notFound: true };
+    }
+
     const recipes = await getUserRecipes(email);
 
-    return user
-      ? {
-          props: { user, recipes },
-        }
-      : { notFound: true };
+    return {
+      props: { user, recipes },
+    };
   } catch {
     return {
       notFound: true,

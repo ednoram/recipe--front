@@ -3,8 +3,8 @@ import { FC } from "react";
 import { Layout } from "@/components";
 import { processTitle } from "@/utils";
 import { RecipeContainer } from "@/containers";
-import { Recipe, Path, RecipeComment } from "@/types";
-import { getRecipes, getRecipeById, getRecipeComments } from "@/lib";
+import { Recipe, RecipeComment } from "@/types";
+import { getRecipeById, getRecipeComments } from "@/lib";
 
 interface Props {
   recipe: Recipe;
@@ -24,25 +24,7 @@ const RecipePage: FC<Props> = ({ recipe, recipeComments }) => {
   );
 };
 
-export const getStaticPaths = async (): Promise<{
-  paths: Path[];
-  fallback: boolean;
-}> => {
-  const recipes = await getRecipes();
-
-  const paths = recipes.map(({ _id }) => ({
-    params: {
-      id: _id,
-    },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps = async ({
+export const getServerSideProps = async ({
   params,
 }: {
   params: { id: string };

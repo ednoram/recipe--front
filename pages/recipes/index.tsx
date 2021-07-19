@@ -20,7 +20,7 @@ const DiscoverRecipes: FC<Props> = ({ recipes }) => {
   );
 };
 
-export const getStaticProps = async (): Promise<
+export const getServerSideProps = async (): Promise<
   { props: Props } | { notFound: boolean }
 > => {
   try {

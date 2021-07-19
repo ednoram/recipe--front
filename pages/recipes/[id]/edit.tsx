@@ -1,10 +1,10 @@
 import { FC } from "react";
 
+import { Recipe } from "@/types";
 import { Layout } from "@/components";
-import { Path, Recipe } from "@/types";
+import { getRecipeById } from "@/lib";
 import { processTitle } from "@/utils";
 import { useConfirmBeforeLeaving } from "@/hooks";
-import { getRecipes, getRecipeById } from "@/lib";
 import { EditRecipeContainer } from "@/containers";
 
 interface Props {
@@ -27,23 +27,7 @@ const EditRecipePage: FC<Props> = ({ recipe, recipeID }) => {
   );
 };
 
-export const getStaticPaths = async (): Promise<{
-  paths: Path[];
-  fallback: boolean;
-}> => {
-  const recipes = await getRecipes();
-
-  const paths = recipes.map(({ _id }) => ({
-    params: { id: _id },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps = async ({
+export const getServerSideProps = async ({
   params,
 }: {
   params: { id: string };
