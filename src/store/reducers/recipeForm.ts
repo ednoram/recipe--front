@@ -55,13 +55,19 @@ const listFiltersReducer = (
     case CLEAR_RECIPE_FORM:
       return INITIAL_STATE;
     case SET_FORM_TITLE:
-      return { ...state, title: payload.title || state.title };
+      return payload.title !== undefined
+        ? { ...state, title: payload.title }
+        : state;
     case SET_FORM_SUMMARY:
-      return { ...state, summary: payload.summary || state.summary };
+      return payload.summary !== undefined
+        ? { ...state, summary: payload.summary }
+        : state;
     case SET_FORM_IMAGE:
       return payload.image ? { ...state, image: payload.image } : state;
     case SET_FORM_MEAL_TYPE:
-      return { ...state, mealType: payload.mealType || state.mealType };
+      return payload.mealType
+        ? { ...state, mealType: payload.mealType }
+        : state;
     case SET_FORM_STEPS:
       return payload.steps ? { ...state, steps: payload.steps } : state;
     case SET_FORM_INGREDIENTS:
