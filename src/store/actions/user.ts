@@ -1,5 +1,10 @@
 import { AxiosError } from "axios";
-
+import {
+  createAction,
+  processErrors,
+  setTokenCookie,
+  removeTokenCookie,
+} from "@/utils";
 import {
   API,
   LOGIN_ROUTE,
@@ -12,7 +17,6 @@ import {
   REGISTER_USER,
 } from "@/store/reducers/user";
 import { UserData, Dispatch } from "@/types";
-import { processErrors, createAction } from "@/utils";
 
 const setUserData = (data: UserData | null) =>
   createAction(SET_USER_DATA, { data });
@@ -34,8 +38,10 @@ export const loginUser =
 
       const { data } = await API.post("/api/user/login", body);
 
+      setTokenCookie(data.token);
       localStorage.setItem("isLoggedIn", "true");
-      dispatch(setUserData(data));
+      dispatch(setUserData(data.user));
+
       location.href = MY_ACCOUNT_ROUTE;
     } catch (err) {
       setErrors(processErrors(err as AxiosError));
@@ -49,7 +55,8 @@ export const loginWithToken =
       const { data } = await API.post("/api/user/login-with-token");
 
       if (data) {
-        dispatch(setUserData(data));
+        setTokenCookie(data.token);
+        dispatch(setUserData(data.user));
         localStorage.setItem("isLoggedIn", "true");
       } else {
         dispatch(logoutUser());
@@ -62,12 +69,7 @@ export const loginWithToken =
 export const logoutUser =
   () =>
   async (dispatch: Dispatch): Promise<void> => {
-    try {
-      await API.post("/api/user/logout");
-    } catch {
-      alert("Something went wrong");
-    }
-
+    removeTokenCookie();
     localStorage.removeItem("isLoggedIn");
     dispatch(setUserData(null));
     location.href = "/";

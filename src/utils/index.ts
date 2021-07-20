@@ -6,6 +6,8 @@ export { default as processTitle } from "./processTitle";
 export { default as processErrors } from "./processErrors";
 export { default as addProgressBar } from "./addProgressBar";
 export { default as toggleFavorite } from "./toggleFavorite";
+export { default as setTokenCookie } from "./setTokenCookie";
+export { default as removeTokenCookie } from "./removeTokenCookie";
 export { default as handleRouteChange } from "./handleRouteChange";
 export { default as createEmptyRecipe } from "./createEmptyRecipe";
 export { default as blankRecipeComment } from "./blankRecipeComment";

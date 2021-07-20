@@ -10,6 +10,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
+    "js-cookie": "^2.2.1",
     "nanoid": "^3.1.23",
     "next": "^10.2.3",
     "next-pwa": "^5.2.23",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",
+    "@types/js-cookie": "^2.2.7",
     "@types/node": "^15.3.0",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^17.0.6",
