@@ -2,7 +2,7 @@ import cookie from "js-cookie";
 
 const setTokenCookie = (value: string): void => {
   cookie.set("token", value, {
-    sameSite: "none",
+    sameSite: "strict",
     secure: true,
     expires: 7,
   });

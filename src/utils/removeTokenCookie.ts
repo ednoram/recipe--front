@@ -2,7 +2,7 @@ import cookie from "js-cookie";
 
 const removeTokenCookie = (): void => {
   cookie.remove("token", {
-    sameSite: "none",
+    sameSite: "strict",
     secure: true,
     expires: 7,
   });
