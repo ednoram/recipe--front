@@ -7,6 +7,7 @@ import {
 import { createAction } from "@/utils";
 import { Dispatch, Recipe } from "@/types";
 import { API, MY_ACCOUNT_ROUTE, RECIPES_ROUTE } from "@/constants";
+import { getTokenCookie } from "@/lib";
 
 interface Action {
   type: string;
@@ -21,7 +22,8 @@ export const postRecipe =
   (recipe: Recipe) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const { data } = await API.post("/api/recipes", recipe);
+      const token = getTokenCookie();
+      const { data } = await API.post("/api/recipes", { ...recipe, token });
 
       dispatch(addRecipe());
       location.href = `${RECIPES_ROUTE}/${data._id}`;
@@ -34,7 +36,11 @@ export const patchRecipe =
   (id: string | undefined, recipe: Recipe) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const { data } = await API.patch(`/api/recipes/${id}`, recipe);
+      const token = getTokenCookie();
+      const { data } = await API.patch(`/api/recipes/${id}`, {
+        ...recipe,
+        token,
+      });
 
       dispatch(updateRecipe());
 
@@ -48,7 +54,8 @@ export const deleteRecipe =
   (id: string | undefined) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      await API.delete(`/api/recipes/${id}`);
+      const token = getTokenCookie();
+      await API.delete(`/api/recipes/${id}`, { data: { token } });
 
       dispatch(removeRecipe());
       location.href = MY_ACCOUNT_ROUTE;

@@ -7,6 +7,7 @@ import {
   UPDATE_COMMENT,
 } from "@/store/reducers/comments";
 import { createAction } from "@/utils";
+import { getTokenCookie } from "@/lib";
 import { Dispatch, RecipeComment } from "@/types";
 
 export const setComments = (comments: RecipeComment[]): Action =>
@@ -24,8 +25,10 @@ export const postRecipeComment =
   (recipeId: string, message: string, rate: 1 | 2 | 3 | 4 | 5) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
+      const token = getTokenCookie();
       const { data } = await API.post("/api/comments", {
         rate,
+        token,
         message,
         recipeId,
       });
@@ -39,8 +42,10 @@ export const patchRecipeComment =
   (id: string, message: string, rate: 1 | 2 | 3 | 4 | 5) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
+      const token = getTokenCookie();
       const { data } = await API.patch(`/api/comments/${id}`, {
         rate,
+        token,
         message,
       });
       dispatch(updateComment(id, data));
@@ -53,7 +58,8 @@ export const deleteRecipeComment =
   (id: string) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      await API.delete(`/api/comments/${id}`);
+      const token = getTokenCookie();
+      await API.delete(`/api/comments/${id}`, { data: { token } });
       dispatch(removeComment(id));
     } catch {
       alert("Something went wrong");

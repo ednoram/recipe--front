@@ -16,6 +16,7 @@ import {
   SET_USER_DATA,
   REGISTER_USER,
 } from "@/store/reducers/user";
+import { getTokenCookie } from "@/lib";
 import { UserData, Dispatch } from "@/types";
 
 const setUserData = (data: UserData | null) =>
@@ -52,7 +53,8 @@ export const loginWithToken =
   () =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const { data } = await API.post("/api/user/login-with-token");
+      const token = getTokenCookie();
+      const { data } = await API.post("/api/user/login-with-token", { token });
 
       if (data) {
         setTokenCookie(data.token);
@@ -88,8 +90,9 @@ export const patchUser =
   async (dispatch: Dispatch): Promise<void> => {
     try {
       setErrors([]);
+      const token = getTokenCookie();
 
-      const { data } = await API.patch(`api/user/${id}`, body);
+      const { data } = await API.patch(`api/user/${id}`, { ...body, token });
 
       dispatch(setUserData(data));
       location.href = MY_ACCOUNT_ROUTE;
@@ -113,8 +116,12 @@ export const changeUserPassword =
   async (dispatch: Dispatch): Promise<void> => {
     try {
       setErrors([]);
+      const token = getTokenCookie();
 
-      const { data } = await API.patch(`api/user/${id}/password`, body);
+      const { data } = await API.patch(`api/user/${id}/password`, {
+        ...body,
+        token,
+      });
 
       dispatch(setUserData(data));
       location.href = MY_ACCOUNT_ROUTE;
@@ -136,8 +143,9 @@ export const deleteUser =
   async (dispatch: Dispatch): Promise<void> => {
     try {
       setErrors([]);
+      const token = getTokenCookie();
 
-      await API.delete(`api/user/${id}`, { data: body });
+      await API.delete(`api/user/${id}`, { data: { ...body, token } });
 
       dispatch(logoutUser());
     } catch (err) {
@@ -250,7 +258,7 @@ export const resetUserPassword = async (
   try {
     setErrors([]);
 
-    await API.post(`/api/user/reset-password/${email}/${token}`, body);
+    await API.post(`/api/user/reset-password/${email}/${token}`, { body });
 
     alert("New password was successfully set.");
     location.href = LOGIN_ROUTE;

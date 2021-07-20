@@ -27,6 +27,7 @@ import { handleRouteChange } from "@/utils";
 import FormGrid from "./FormGrid";
 import SubmitButton from "./SubmitButton";
 import styles from "./RecipeForm.module.scss";
+import { getTokenCookie } from "@/lib";
 
 interface Props {
   recipe?: Recipe;
@@ -74,8 +75,10 @@ const RecipeForm: FC<Props> = ({ recipe, recipeId }) => {
 
     setLoading(true);
 
+    const token = getTokenCookie();
     const formData = new FormData();
     formData.append("image", image || "");
+    formData.append("token", token || "");
 
     const imagePath = image ? await postImage(formData) : "";
 
