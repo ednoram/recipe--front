@@ -29,6 +29,9 @@ const registerUserAction = () => createAction(REGISTER_USER, {});
 export const loginUser =
   (
     body: { email: string; password: string },
+    setLoading: {
+      (loading: boolean): void;
+    },
     setErrors: {
       (errors: string[]): void;
     }
@@ -36,6 +39,7 @@ export const loginUser =
   async (dispatch: Dispatch): Promise<void> => {
     try {
       setErrors([]);
+      setLoading(true);
 
       const { data } = await API.post("/api/user/login", body);
 
@@ -43,8 +47,10 @@ export const loginUser =
       localStorage.setItem("isLoggedIn", "true");
       dispatch(setUserData(data.user));
 
+      setLoading(false);
       location.href = MY_ACCOUNT_ROUTE;
     } catch (err) {
+      setLoading(false);
       setErrors(processErrors(err as AxiosError));
     }
   };
@@ -75,6 +81,37 @@ export const logoutUser =
     localStorage.removeItem("isLoggedIn");
     dispatch(setUserData(null));
     location.href = "/";
+  };
+
+export const registerUser =
+  (
+    body: {
+      name: string;
+      email: string;
+      password: string;
+      passwordConfirmation: string;
+    },
+    setLoading: {
+      (loading: boolean): void;
+    },
+    setErrors: {
+      (errors: string[]): void;
+    }
+  ) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      setErrors([]);
+      setLoading(true);
+
+      await API.post("/api/user/register", body);
+
+      dispatch(registerUserAction());
+      setLoading(false);
+      location.href = VERIFY_ACCOUNT_ROUTE;
+    } catch (err) {
+      setErrors(processErrors(err as AxiosError));
+      setLoading(false);
+    }
   };
 
 export const patchUser =
@@ -150,37 +187,6 @@ export const deleteUser =
       dispatch(logoutUser());
     } catch (err) {
       setErrors(processErrors(err as AxiosError));
-    }
-  };
-
-export const registerUser =
-  (
-    body: {
-      name: string;
-      email: string;
-      password: string;
-      passwordConfirmation: string;
-    },
-    setLoading: {
-      (loading: boolean): void;
-    },
-    setErrors: {
-      (errors: string[]): void;
-    }
-  ) =>
-  async (dispatch: Dispatch): Promise<void> => {
-    try {
-      setErrors([]);
-      setLoading(true);
-
-      await API.post("/api/user/register", body);
-
-      dispatch(registerUserAction());
-      setLoading(false);
-      location.href = VERIFY_ACCOUNT_ROUTE;
-    } catch (err) {
-      setErrors(processErrors(err as AxiosError));
-      setLoading(false);
     }
   };
 

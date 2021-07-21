@@ -1,5 +1,9 @@
 .content {
-  padding: 70px 0 120px;
+  padding: 70px 0 130px;
+
+  @include breakpoint(phone) {
+    padding: 60px 0 120px;
+  }
 
   &__title {
     color: $color-primary;

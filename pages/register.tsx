@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { Layout } from "@/components";
 import { RegisterContainer } from "@/containers";
@@ -6,7 +6,7 @@ import { RegisterContainer } from "@/containers";
 const PAGE_TITLE = "Register";
 const PAGE_DESCRIPTION = "Register page";
 
-const Register: FC = () => {
+const Register: NextPage = () => {
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <RegisterContainer />

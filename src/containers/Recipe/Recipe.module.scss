@@ -1,6 +1,10 @@
 .content {
   padding: 70px 0 130px;
 
+  @include breakpoint(phone) {
+    padding: 60px 0 120px;
+  }
+
   &__title_grid {
     display: grid;
     grid-template-columns: 32px auto;

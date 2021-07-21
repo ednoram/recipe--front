@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { Recipe } from "@/types";
 import { getRecipes } from "@/lib";
@@ -12,7 +12,7 @@ interface Props {
   recipes: Recipe[];
 }
 
-const HomePage: FC<Props> = ({ recipes }) => {
+const HomePage: NextPage<Props> = ({ recipes }) => {
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <HomeContainer recipes={recipes} />

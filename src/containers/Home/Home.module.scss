@@ -5,6 +5,10 @@
 .content {
   padding: 70px 0 130px;
 
+  @include breakpoint(phone) {
+    padding: 60px 0 120px;
+  }
+
   &__top_section {
     width: 100%;
     background-image: url(/static/main-background.jpg);

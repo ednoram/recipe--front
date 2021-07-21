@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { Recipe } from "@/types";
 import { getRecipes } from "@/lib";
@@ -12,7 +12,7 @@ interface Props {
   recipes: Recipe[];
 }
 
-const DiscoverRecipes: FC<Props> = ({ recipes }) => {
+const DiscoverRecipes: NextPage<Props> = ({ recipes }) => {
   return (
     <Layout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
       <DiscoverRecipesContainer recipes={recipes} />

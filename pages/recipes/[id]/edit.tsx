@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { Recipe } from "@/types";
 import { Layout } from "@/components";
@@ -12,7 +12,7 @@ interface Props {
   recipeId: string;
 }
 
-const EditRecipePage: FC<Props> = ({ recipe, recipeId }) => {
+const EditRecipePage: NextPage<Props> = ({ recipe, recipeId }) => {
   useConfirmBeforeLeaving();
 
   const recipeTitle = processTitle(recipe.title);

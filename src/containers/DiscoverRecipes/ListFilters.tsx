@@ -23,7 +23,7 @@ const ListFilters: FC<Props> = ({ searchResults }) => {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const listLimitOptions = ["8", "16", "32"];
-  const minimumLimit = Math.min(...listLimitOptions.map((x) => Number(x)));
+  const minLimit = Math.min(...listLimitOptions.map((x) => Number(x)));
 
   const clearSearchFilter = () => {
     dispatch(setSearchFilter(""));
@@ -83,7 +83,7 @@ const ListFilters: FC<Props> = ({ searchResults }) => {
           <Dropdown options={MEAL_TYPES} selectFunc={handleSelectMealType} />
         </div>
       </div>
-      {searchResults.length > minimumLimit && limitDropdown}
+      {searchResults.length > minLimit && limitDropdown}
     </div>
   );
 };

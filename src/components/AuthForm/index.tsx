@@ -12,13 +12,13 @@ interface Props {
 }
 
 const AuthForm: FC<Props> = ({ register }) => {
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState<string[]>([]);
 
   const dispatch = useDispatch();
   const isLoggedIn = useIsLoggedIn();
@@ -35,9 +35,53 @@ const AuthForm: FC<Props> = ({ register }) => {
         )
       );
     } else {
-      dispatch(loginUser({ email, password }, setErrors));
+      dispatch(loginUser({ email, password }, setLoading, setErrors));
     }
   };
+
+  const inputLis = (
+    <>
+      {register && (
+        <li>
+          <input
+            value={name}
+            placeholder="Name"
+            className={styles.form__input}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </li>
+      )}
+      <li>
+        <input
+          type="email"
+          value={email}
+          placeholder="Email address"
+          className={styles.form__input}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </li>
+      <li>
+        <input
+          value={password}
+          type="password"
+          placeholder="Password"
+          className={styles.form__input}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </li>
+      {register && (
+        <li>
+          <input
+            type="password"
+            value={passwordConfirmation}
+            placeholder="Confirm Password"
+            className={styles.form__input}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+          />
+        </li>
+      )}
+    </>
+  );
 
   const errorsList = (
     <ul className={styles.form__errors_list}>
@@ -63,45 +107,7 @@ const AuthForm: FC<Props> = ({ register }) => {
   ) : (
     <form onSubmit={handleSubmit} className={styles.form}>
       <ul className={styles.form__inputs_list}>
-        {register && (
-          <li>
-            <input
-              value={name}
-              placeholder="Name"
-              className={styles.form__input}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </li>
-        )}
-        <li>
-          <input
-            type="email"
-            value={email}
-            placeholder="Email address"
-            className={styles.form__input}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </li>
-        <li>
-          <input
-            value={password}
-            type="password"
-            placeholder="Password"
-            className={styles.form__input}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </li>
-        {register && (
-          <li>
-            <input
-              type="password"
-              value={passwordConfirmation}
-              placeholder="Confirm Password"
-              className={styles.form__input}
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-            />
-          </li>
-        )}
+        {inputLis}
         <li>
           <button
             name="Continue"

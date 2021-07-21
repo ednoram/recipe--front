@@ -22,8 +22,9 @@ export const addFavoriteRecipe =
   (recipeId: string) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = getTokenCookie();
       dispatch(addFavRecipe(recipeId));
+
+      const token = getTokenCookie();
       await API.post("/api/favorite-recipes", { recipeId, token });
     } catch {
       alert("Something went wrong");
@@ -35,8 +36,9 @@ export const removeFavoriteRecipe =
   (recipeId: string) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
-      const token = getTokenCookie();
       dispatch(removeFavRecipe(recipeId));
+
+      const token = getTokenCookie();
       await API.delete(`/api/favorite-recipes/${recipeId}`, {
         data: { token },
       });

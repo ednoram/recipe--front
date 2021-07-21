@@ -23,6 +23,24 @@ const Dropdown: FC<Props> = ({ options, selectFunc }) => {
     selectFunc(selectedOption);
   }, [selectedOption]);
 
+  const dropdownOptionsList = isOpen && (
+    <ul className={styles.content__options_list}>
+      {options.map((option) => (
+        <li
+          key={nanoid()}
+          className={styles.content__option}
+          aria-label="select option"
+          onClick={() => {
+            setSelectedOption(option);
+            setIsOpen(false);
+          }}
+        >
+          <p>{option}</p>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
     <div ref={contentRef} className={styles.content}>
       <div
@@ -35,23 +53,7 @@ const Dropdown: FC<Props> = ({ options, selectFunc }) => {
           style={isOpen ? { transform: "rotate(180deg)" } : {}}
         />
       </div>
-      {isOpen && (
-        <ul className={styles.content__options_list}>
-          {options.map((option) => (
-            <li
-              key={nanoid()}
-              className={styles.content__option}
-              aria-label="select option"
-              onClick={() => {
-                setSelectedOption(option);
-                setIsOpen(false);
-              }}
-            >
-              <p>{option}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+      {dropdownOptionsList}
     </div>
   );
 };

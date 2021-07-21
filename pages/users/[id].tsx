@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { Layout } from "@/components";
 import { User, Recipe } from "@/types";
@@ -11,7 +11,7 @@ interface Props {
   recipes: Recipe[];
 }
 
-const UserPage: FC<Props> = ({ user, recipes }) => {
+const UserPage: NextPage<Props> = ({ user, recipes }) => {
   const PAGE_TITLE = `User: ${processTitle(user.name)}`;
   const PAGE_DESCRIPTION = "User page";
 

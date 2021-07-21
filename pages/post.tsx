@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { NextPage } from "next";
 
 import { Layout } from "@/components";
 import { useConfirmBeforeLeaving } from "@/hooks";
@@ -7,7 +7,7 @@ import { PostRecipeContainer } from "@/containers";
 const PAGE_TITLE = "Post Recipe";
 const PAGE_DESCRIPTION = "Post Recipe page";
 
-const PostRecipe: FC = () => {
+const PostRecipe: NextPage = () => {
   useConfirmBeforeLeaving();
 
   return (
