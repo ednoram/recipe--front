@@ -1,6 +1,7 @@
 export const SEND_EMAIL = "SEND_EMAIL";
 export const SET_USER_DATA = "SET_USER_DATA";
 export const REGISTER_USER = "REGISTER_USER";
+export const RESET_USER_PASSWORD = "RESET_USER_PASSWORD";
 
 interface State {
   _id?: string;

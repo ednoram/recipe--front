@@ -69,7 +69,7 @@ const AccountForm: FC<Props> = ({
 
     if (resetPassword) {
       const body = { newPassword, passwordConfirmation };
-      resetUserPassword(queryEmail, queryToken, body, setErrors);
+      dispatch(resetUserPassword(queryEmail, queryToken, body, setErrors));
       return;
     }
 

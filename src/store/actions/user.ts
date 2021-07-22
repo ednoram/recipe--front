@@ -15,6 +15,7 @@ import {
   SEND_EMAIL,
   SET_USER_DATA,
   REGISTER_USER,
+  RESET_USER_PASSWORD,
 } from "@/store/reducers/user";
 import { getTokenCookie } from "@/lib";
 import { UserData, Dispatch } from "@/types";
@@ -24,7 +25,9 @@ const setUserData = (data: UserData | null) =>
 
 const sendEmailAction = () => createAction(SEND_EMAIL, {});
 
-const registerUserAction = () => createAction(REGISTER_USER, {});
+const registerAction = () => createAction(REGISTER_USER, {});
+
+const resetPasswordAction = () => createAction(RESET_USER_PASSWORD, {});
 
 export const loginUser =
   (
@@ -105,7 +108,7 @@ export const registerUser =
 
       await API.post("/api/user/register", body);
 
-      dispatch(registerUserAction());
+      dispatch(registerAction());
       setLoading(false);
       location.href = VERIFY_ACCOUNT_ROUTE;
     } catch (err) {
@@ -250,25 +253,28 @@ export const sendRecoveryEmail =
     }
   };
 
-export const resetUserPassword = async (
-  email: string,
-  token: string,
-  body: {
-    newPassword: string;
-    passwordConfirmation: string;
-  },
-  setErrors: {
-    (errors: string[]): void;
-  }
-): Promise<void> => {
-  try {
-    setErrors([]);
+export const resetUserPassword =
+  (
+    email: string,
+    token: string,
+    body: {
+      newPassword: string;
+      passwordConfirmation: string;
+    },
+    setErrors: {
+      (errors: string[]): void;
+    }
+  ) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      setErrors([]);
 
-    await API.post(`/api/user/reset-password/${email}/${token}`, { body });
+      await API.post(`/api/user/reset-password/${email}/${token}`, body);
 
-    alert("New password was successfully set.");
-    location.href = LOGIN_ROUTE;
-  } catch (err) {
-    setErrors(processErrors(err as AxiosError));
-  }
-};
+      alert("New password was successfully set.");
+      dispatch(resetPasswordAction);
+      location.href = LOGIN_ROUTE;
+    } catch (err) {
+      setErrors(processErrors(err as AxiosError));
+    }
+  };

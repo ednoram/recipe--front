@@ -32,11 +32,6 @@
     cursor: pointer;
   }
 
-  &__star_icon:hover {
-    opacity: 1;
-    fill: $color-yellow;
-  }
-
   &__star_icon_active {
     @extend .content__star_icon;
     opacity: 1;
