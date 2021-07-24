@@ -26,6 +26,18 @@ const SubmitButton: FC<Props> = ({ recipe, recipeId, loading }) => {
     }
   };
 
+  const deleteButton = recipe && (
+    <button
+      type="button"
+      disabled={loading}
+      name="Delete Recipe"
+      onClick={handleDeleteRecipe}
+      className={styles.form__delete_recipe_button}
+    >
+      Delete Recipe
+    </button>
+  );
+
   return (
     <div className="flex_column_center">
       <button
@@ -36,17 +48,7 @@ const SubmitButton: FC<Props> = ({ recipe, recipeId, loading }) => {
       >
         {recipe ? "Submit Changes" : "Post Recipe"}
       </button>
-      {recipe && (
-        <button
-          type="button"
-          disabled={loading}
-          name="Delete Recipe"
-          onClick={handleDeleteRecipe}
-          className={styles.form__delete_recipe_button}
-        >
-          Delete Recipe
-        </button>
-      )}
+      {deleteButton}
     </div>
   );
 };

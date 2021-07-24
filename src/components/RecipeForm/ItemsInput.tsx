@@ -40,9 +40,13 @@ const ItemsInput: FC<Props> = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (editing && inputRef.current) {
-      inputRef.current.focus();
-    }
+    const timer = setTimeout(() => {
+      if (editing && inputRef.current) {
+        inputRef.current.focus();
+      }
+    });
+
+    return () => clearTimeout(timer);
   }, []);
 
   const addItem = (item: string) => {

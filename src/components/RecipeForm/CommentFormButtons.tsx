@@ -19,9 +19,9 @@ const CommentFormButtons: FC<Props> = ({
   index,
   addItem,
   editing,
-  updateItem,
-  inputValue,
   setEditing,
+  inputValue,
+  updateItem,
   typeIsIngredients,
 }) => {
   const dispatch = useDispatch();

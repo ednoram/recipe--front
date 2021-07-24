@@ -2,6 +2,12 @@
 
 @import "./normalize.scss";
 
+#__next {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 * {
   font-family: "Roboto", sans-serif;
 }
@@ -21,10 +27,9 @@ select {
   font-size: 1rem;
 }
 
-#__next {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+input {
+  -webkit-border-radius: 0px;
+  border-radius: 0;
 }
 
 .color-primary {
