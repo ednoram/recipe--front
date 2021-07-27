@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 
 import { Recipe } from "@/types";
-import { getImageURL } from "@/utils";
 import { selectRecipeComments } from "@/store/selectors";
 
 import ItemsDiv from "./ItemsDiv";
@@ -26,13 +25,13 @@ const Grid: FC<Props> = ({ recipe, isOwnRecipe }) => {
 
   const imageDivStyle = useMemo(
     () =>
-      recipe.imagePath
+      recipe.imageUrl
         ? {
             backgroundSize: "cover",
-            backgroundImage: `url(${getImageURL(recipe.imagePath)})`,
+            backgroundImage: `url(${recipe.imageUrl})`,
           }
         : {},
-    [recipe.imagePath]
+    [recipe.imageUrl]
   );
 
   const getDateString = (date: Date) =>

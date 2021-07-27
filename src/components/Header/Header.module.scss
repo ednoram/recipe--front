@@ -34,6 +34,7 @@
   &__logo_text {
     @extend %heading_3;
     color: white;
+    user-select: none;
   }
 
   &__nav_container {

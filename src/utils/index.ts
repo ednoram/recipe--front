@@ -1,5 +1,4 @@
 export { default as debounce } from "./debounce";
-export { default as getImageURL } from "./getImageURL";
 export { default as sortRecipes } from "./sortRecipes";
 export { default as createAction } from "./createAction";
 export { default as processTitle } from "./processTitle";

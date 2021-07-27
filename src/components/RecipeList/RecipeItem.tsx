@@ -3,8 +3,8 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Recipe } from "@/types";
+import { toggleFavorite } from "@/utils";
 import StarIcon from "@/assets/star-icon.svg";
-import { getImageURL, toggleFavorite } from "@/utils";
 import { RECIPES_ROUTE, USERS_ROUTE } from "@/constants";
 import { selectFavoriteRecipes, selectUserData } from "@/store/selectors";
 
@@ -20,11 +20,11 @@ const RecipeItem: FC<Props> = ({ recipe }) => {
 
   const dispatch = useDispatch();
 
-  const getImageDivStyle = (imagePath?: string | null) =>
-    imagePath
+  const getImageDivStyle = (imageUrl?: string | null) =>
+    imageUrl
       ? {
           backgroundSize: "cover",
-          backgroundImage: `url(${getImageURL(imagePath)})`,
+          backgroundImage: `url(${recipe.imageUrl})`,
         }
       : {};
 
@@ -42,13 +42,13 @@ const RecipeItem: FC<Props> = ({ recipe }) => {
       />
     );
 
-  const { _id, title, email, mealType, imagePath } = recipe;
+  const { _id, title, email, mealType, imageUrl } = recipe;
 
   return (
     <div className={styles.list_item}>
       <div>
         <div
-          style={getImageDivStyle(imagePath)}
+          style={getImageDivStyle(imageUrl)}
           className={styles.list_item__image}
         >
           {_id && renderFavoriteIcon(_id)}

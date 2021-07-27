@@ -22,12 +22,12 @@ import {
   selectFormIngredients,
 } from "@/store/selectors";
 import { Recipe } from "@/types";
+import { getTokenCookie } from "@/lib";
 import { handleRouteChange } from "@/utils";
 
 import FormGrid from "./FormGrid";
-import SubmitButton from "./SubmitButton";
 import styles from "./RecipeForm.module.scss";
-import { getTokenCookie } from "@/lib";
+import SubmitAndDeleteButtons from "./SubmitAndDeleteButtons";
 
 interface Props {
   recipe?: Recipe;
@@ -49,21 +49,22 @@ const RecipeForm: FC<Props> = ({ recipe, recipeId }) => {
 
   useEffect((): (() => void) => {
     dispatch(clearRecipeForm());
-    insertExistingData();
+
+    const importExistingData = () => {
+      if (recipe) {
+        recipe.ingredients.length > 0 &&
+          dispatch(setFormIngredients(recipe.ingredients));
+        recipe.title && dispatch(setFormTitle(recipe.title));
+        recipe.summary && dispatch(setFormSummary(recipe.summary));
+        recipe.mealType && dispatch(setFormMealType(recipe.mealType));
+        recipe.steps.length > 0 && dispatch(setFormSteps(recipe.steps));
+      }
+    };
+
+    importExistingData();
 
     return () => dispatch(clearRecipeForm());
   }, []);
-
-  const insertExistingData = () => {
-    if (recipe) {
-      recipe.ingredients.length > 0 &&
-        dispatch(setFormIngredients(recipe.ingredients));
-      recipe.title && dispatch(setFormTitle(recipe.title));
-      recipe.summary && dispatch(setFormSummary(recipe.summary));
-      recipe.mealType && dispatch(setFormMealType(recipe.mealType));
-      recipe.steps.length > 0 && dispatch(setFormSteps(recipe.steps));
-    }
-  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -77,15 +78,20 @@ const RecipeForm: FC<Props> = ({ recipe, recipeId }) => {
 
     const token = getTokenCookie();
     const formData = new FormData();
+
     formData.append("image", image || "");
     formData.append("token", token || "");
 
-    const imagePath = image ? await postImage(formData) : "";
+    const uploadResponse = image && (await postImage(formData));
+
+    const imageId = uploadResponse?.imageId;
+    const imageUrl = uploadResponse?.imageUrl;
 
     const newRecipe = {
       steps,
+      imageId,
       mealType,
-      imagePath,
+      imageUrl,
       ingredients,
       title: title.trim(),
       summary: summary.trim(),
@@ -95,12 +101,10 @@ const RecipeForm: FC<Props> = ({ recipe, recipeId }) => {
     Router.events.off("routeChangeStart", handleRouteChange);
 
     if (recipe) {
-      dispatch(patchRecipe(recipeId, newRecipe));
+      dispatch(patchRecipe(recipeId, newRecipe, setLoading));
     } else {
-      dispatch(postRecipe(newRecipe));
+      dispatch(postRecipe(newRecipe, setLoading));
     }
-
-    setLoading(false);
   };
 
   return (
@@ -118,7 +122,17 @@ const RecipeForm: FC<Props> = ({ recipe, recipeId }) => {
         Cancel
       </button>
       <FormGrid recipe={recipe} />
-      <SubmitButton recipe={recipe} recipeId={recipeId} loading={loading} />
+      <SubmitAndDeleteButtons
+        recipe={recipe}
+        loading={loading}
+        recipeId={recipeId}
+        setLoading={setLoading}
+      />
+      {loading && (
+        <div className={styles.form__loading_div}>
+          <p className="color-primary">Loading...</p>
+        </div>
+      )}
     </form>
   );
 };

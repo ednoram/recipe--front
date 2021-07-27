@@ -8,18 +8,6 @@ import LinkedInIcon from "@/assets/linkedin-icon.svg";
 import styles from "./Home.module.scss";
 
 const ContactUs: FC = () => {
-  const phonePart = (
-    <div className={styles.content__contact_us_item}>
-      <PhoneIcon className={styles.content__contact_us_icon} />
-      <div>
-        <h3 className={styles.content__contact_us_subtitle}>Phone Number</h3>
-        <a className="color-black" href="tel:0037455210014">
-          +374 55 210014
-        </a>
-      </div>
-    </div>
-  );
-
   const emailPart = (
     <div className={styles.content__contact_us_item}>
       <EmailIcon className={styles.content__contact_us_icon} />
@@ -27,6 +15,18 @@ const ContactUs: FC = () => {
         <h3 className={styles.content__contact_us_subtitle}>Email Address</h3>
         <a className="color-black" href="mailto:e.noramirian@gmail.com">
           e.noramirian@gmail.com
+        </a>
+      </div>
+    </div>
+  );
+
+  const phonePart = (
+    <div className={styles.content__contact_us_item}>
+      <PhoneIcon className={styles.content__contact_us_icon} />
+      <div>
+        <h3 className={styles.content__contact_us_subtitle}>Phone Number</h3>
+        <a className="color-black" href="tel:0037455210014">
+          +374 55 210014
         </a>
       </div>
     </div>
@@ -71,8 +71,8 @@ const ContactUs: FC = () => {
       <div className="container">
         <h2 className="color-primary">Contact Us</h2>
         <div className={styles.content__contact_us_grid}>
-          {phonePart}
           {emailPart}
+          {phonePart}
           {linkedInPart}
           {gitHubPart}
         </div>

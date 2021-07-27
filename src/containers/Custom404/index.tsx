@@ -20,7 +20,7 @@ const Custom404: FC = () => {
               <div className="flex_center">
                 <Link href="/">
                   <a className={styles.container__return_link}>
-                    ← Return to Home Page
+                    ← Go to Home Page
                   </a>
                 </Link>
               </div>

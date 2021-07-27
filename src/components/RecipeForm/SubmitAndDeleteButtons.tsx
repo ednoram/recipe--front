@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Dispatch, SetStateAction } from "react";
 import { Router } from "next/router";
 import { useDispatch } from "react-redux";
 
@@ -12,14 +12,20 @@ interface Props {
   loading: boolean;
   recipe: Recipe | undefined;
   recipeId: string | undefined;
+  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-const SubmitButton: FC<Props> = ({ recipe, recipeId, loading }) => {
+const SubmitAndDeleteButtons: FC<Props> = ({
+  recipe,
+  loading,
+  recipeId,
+  setLoading,
+}) => {
   const dispatch = useDispatch();
 
   const handleDeleteRecipe = () => {
     if (confirm("Are you sure you want to delete recipe?")) {
-      dispatch(deleteRecipe(recipeId));
+      dispatch(deleteRecipe(recipeId, setLoading));
 
       window.onbeforeunload = null;
       Router.events.off("routeChangeStart", handleRouteChange);
@@ -53,4 +59,4 @@ const SubmitButton: FC<Props> = ({ recipe, recipeId, loading }) => {
   );
 };
 
-export default SubmitButton;
+export default SubmitAndDeleteButtons;

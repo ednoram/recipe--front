@@ -19,13 +19,20 @@ export const updateRecipe = (): Action => createAction(UPDATE_RECIPE, {});
 export const removeRecipe = (): Action => createAction(REMOVE_RECIPE, {});
 
 export const postRecipe =
-  (recipe: Recipe) =>
+  (
+    recipe: Recipe,
+    setLoading: {
+      (loading: boolean): void;
+    }
+  ) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
       const token = getTokenCookie();
       const { data } = await API.post("/api/recipes", { ...recipe, token });
 
       dispatch(addRecipe());
+
+      setLoading(false);
       location.href = `${RECIPES_ROUTE}/${data._id}`;
     } catch {
       alert("Something went wrong");
@@ -33,7 +40,13 @@ export const postRecipe =
   };
 
 export const patchRecipe =
-  (id: string | undefined, recipe: Recipe) =>
+  (
+    id: string | undefined,
+    recipe: Recipe,
+    setLoading: {
+      (loading: boolean): void;
+    }
+  ) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
       const token = getTokenCookie();
@@ -44,6 +57,7 @@ export const patchRecipe =
 
       dispatch(updateRecipe());
 
+      setLoading(false);
       location.href = `${RECIPES_ROUTE}/${data._id}`;
     } catch (err) {
       alert("Something went wrong");
@@ -51,13 +65,22 @@ export const patchRecipe =
   };
 
 export const deleteRecipe =
-  (id: string | undefined) =>
+  (
+    id: string | undefined,
+    setLoading: {
+      (loading: boolean): void;
+    }
+  ) =>
   async (dispatch: Dispatch): Promise<void> => {
     try {
+      setLoading(true);
+
       const token = getTokenCookie();
       await API.delete(`/api/recipes/${id}`, { data: { token } });
 
       dispatch(removeRecipe());
+
+      setLoading(false);
       location.href = MY_ACCOUNT_ROUTE;
     } catch {
       alert("Something went wrong");

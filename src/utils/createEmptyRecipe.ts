@@ -5,7 +5,7 @@ const createEmptyRecipe = (_id: string): Recipe => ({
   title: "",
   email: "",
   steps: [],
-  imagePath: "",
+  imageUrl: "",
   mealType: "any",
   ingredients: [],
 });

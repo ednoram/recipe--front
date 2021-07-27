@@ -2,15 +2,19 @@ import { FC, useRef, useMemo, ChangeEvent } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Recipe } from "@/types";
-import { getImageURL } from "@/utils";
 import { setFormImage } from "@/store/actions";
 import { selectFormImage } from "@/store/selectors";
 
 import InputsList from "./InputsList";
 import styles from "./RecipeForm.module.scss";
 
+const ACCEPTED_FILE_TYPES = [
+  "image/png",
+  "image/jpg",
+  "image/jpeg",
+  "image/webp",
+];
 const MAXIMUM_FILE_SIZE = 1024 * 1024 * 5;
-const ACCEPTED_FILE_TYPES = ["image/png", "image/jpg", "image/jpeg"];
 
 interface Props {
   recipe: Recipe | undefined;
@@ -45,20 +49,22 @@ const FormGrid: FC<Props> = ({ recipe }) => {
   const clickFileInput = () =>
     fileInputRef.current && fileInputRef.current.click();
 
-  const backgroundImageStyle = useMemo(() => {
-    const noImageStyle = recipe?.imagePath
-      ? `url(${getImageURL(recipe.imagePath)})`
-      : "";
-    return !image ? noImageStyle : `url(${URL.createObjectURL(image)})`;
+  const backgroundImageUrl = useMemo(() => {
+    const noImageStyle = recipe?.imageUrl || "";
+    return !image ? noImageStyle : URL.createObjectURL(image);
   }, [image]);
+
+  const imageDiv = (
+    <div
+      className={styles.form__image_div}
+      style={{ backgroundImage: `url(${backgroundImageUrl})` }}
+    />
+  );
 
   return (
     <div className={styles.form__grid}>
       <div>
-        <div
-          className={styles.form__image_div}
-          style={{ backgroundImage: backgroundImageStyle }}
-        />
+        {imageDiv}
         <div className="flex_center">
           <button
             type="button"
@@ -78,9 +84,7 @@ const FormGrid: FC<Props> = ({ recipe }) => {
           accept={ACCEPTED_FILE_TYPES.join(", ")}
         />
       </div>
-      <div>
-        <InputsList />
-      </div>
+      <InputsList />
     </div>
   );
 };
