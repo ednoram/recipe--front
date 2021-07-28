@@ -33,10 +33,10 @@ const Home: FC<Props> = ({ recipes }) => {
             {"It's all about good food & taste!"}
           </h1>
           <h2 className={styles.content__subtitle}>
-            Discover recipes. Post your own recipes.
+            Discover recipes. Share your own recipes.
           </h2>
           <Link href={REGISTER_ROUTE}>
-            <a>
+            <a className="passive_link">
               <div className={styles.content__join_button}>Join Now</div>
             </a>
           </Link>

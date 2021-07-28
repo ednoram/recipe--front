@@ -118,6 +118,12 @@ input {
   margin-top: 20px;
 }
 
+.passive_link {
+  color: unset !important;
+  text-decoration: none !important;
+  -webkit-user-drag: none;
+}
+
 h1 {
   @extend %heading_1;
 }

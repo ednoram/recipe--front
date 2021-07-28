@@ -67,7 +67,7 @@ const Header: FC = () => {
         <div className="container">
           <div className="flex_space_between">
             <Link href="/">
-              <a className={styles.content__logo_Link}>
+              <a className={"passive_link"}>
                 <h3 className={styles.content__logo_text}>Recipe</h3>
               </a>
             </Link>

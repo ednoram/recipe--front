@@ -27,10 +27,6 @@
   background: $color-primary;
   color: white;
 
-  &__logo_Link {
-    text-decoration: none !important;
-  }
-
   &__logo_text {
     @extend %heading_3;
     color: white;
@@ -78,6 +74,7 @@
   &__nav_link {
     color: white;
     text-decoration: none !important;
+    -webkit-user-drag: none !important;
     padding: 8px;
 
     @include breakpoint(tablet) {
